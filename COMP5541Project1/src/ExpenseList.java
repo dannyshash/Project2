@@ -1,5 +1,5 @@
 /**
- * Description: The ExpenseList is an ArrayList where Expense class will be loaded unto.
+ * Description: The ExpenseList is an ArrayList where Expense class will be loaded unto¡£¡£¡£.
  * Author: Tony Lac
  * Created Date: 2019-01-25
  */
