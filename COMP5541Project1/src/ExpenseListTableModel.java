@@ -1,5 +1,5 @@
 /**
- * Description: The ExpenseListTableModel users the ExpenseList to create a custom AbstractTableModel. 
+ * Description: The ExpenseListTableModel uses the ExpenseList to create a custom AbstractTableModel. 
  * It includes mandatory methods such as getColumnName, getColumnClass, getColumnCount, getRowCount.
  * 
  * Author: Tony Lac
