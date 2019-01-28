@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.UIManager;
@@ -42,7 +43,11 @@ public class AddExpensePanel extends UserInterface {
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel() {
+	public AddExpensePanel(ExpenseList myList, ExpenseListTableModel tableModel) {
+		
+		this.myList = myList;
+		this.tableModel = tableModel;
+		
 		setTitle("Add Expense Panel");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 330, 526);
@@ -174,9 +179,9 @@ public class AddExpensePanel extends UserInterface {
 		            
 		         });
 				
-				JButton btnAddExpense = new JButton("Add Expense");
-				btnAddExpense.setBounds(182, 442, 108, 23);
-				contentPane.add(btnAddExpense);
+				JButton btnAddExpense1 = new JButton("Add Expense");
+				btnAddExpense1.setBounds(182, 442, 108, 23);
+				contentPane.add(btnAddExpense1);
 				
 				txtChooseExpense = new JTextField();
 				txtChooseExpense.setBorder(null);
@@ -194,11 +199,12 @@ public class AddExpensePanel extends UserInterface {
 				txtEnterExpense.setBounds(30, 119, 260, 20);
 				contentPane.add(txtEnterExpense);
 
-				btnAddExpense.addActionListener(new ActionListener() {
+				btnAddExpense1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
 
 
+					
 						int textField_1_year = Integer.valueOf((textField_1.getText().substring(0, 4)));
 						int textField_1_month = Integer.valueOf((textField_1.getText().substring(5, 7)));
 						int textField_1_day = Integer.valueOf((textField_1.getText().substring(8, 10)));
@@ -206,7 +212,8 @@ public class AddExpensePanel extends UserInterface {
 						int textField_7_year = Integer.valueOf((textField_7.getText().substring(0, 4)));
 						int textField_7_month = Integer.valueOf((textField_7.getText().substring(5, 7)));
 						int textField_7_day = Integer.valueOf((textField_7.getText().substring(8, 10)));
-
+						
+						
 						Purchase pAdd = new Purchase(comboBox3.getSelectedItem().toString(),
 								new Date((textField_1_year - 1900), textField_1_month - 1, textField_1_day),
 								textField_2.getText(), new Double(textField_3.getText()),
@@ -214,9 +221,10 @@ public class AddExpensePanel extends UserInterface {
 								comboBox.getSelectedItem().toString(),
 								new Date((textField_7_year - 1900), textField_7_month - 1, textField_7_day));
 
-						
-						myList.add(pAdd);
+
+						myList.add(pAdd);				
 						tableModel.fireTableDataChanged();
+						
 						comboBox.setSelectedIndex((int)(Math.random()*3));
 						textField_1.setText(dateFormat.format(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1))))));
 						textField_2.setText(randomName[new Random().nextInt(randomName.length)]);

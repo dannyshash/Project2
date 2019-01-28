@@ -31,4 +31,9 @@ public class ExpenseList {
 	public ArrayList<Purchase> getList() {
 		return purchaseList;
 	}
+	
+	public int getSize() {
+		return purchaseList.size();
+	}
+	
 }

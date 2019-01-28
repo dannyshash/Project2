@@ -44,7 +44,7 @@ import javax.swing.border.MatteBorder;
 
 public class UserInterface extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPaneMain;
 	public ExpenseListTableModel tableModel;
 	public JTable table;
 	public ExpenseList myList;
@@ -68,6 +68,7 @@ public class UserInterface extends JFrame {
 				try {
 					UserInterface frame = new UserInterface();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,10 +84,10 @@ public class UserInterface extends JFrame {
 		setTitle("Personal Budget Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 554);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPaneMain = new JPanel();
+		contentPaneMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPaneMain);
+		contentPaneMain.setLayout(null);
 
 		
 		// Insert Sample Data
@@ -102,18 +103,10 @@ public class UserInterface extends JFrame {
 		myList.add(p2);
 		tableModel = new ExpenseListTableModel(myList);
 		table = new JTable(tableModel);
-		table.setForeground(Color.BLACK);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setViewportBorder(null);
-		scrollPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		scrollPane.setName("");
-		
-		table.setFillsViewportHeight(true);
-		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		table.setBackground(Color.WHITE);
 		scrollPane.setBounds(30, 130, 738, 350);
-		contentPane.add(scrollPane);
-
+		contentPaneMain.add(scrollPane);
+		
 		JTextField txtExpenseList = new JTextField();
 		txtExpenseList.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtExpenseList.setBorder(null);
@@ -121,25 +114,24 @@ public class UserInterface extends JFrame {
 		txtExpenseList.setText("Expense List");
 		txtExpenseList.setHorizontalAlignment(SwingConstants.CENTER);
 		txtExpenseList.setBounds(30, 98, 738, 21);
-		contentPane.add(txtExpenseList);
+		contentPaneMain.add(txtExpenseList);
 		txtExpenseList.setColumns(10);
 	
 
 		JButton btnAddExpense = new JButton("Add Expense");
 		btnAddExpense.setBounds(30, 30, 108, 23);
-		contentPane.add(btnAddExpense);
+		contentPaneMain.add(btnAddExpense);
 		
 		btnAddExpense.addActionListener(new ActionListener() {
-			   @Override
-			   public void actionPerformed(ActionEvent e) {
-				   AddExpensePanel frame1 = new AddExpensePanel();
+			   public void actionPerformed(ActionEvent e) {   
+				   AddExpensePanel frame1 = new AddExpensePanel(myList, tableModel);
 				   frame1.setVisible(true);
 			   }
 			});
 		
 		JButton btnRemoveExpense = new JButton("Remove Expense");
 		btnRemoveExpense.setBounds(155, 30, 139, 23);
-		contentPane.add(btnRemoveExpense);
+		contentPaneMain.add(btnRemoveExpense);
 
 		btnRemoveExpense.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,16 +143,11 @@ public class UserInterface extends JFrame {
 		});
 
 		JButton btnMarkPaidunpaid = new JButton("Mark Expense Paid/Unpaid");
-		btnMarkPaidunpaid.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnMarkPaidunpaid.setBounds(30, 64, 263, 23);
-		contentPane.add(btnMarkPaidunpaid);
+		contentPaneMain.add(btnMarkPaidunpaid);
 
 
 		btnMarkPaidunpaid.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
 					myList.markPaidUnpaid(table.getSelectedRow());
@@ -169,7 +156,9 @@ public class UserInterface extends JFrame {
 			}
 		});
 
+		
 	}
+
 	
 	
 }

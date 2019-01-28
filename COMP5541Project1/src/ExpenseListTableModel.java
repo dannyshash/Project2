@@ -19,7 +19,16 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	public ExpenseListTableModel(ExpenseList pList) {
 		myList = pList.getList();
 	}
-
+	
+	/*
+    public void addExpense(Purchase p) {
+        // Adds the element in the last position in the list
+        myList.add(p);
+        fireTableDataChanged();
+        fireTableRowsInserted(myList.size()-1, myList.size()-1);
+    }
+    */
+	
 	public int getColumnCount() {
 		return columnNames.length;
 	}
@@ -33,6 +42,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		}
 		return size;
 	}
+
 
 	public Object getValueAt(int row, int col) {
 		Object temp = null;
@@ -58,10 +68,12 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		return temp;
 	}
 
+
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
 
+	
 	public Class getColumnClass(int col) {
 		return String.class;
 	}
