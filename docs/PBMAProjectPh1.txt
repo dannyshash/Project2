@@ -1,0 +1,107 @@
+Personal Budget Manager Application
+
+	Description
+	In this project, you will implement a Personal Budget Manager Application
+	Develop a budget Manager Application to help individuals control their expenses. It is distinguished between two types of expenses: purchase expenses and Bill expenses. The former have a description being linked to retailor(s) (name, location, amount, date, etc.) and status ((paid (e.g. cash, debit), due date (credit card)). The latter have a description (name of the service company), status (paid, not paid) and a repetition interval (e.g. weekly, monthly, yearly… etc.).
+
+Basic Functionality for Increment 1
+	The Personal Budget Manager Application should have the following functionalities:
+		 View all expenses of the spending list (in arbitrary order).
+		 Add a new expense.
+		 Mark an expense as paid (or not paid).
+		 Remove an expense.
+	The Personal Budget Manager application shall be equipped with a Java Swing User Interface. The expense table should refresh its display automatically when the expenses in the expense list change.
+
+	Planned future extensions of the Personal Budget Manager are:
+		 Addition of new expense types.
+		 Support for multiple user interfaces (e.g., Web UI, Mobile UI).
+		 Multiple presentations of the expense list (e.g., using trees or lists).
+		
+Use cases
+Use Case 1: Launch the PBM application
+	Description: User open the PBM application.
+	Actor(s): User
+	Goal: User able to launch PBM application by clicking an icon on the desktop.
+	Pre-conditions: PBM is installed on the system. Users allowed to access the application exists in the system.
+	Main scenario:
+		1. user enters the name and password
+	Alternative scenarios:
+		1. User can't remember the password.
+			1.1. User recovers the password.
+			1.2. User enters the name and password.
+		2. User doesn't exist
+			2.1 User registers to the system
+			2.2 User enters the name and password
+	Post-conditions: PBM application is open. The list of all the purchase expenses displayed on the main window for the current month.
+
+Use Case 2: Add a new expense		
+	Description: User adds a new expense
+	Actor(s): User
+	Goal: User able to add 2 types of expenses
+	Pre-conditions: User already logged in to the system
+	Main scenario:
+		1. User chooses to add a new exprense
+		2. User prompted to choose the expense types
+		3. User enters the details for the selected expense types
+		4. System validates the data 
+		5. System add the expense into the list 
+		6. System displays the main window with the list of existing expenses for the type just entered
+	Alternative scenarios:
+	Post-conditions: The list of all the expenses displayed on the main window for the selected time period.
+
+Use Case 3: Modify an existing expense
+	Description: User can modify an existing expense
+	Actor(s): User
+	Goal: user is able to modify an expense type belogs to a certain period
+	Pre-conditions: User already logged in to the system.
+	Main scenario: 
+		1. User selects a row from the list and modifies allowed details, like paid, amount, any additional details, etc...
+		2. System modifies the expense entry
+		3. System refreshes the main window with existing expense list
+	Alternative scenarios:
+		1. User changes the expense type for the displayed period
+			1.1 System fetched the expense list for the period chosen by the user
+			1.2 System displays the expense list int he main window
+			Same steps as in the main flow.
+		2. User changes the time period for the displayed expense type
+			2.1 System fetched the expense list for the period chosen by the user
+			2.2 System displays the expense list int he main window
+			Same steps as in the main flow.
+		3. User changes the expense type and the time period
+			3.1 System fetched the expense list for the period chosen by the user
+			3.2 System displays the expense list int he main window
+			Same steps as in the main flow.
+	Post-conditions: The list of all the expenses displayed on the main window for the selected time period.
+	
+Use Case 4: Remove an expense
+	Description: User chooses to remove an expense
+	Actor(s): User
+	Goal: User able to remove an entry in the selected expense list
+	Pre-conditions: User already logged in to the system.
+	Main scenario:
+		1. User selects a row in the list to be removed
+		2. system removes the expense entry 
+		3. System refreshes the main window with existing expense list
+	Alternative scenarios:
+	Post-conditions:
+
+Use Case 5: User able to change the display
+	Description: User able to change the display of expense report
+	Actor(s): User
+	Goal: User able to see the list of expenses for the type selected for that period.
+	Pre-conditions: User logged in to the system
+	Main scenario: 
+		1. User selects the expense type and the time period
+		2. System fetched the relevant data
+		3. System displas the data
+	Alternative scenarios:
+	Post-conditions:
+
+Use Case 5: Template, do not change, copy paste this to create new Use Case
+	Description:
+	Actor(s):
+	Goal:
+	Pre-conditions:
+	Main scenario:
+	Alternative scenarios:
+	Post-conditions:

@@ -5,3 +5,7 @@ Git introductory videos
 
 To create project execute the following command on your PC
   git clone https://github.com/htl1991/c5541h19.git
+
+Google Drive link
+	https://drive.google.com/open?id=1nH1j5JN7ei8fG22TqYKhPnObzivChK0L
+	Note: Try to use the github as much as possible
