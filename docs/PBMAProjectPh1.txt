@@ -34,7 +34,17 @@ Use Case 1: Launch the PBM application
 			2.2 User enters the name and password
 	Post-conditions: PBM application is open. The list of all the purchase expenses displayed on the main window for the current month.
 
-Use Case 2: Add a new expense		
+Use Case 2: set the type of currency		
+	Description: User sets the type of currency	
+	Actor(s): User
+	Goal: User able to set the type of currency
+	Pre-conditions: User already logged in to the system
+	Main scenario:
+		1. After logging in to the system, there is a page to select currency 
+		2. User selects the type of currency
+		3. User clicks the ‘save’ button
+		4. Information is sent and stored in database
+Use Case 3: Add a new expense		
 	Description: User adds a new expense
 	Actor(s): User
 	Goal: User able to add 2 types of expenses
@@ -49,7 +59,7 @@ Use Case 2: Add a new expense
 	Alternative scenarios:
 	Post-conditions: The list of all the expenses displayed on the main window for the selected time period.
 
-Use Case 3: Modify an existing expense
+Use Case 4: Modify an existing expense
 	Description: User can modify an existing expense
 	Actor(s): User
 	Goal: user is able to modify an expense type belogs to a certain period
@@ -73,7 +83,7 @@ Use Case 3: Modify an existing expense
 			Same steps as in the main flow.
 	Post-conditions: The list of all the expenses displayed on the main window for the selected time period.
 	
-Use Case 4: Remove an expense
+Use Case 5: Remove an expense
 	Description: User chooses to remove an expense
 	Actor(s): User
 	Goal: User able to remove an entry in the selected expense list
@@ -85,7 +95,7 @@ Use Case 4: Remove an expense
 	Alternative scenarios:
 	Post-conditions:
 
-Use Case 5: User able to change the display
+Use Case 6: User able to change the display
 	Description: User able to change the display of expense report
 	Actor(s): User
 	Goal: User able to see the list of expenses for the type selected for that period.
@@ -96,8 +106,21 @@ Use Case 5: User able to change the display
 		3. System displas the data
 	Alternative scenarios:
 	Post-conditions:
-
-Use Case 5: Template, do not change, copy paste this to create new Use Case
+		
+Use Case 7: Add income
+	Description: User add income
+	Actor(s): User
+	Goal: User able to add income
+	Pre-conditions: User already logged in to the system
+	Main scenario:
+	        1. User chooses to add income
+		2. User enters the details of account, category and amount
+		3. User clicks the ‘save’ button
+		4. Information is sent and stored in database
+	Alternative scenarios:
+	Post-conditions:
+		
+Use Case 8: Template, do not change, copy paste this to create new Use Case
 	Description:
 	Actor(s):
 	Goal:
@@ -105,16 +128,3 @@ Use Case 5: Template, do not change, copy paste this to create new Use Case
 	Main scenario:
 	Alternative scenarios:
 	Post-conditions:
-	
-Use Case 6: set the type of currency		
-	Description: User sets the type of currency	
-	Actor(s): User
-	Goal: User able to set the type of currency
-	Pre-conditions: User already logged in to the system
-	Main scenario:
-		1. After logging in to the system, there is a page to select currency 
-		2. User selects the type of currency
-		3. User clicks the ‘save’ button
-		4. Information is sent and stored in database
-		
-
