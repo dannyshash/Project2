@@ -204,27 +204,43 @@ public class AddExpensePanel extends UserInterface {
 
 
 
-					
+						// Transform Date into integer inputs
 						int textField_1_year = Integer.valueOf((textField_1.getText().substring(0, 4)));
 						int textField_1_month = Integer.valueOf((textField_1.getText().substring(5, 7)));
 						int textField_1_day = Integer.valueOf((textField_1.getText().substring(8, 10)));
-
+						
 						int textField_7_year = Integer.valueOf((textField_7.getText().substring(0, 4)));
 						int textField_7_month = Integer.valueOf((textField_7.getText().substring(5, 7)));
 						int textField_7_day = Integer.valueOf((textField_7.getText().substring(8, 10)));
 						
-						
-						Purchase pAdd = new Purchase(comboBox3.getSelectedItem().toString(),
+						//Define Purchase Object
+						Purchase purchaseAdd = new Purchase(comboBox3.getSelectedItem().toString(),
 								new Date((textField_1_year - 1900), textField_1_month - 1, textField_1_day),
 								textField_2.getText(), new Double(textField_3.getText()),
 								comboBox2.getSelectedItem().toString(), textField_5.getText(),
 								comboBox.getSelectedItem().toString(),
 								new Date((textField_7_year - 1900), textField_7_month - 1, textField_7_day));
+						
+						//Define Bill Object
+						Bill billAdd = new Bill(comboBox3.getSelectedItem().toString(),
+								new Date((textField_1_year - 1900), textField_1_month - 1, textField_1_day),
+								textField_2.getText(), new Double(textField_3.getText()),
+								comboBox2.getSelectedItem().toString(), textField_5.getText(),
+								comboBox.getSelectedItem().toString(),
+								new Date((textField_7_year - 1900), textField_7_month - 1, textField_7_day), comboBox4.getSelectedItem().toString());
+						
+						//Decide which object to add
+						if(comboBox3.getSelectedItem().toString().equals("Purchase")) {
+							myList.add(purchaseAdd);	
+						}
+						else if(comboBox3.getSelectedItem().toString().equals("Bill")) {
+							myList.add(billAdd);	
+						}
 
-
-						myList.add(pAdd);				
+									
 						tableModel.fireTableDataChanged();
 						
+						// Re-initialize values randomly
 						comboBox.setSelectedIndex((int)(Math.random()*3));
 						textField_1.setText(dateFormat.format(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1))))));
 						textField_2.setText(randomName[new Random().nextInt(randomName.length)]);

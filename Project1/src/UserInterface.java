@@ -95,12 +95,16 @@ public class UserInterface extends JFrame {
 				"Cash", new Date((2019 - 1900), 0, 1));
 		Purchase p2 = new Purchase("Purchase", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Coffee", 1.15, "Paid", "Second Cup",
 				"Debit", new Date((2019 - 1900), 0, 1));
-
+			
 		
+		Bill b1 = new Bill("Bill", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Hydro Quebec", 60, "Unpaid", "Downtown Montreal",
+				"Debit", new Date((2019 - 1900), 0, 1), "Monthly");
+
 		// Jtable Definition
 		myList = new ExpenseList();
 		myList.add(p1);
 		myList.add(p2);
+		myList.add(b1);
 		tableModel = new ExpenseListTableModel(myList);
 		table = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);

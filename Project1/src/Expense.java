@@ -55,6 +55,22 @@ class Expense {
 			status = "Paid";
 		}
 	}
+	
+	public Date getDueDate() {
+		return "";
+	}
+	
+	public String getLocation() {
+		return "";
+	}
+	
+	public String getMethod() {
+		return "";
+	}
+	public String getInterval() {
+		return "";
+	}
+	
 }
 
 class Purchase extends Expense {
@@ -87,5 +103,41 @@ class Purchase extends Expense {
 	}
 	public String getInterval() {
 		return "";
+	}
+}
+
+
+class Bill extends Expense {
+	String location;
+	String method;
+	String interval;
+	Date duedate;
+	
+	public Bill(String type, Date date, String name, double amount, String status, String location, String method,
+			Date duedate, String interval) {
+		super(type, date, name, amount, status);
+		this.duedate = duedate;
+		this.location = location;
+		this.method = method;
+		this.interval = interval;
+	}
+
+	public String toString() {
+		return super.toString() + " " + duedate + " " + location + " " + method;
+	}
+
+	public Date getDueDate() {
+		return duedate;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public String getMethod() {
+		return method;
+	}
+	public String getInterval() {
+		return interval;
 	}
 }

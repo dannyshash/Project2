@@ -13,21 +13,13 @@ import java.text.SimpleDateFormat;
 public class ExpenseListTableModel extends AbstractTableModel {
 
 	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Location", "Method", "Due Date", "Interval" };
-	private ArrayList<Purchase> myList;
+	private ArrayList<Expense> myList;
 	private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public ExpenseListTableModel(ExpenseList pList) {
 		myList = pList.getList();
 	}
 	
-	/*
-    public void addExpense(Purchase p) {
-        // Adds the element in the last position in the list
-        myList.add(p);
-        fireTableDataChanged();
-        fireTableRowsInserted(myList.size()-1, myList.size()-1);
-    }
-    */
 	
 	public int getColumnCount() {
 		return columnNames.length;

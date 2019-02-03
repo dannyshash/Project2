@@ -10,30 +10,30 @@ import java.io.*;
 
 public class ExpenseList {
 
-	private ArrayList<Purchase> purchaseList;
+	private ArrayList<Expense> expenseList;
 	
 	public ExpenseList() {
-		purchaseList = new ArrayList<Purchase>();
+		expenseList = new ArrayList<Expense>();
 	}
 	
-	public void add(Purchase pl) {
-		purchaseList.add(pl);
+	public void add(Expense pl) {
+		expenseList.add(pl);
 	}
 	
 	public void remove(int index) {
-		purchaseList.remove(index);
+		expenseList.remove(index);
 	}
 	
 	public void markPaidUnpaid(int index) {
-		purchaseList.get(index).setStatus();
+		expenseList.get(index).setStatus();
 	}
 
-	public ArrayList<Purchase> getList() {
-		return purchaseList;
+	public ArrayList<Expense> getList() {
+		return expenseList;
 	}
 	
 	public int getSize() {
-		return purchaseList.size();
+		return expenseList.size();
 	}
 	
 }
