@@ -105,3 +105,16 @@ Use Case 5: Template, do not change, copy paste this to create new Use Case
 	Main scenario:
 	Alternative scenarios:
 	Post-conditions:
+	
+Use Case 6: set the type of currency		
+	Description: User sets the type of currency	
+	Actor(s): User
+	Goal: User able to set the type of currency
+	Pre-conditions: User already logged in to the system
+	Main scenario:
+		1. After logging in to the system, there is a page to select currency 
+		2. User selects the type of currency
+		3. User clicks the ‘save’ button
+		4. Information is sent and stored in database
+		
+
