@@ -71,7 +71,7 @@ Use Case 4: Modify an existing expense
 	Alternative scenarios:
 		1. User changes the expense type for the displayed period
 			1.1 System fetched the expense list for the period chosen by the user
-			1.2 System displays the expense list int he main window
+			1.2 System displays the expense list in the main window
 			Same steps as in the main flow.
 		2. User changes the time period for the displayed expense type
 			2.1 System fetched the expense list for the period chosen by the user
