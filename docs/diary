@@ -1,0 +1,15 @@
+Member	Role	Task Date	Task Detail	Task Duration (h)
+Tony	Documenter	Jan 23	Research SRS Samples (see Google Drive for Samples)	1
+Tony	Developer	Jan 24	Design Entities (Expense, Purchase) using Java Inheritance	2
+Tony	Developer	Jan 24	Design User Interface using Java Swing (WindowBuilder plugin) + JTable	2
+Tony	Developer	Jan 25	Design AddExpense (Listener) to update Jtable	1
+Tony	ProjectControl	Jan 25	Draft Project Control Sheet / Communications	1
+Tony	Developer	Jan 26	Design Custom Table Model to update Jtable using AddExpense and allow JTable auto-refresh	2
+Tony	Developer	Jan 26	Design Button Events for MarkPaidUnpaid and RemoveExpense using JTable getSelectedRow()	1
+Tony	Developer	Jan 26	Use JavaSwing component to input into addExpense Action Listener.	1
+Tony	Developer	Jan 27	User Interface Improvement: ComboBox, Borders, Default Selections, Randomizer on Input Values	1
+Tony	ProjectControl	Jan 28	Created GitHub Project Board. Sent Queries to GitHub Support and Professor/TAs	1
+Tony	Developer	Jan 28	Branch New Feature: Add Expense Panel	1
+Tony	Developer	Jan 28	Add Expense Panel: Passing through the objects to the new Thread created by the new JFrame	1.5
+Tony	Developer	Feb 3	Implement Bill Object in all definitions and classes	1
+Tony	Documenter	Feb 6	Review Uses Cases created by Team Members	0.5
