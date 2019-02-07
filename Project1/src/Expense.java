@@ -57,7 +57,7 @@ class Expense {
 	}
 	
 	public Date getDueDate() {
-		return "";
+		return new Date();
 	}
 	
 	public String getLocation() {
