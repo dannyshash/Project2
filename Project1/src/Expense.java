@@ -70,6 +70,9 @@ class Expense {
 	public String getInterval() {
 		return "";
 	}
+	public String getExpenseType() {
+		return "";
+	}
 	
 }
 
@@ -104,6 +107,10 @@ class Purchase extends Expense {
 	public String getInterval() {
 		return "";
 	}
+	public String getExpenseType() {
+		return "Purchase";
+	}
+	
 }
 
 
@@ -139,5 +146,8 @@ class Bill extends Expense {
 	}
 	public String getInterval() {
 		return interval;
+	}
+	public String getExpenseType() {
+		return "Bill";
 	}
 }

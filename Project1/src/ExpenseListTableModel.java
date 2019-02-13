@@ -49,13 +49,35 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		} else if (col == 4) {
 			temp = myList.get(row).getStatus();
 		} else if (col == 5) {
-			temp = myList.get(row).getLocation();
+			
+			if(myList.get(row).getExpenseType().equals("Purchase")) {
+				temp = myList.get(row).getLocation();
+			}
+			else if(myList.get(row).getExpenseType().equals("Bill")) {
+				temp = "";
+			}
+			
+			
+			
 		} else if (col == 6) {
 			temp = myList.get(row).getMethod();
 		} else if (col == 7) {
-			temp = dateformat.format(myList.get(row).getDueDate());
+			if(myList.get(row).getExpenseType().equals("Purchase")) {
+				temp = "";
+			}
+			else if(myList.get(row).getExpenseType().equals("Bill")) {
+				temp = dateformat.format(myList.get(row).getDueDate());
+			}
+			
 		} else if (col == 8) {
-			temp = myList.get(row).getInterval();
+			
+			if(myList.get(row).getExpenseType().equals("Purchase")) {
+				temp = "";
+			}
+			else if(myList.get(row).getExpenseType().equals("Bill")) {
+				temp = myList.get(row).getInterval();
+			}
+			
 		}
 		return temp;
 	}
