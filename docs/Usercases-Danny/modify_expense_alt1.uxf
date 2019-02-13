@@ -53,19 +53,19 @@ fontsize=10
     <id>Relation</id>
     <coordinates>
       <x>616</x>
-      <y>184</y>
-      <w>112</w>
-      <h>104</h>
+      <y>168</y>
+      <w>120</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>120.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
       <x>712</x>
-      <y>176</y>
+      <y>160</y>
       <w>96</w>
       <h>32</h>
     </coordinates>
@@ -94,7 +94,9 @@ fontsize=10</panel_attributes>
       <w>512</w>
       <h>256</h>
     </coordinates>
-    <panel_attributes>Modify Paid/Unpaid &amp;/or Time Peroid
+    <panel_attributes>Mark Paid/Unpaid 
+Modify TimePeroid
+Change Expense Type
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
@@ -129,11 +131,49 @@ fontsize=10
     <coordinates>
       <x>616</x>
       <y>88</y>
-      <w>120</w>
-      <h>120</h>
+      <w>112</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;130.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>528</x>
+      <y>160</y>
+      <w>96</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Change Expense Type
+fontsize=10
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>160</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>160</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
