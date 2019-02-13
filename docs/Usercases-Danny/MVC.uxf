@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>100</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+
+--
+addExpense()
+removeExpense()
+markPaidUnpaid()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>320</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>UserView
+--
+Add Expense
+Remove Expense
+Mark Expense Paid/Unpaid
+--
+update()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>180</y>
+      <w>180</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>10.0;210.0;160.0;10.0</additional_attributes>
+  </element>
+</diagram>
