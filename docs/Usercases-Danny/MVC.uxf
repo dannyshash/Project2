@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>100</y>
-      <w>210</w>
-      <h>190</h>
+      <x>186</x>
+      <y>414</y>
+      <w>132</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>UserView
+--
+Add Expense button
+Remove Expense button
+Mark Expense Paid/Unpaid button
+Refresh Button
+-
+update(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>378</x>
+      <y>546</y>
+      <w>162</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+
+--
++main():void
++save(Expense):List&lt;Expense&gt;
++remove(Expense):List&lt;Expense&gt;
++Modify(Expense):List&lt;Expense&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>414</x>
+      <y>408</y>
+      <w>96</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Controller
 --
-
+-model:Expense
+-view:UserView
 --
 addExpense()
 removeExpense()
@@ -21,32 +60,67 @@ markPaidUnpaid()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
-      <y>320</y>
-      <w>210</w>
-      <h>110</h>
+      <x>420</x>
+      <y>246</y>
+      <w>90</w>
+      <h>108</h>
     </coordinates>
-    <panel_attributes>UserView
+    <panel_attributes>Expense
 --
-Add Expense
-Remove Expense
-Mark Expense Paid/Unpaid
+-type:String
+-date:Date
+-name:Name
+-amount:Double
+-String status:String
 --
-update()
-
-</panel_attributes>
+setExpense()
+getExpense()
+setRemoveExpense()
+setMarkPaidUnpaid()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>180</y>
-      <w>180</w>
-      <h>230</h>
+      <x>312</x>
+      <y>444</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes>
-    <additional_attributes>10.0;210.0;160.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>492</y>
+      <w>18</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>12</x>
+      <y>12</y>
+      <w>114</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>456</x>
+      <y>348</y>
+      <w>18</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
