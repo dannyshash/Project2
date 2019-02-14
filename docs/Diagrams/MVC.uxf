@@ -2,125 +2,124 @@
 <diagram program="umlet" version="14.3.0">
   <zoom_level>6</zoom_level>
   <element>
-    <id>UMLClass</id>
+    <id>UMLPackage</id>
     <coordinates>
-      <x>186</x>
-      <y>414</y>
-      <w>132</w>
-      <h>84</h>
+      <x>144</x>
+      <y>78</y>
+      <w>216</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>UserView
 --
-Add Expense button
-Remove Expense button
-Mark Expense Paid/Unpaid button
-Refresh Button
--
-update(): void
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=top
++Activate Add Expense button
++Activate Remove Expense 
+Button
++Activate Mark Paid/Unpaid Expense
+Button
++Activate Modify Expense Button
++Activate Refresh Button
++JTable 
++JTextfields
+--
+
++update()
+
+
 
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>UMLPackage</id>
     <coordinates>
-      <x>378</x>
-      <y>546</y>
-      <w>162</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>Model
---
-
---
-+main():void
-+save(Expense):List&lt;Expense&gt;
-+remove(Expense):List&lt;Expense&gt;
-+Modify(Expense):List&lt;Expense&gt;</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>414</x>
-      <y>408</y>
-      <w>96</w>
-      <h>90</h>
+      <x>336</x>
+      <y>312</y>
+      <w>216</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>Controller
 --
--model:Expense
--view:UserView
---
-addExpense()
-removeExpense()
-markPaidUnpaid()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>420</x>
-      <y>246</y>
-      <w>90</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>Expense
---
--type:String
--date:Date
--name:Name
--amount:Double
--String status:String
---
-setExpense()
-getExpense()
-setRemoveExpense()
-setMarkPaidUnpaid()</panel_attributes>
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=center
++main():void
++addExpense()
++removeExpense()
++markPaidUnpaid()
++modifyExpense()
+
+
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>312</x>
-      <y>444</y>
+      <x>546</x>
+      <y>240</y>
       <w>114</w>
-      <h>18</h>
+      <h>168</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>10.0;260.0;170.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
-      <y>492</y>
-      <w>18</w>
-      <h>66</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>12</x>
-      <y>12</y>
+      <x>234</x>
+      <y>240</y>
       <w>114</w>
-      <h>18</h>
+      <h>162</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>170.0;250.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>456</x>
-      <y>348</y>
-      <w>18</w>
-      <h>72</h>
+      <x>354</x>
+      <y>156</y>
+      <w>192</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;300.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>534</x>
+      <y>78</y>
+      <w>216</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=center
++toDatabase()
++fromDatabase()
++query()
++update()
+
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

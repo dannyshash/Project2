@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>676</x>
+      <y>148</y>
+      <w>116</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>PurchaseExpense
+--
+-status:String
+-location:String
+-dateofpurchase:Date
+--
+
++PurchaseExpense()
+
++setStatus()
++setLocation
++setDateOfPurchase()
++getStatus()
++getLocation
++getDateOfPurchase()
+
++toString():void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>148</y>
+      <w>116</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>BillExpense
+--
+-interval: String
+-status:String
+--
+
++BillExpense()
+
++setInterval()
++getInterval()
++setStatus()
++getStatus()
+
++toString():void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>604</x>
+      <y>364</y>
+      <w>116</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Expense
+--
+
++name:Name
++amount:Double
++status:String
+--
+
++Expense()
+
++setName()
++setAmount()
++setStatus()
++getName()
++getAmount()
++getStatus()
+
++toString():void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>360</y>
+      <w>116</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>UserInterphase
+--
+
+--
+
+
++main():void
++userInterface()
++activateAddExpense()
++activateRemoveExpense()
++activateModifyExpense()
++activateRefresh()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>360</y>
+      <w>116</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>expenseList
+--
+index:Int
+--
+
+
++ArrayList&lt;Expenses&gt;()
++addExpense()
++removeExpense()
++modifyExpense()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>416</y>
+      <w>116</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=0*
+m2=obtains 
+
+</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>572</x>
+      <y>256</y>
+      <w>100</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>
+lt=&lt;&lt;-
+m2= instantiate 1
+</panel_attributes>
+    <additional_attributes>230.0;270.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>256</y>
+      <w>104</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+m2= instantiate 1</panel_attributes>
+    <additional_attributes>10.0;270.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>292</x>
+      <y>416</y>
+      <w>100</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>
+lt=-
+m1=     
+m2=0*
+
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+</diagram>
