@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>144</x>
+      <y>78</y>
+      <w>216</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>UserView
+--
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=top
++Activate Add Expense button
++Activate Remove Expense 
+Button
++Activate Mark Paid/Unpaid Expense
+Button
++Activate Modify Expense Button
++Activate Refresh Button
++JTable 
++JTextfields
+--
+
++update()
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>336</x>
+      <y>312</y>
+      <w>216</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=center
++main():void
++addExpense()
++removeExpense()
++markPaidUnpaid()
++modifyExpense()
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>546</x>
+      <y>240</y>
+      <w>114</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>10.0;260.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>234</x>
+      <y>240</y>
+      <w>114</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>170.0;250.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>354</x>
+      <y>156</y>
+      <w>192</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;300.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>534</x>
+      <y>78</y>
+      <w>216</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=white
+fontsize=20
+lw=2.5
+halign=left
+valign=center
++toDatabase()
++fromDatabase()
++query()
++update()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
