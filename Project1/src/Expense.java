@@ -11,16 +11,19 @@ class Expense {
 	String type;
 	String name;
 	String status;
+	String category;
+	String categoryname;
 	Date date;
 	double amount;
 
-	public Expense(String type, Date date, String name, double amount, String status) {
+	public Expense(String type, Date date, String name, double amount, String status, String category, String categoryname) {
 		this.type = type;
 		this.date = date;
 		this.name = name;
 		this.amount = amount;
 		this.status = status;
-
+		this.category = category;
+		this.categoryname = categoryname;
 	}
 
 	public String toString() {
@@ -70,8 +73,11 @@ class Expense {
 	public String getInterval() {
 		return "";
 	}
-	public String getExpenseType() {
-		return "";
+	public String getCategory() {
+		return category;
+	}
+	public String getCategoryName() {
+		return categoryname;
 	}
 	
 }
@@ -81,9 +87,9 @@ class Purchase extends Expense {
 	String method;
 	Date duedate;
 	
-	public Purchase(String type, Date date, String name, double amount, String status, String location, String method,
+	public Purchase(String type, Date date, String name, double amount, String status, String category, String categoryname, String location, String method,
 			Date duedate) {
-		super(type, date, name, amount, status);
+		super(type, date, name, amount, status, category, categoryname);
 		this.duedate = duedate;
 		this.location = location;
 		this.method = method;
@@ -107,10 +113,6 @@ class Purchase extends Expense {
 	public String getInterval() {
 		return "";
 	}
-	public String getExpenseType() {
-		return "Purchase";
-	}
-	
 }
 
 
@@ -120,9 +122,9 @@ class Bill extends Expense {
 	String interval;
 	Date duedate;
 	
-	public Bill(String type, Date date, String name, double amount, String status, String location, String method,
+	public Bill(String type, Date date, String name, double amount, String status, String category, String categoryname, String location, String method,
 			Date duedate, String interval) {
-		super(type, date, name, amount, status);
+		super(type, date, name, amount, status,category, categoryname);
 		this.duedate = duedate;
 		this.location = location;
 		this.method = method;
@@ -146,8 +148,5 @@ class Bill extends Expense {
 	}
 	public String getInterval() {
 		return interval;
-	}
-	public String getExpenseType() {
-		return "Bill";
 	}
 }
