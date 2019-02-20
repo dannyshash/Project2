@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+import javax.swing.RowFilter;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
@@ -41,6 +42,8 @@ import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.TableRowSorter;
+import java.util.Arrays;
 
 public class UserInterface extends JFrame {
 
@@ -83,7 +86,7 @@ public class UserInterface extends JFrame {
 	public UserInterface() {
 		setTitle("Personal Budget Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 811, 554);
+		setBounds(100, 100, 879, 554);
 		contentPaneMain = new JPanel();
 		contentPaneMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneMain);
@@ -91,13 +94,13 @@ public class UserInterface extends JFrame {
 
 		
 		// Insert Sample Data
-		Purchase p1 = new Purchase("Purchase", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Sandwich", 2.30, "Paid", "Starbucks",
+		Purchase p1 = new Purchase("Purchase", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Sandwich", 2.30, "Paid", "Single", "", "Starbucks",
 				"Cash", new Date((2019 - 1900), 0, 1));
-		Purchase p2 = new Purchase("Purchase", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Coffee", 1.15, "Paid", "Second Cup",
+		Purchase p2 = new Purchase("Purchase", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Coffee", 1.15, "Paid", "Single", "", "Second Cup",
 				"Debit", new Date((2019 - 1900), 0, 1));
 			
 		
-		Bill b1 = new Bill("Bill", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Hydro Quebec", 60, "Unpaid", "",
+		Bill b1 = new Bill("Bill", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Hydro Quebec", 60, "Unpaid", "Single", "", "Downtown Montreal",
 				"Debit", new Date((2019 - 1900), 0, 1), "Monthly");
 
 		// Jtable Definition
@@ -107,8 +110,9 @@ public class UserInterface extends JFrame {
 		myList.add(b1);
 		tableModel = new ExpenseListTableModel(myList);
 		table = new JTable(tableModel);
+		TableRowSorter sorter = new TableRowSorter(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(30, 130, 738, 350);
+		scrollPane.setBounds(30, 130, 823, 350);
 		contentPaneMain.add(scrollPane);
 		
 		JTextField txtExpenseList = new JTextField();
@@ -123,7 +127,7 @@ public class UserInterface extends JFrame {
 	
 
 		JButton btnAddExpense = new JButton("Add Expense");
-		btnAddExpense.setBounds(30, 30, 108, 23);
+		btnAddExpense.setBounds(30, 30, 151, 23);
 		contentPaneMain.add(btnAddExpense);
 		
 		btnAddExpense.addActionListener(new ActionListener() {
@@ -134,7 +138,7 @@ public class UserInterface extends JFrame {
 			});
 		
 		JButton btnRemoveExpense = new JButton("Remove Expense");
-		btnRemoveExpense.setBounds(155, 30, 139, 23);
+		btnRemoveExpense.setBounds(30, 64, 151, 23);
 		contentPaneMain.add(btnRemoveExpense);
 
 		btnRemoveExpense.addActionListener(new ActionListener() {
@@ -147,8 +151,37 @@ public class UserInterface extends JFrame {
 		});
 
 		JButton btnMarkPaidunpaid = new JButton("Mark Expense Paid/Unpaid");
-		btnMarkPaidunpaid.setBounds(30, 64, 263, 23);
+		btnMarkPaidunpaid.setBounds(209, 30, 196, 23);
 		contentPaneMain.add(btnMarkPaidunpaid);
+		
+		JButton btnHideShow = new JButton("Hide/Show Paid Expenses");
+		btnHideShow.setBounds(209, 64, 196, 23);
+		contentPaneMain.add(btnHideShow);
+		
+		
+		
+		
+		
+		btnHideShow.addActionListener(new ActionListener() {
+			
+			boolean HideShowSwitch = true;
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if (HideShowSwitch) {
+					sorter.setRowFilter(RowFilter.regexFilter("Unpaid"));
+					table.setRowSorter(sorter);
+				}
+				else {
+					sorter.setRowFilter(RowFilter.regexFilter("."));
+					table.setRowSorter(sorter);
+				}
+				
+				HideShowSwitch = !HideShowSwitch;
+			}
+		});
 
 
 		btnMarkPaidunpaid.addActionListener(new ActionListener() {
@@ -162,7 +195,4 @@ public class UserInterface extends JFrame {
 
 		
 	}
-
-	
-	
 }
