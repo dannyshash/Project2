@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>63</y>
+      <x>486</x>
+      <y>0</y>
       <w>162</w>
       <h>117</h>
     </coordinates>
@@ -17,14 +17,15 @@ Package::model
 +add()
 +remove()
 +get()
-+display()</panel_attributes>
++display()
+bg=dark_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>639</x>
-      <y>234</y>
+      <x>477</x>
+      <y>171</y>
       <w>189</w>
       <h>234</h>
     </coordinates>
@@ -44,14 +45,16 @@ Package::model
 /+get()/
 /+display()/
 +setStatus()
-+toString()</panel_attributes>
++toString()
+
+bg=light_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>729</x>
-      <y>171</y>
+      <x>567</x>
+      <y>108</y>
       <w>27</w>
       <h>81</h>
     </coordinates>
@@ -61,8 +64,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>540</y>
+      <x>342</x>
+      <y>477</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -78,8 +81,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>918</x>
-      <y>540</y>
+      <x>756</x>
+      <y>477</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -99,8 +102,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>288</x>
-      <y>540</y>
+      <x>126</x>
+      <y>477</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -117,8 +120,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>711</x>
-      <y>540</y>
+      <x>549</x>
+      <y>477</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -138,8 +141,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>459</y>
+      <x>216</x>
+      <y>396</y>
       <w>315</w>
       <h>99</h>
     </coordinates>
@@ -149,8 +152,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>459</y>
+      <x>414</x>
+      <y>396</y>
       <w>153</w>
       <h>99</h>
     </coordinates>
@@ -160,8 +163,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>459</y>
+      <x>585</x>
+      <y>396</y>
       <w>72</w>
       <h>99</h>
     </coordinates>
@@ -171,8 +174,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>783</x>
-      <y>459</y>
+      <x>621</x>
+      <y>396</y>
       <w>225</w>
       <h>99</h>
     </coordinates>
@@ -182,8 +185,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>288</x>
-      <y>711</y>
+      <x>126</x>
+      <y>648</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -200,8 +203,8 @@ Package::misc
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>711</y>
+      <x>342</x>
+      <y>648</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -215,8 +218,8 @@ Package::misc
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>369</x>
-      <y>639</y>
+      <x>207</x>
+      <y>576</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
@@ -226,12 +229,136 @@ Package::misc
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>639</y>
+      <x>423</x>
+      <y>576</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>639</x>
+      <y>315</y>
+      <w>216</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>setStatus() is a temporary 
+method, until better implementation,
+should come from view
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>504</x>
+      <y>684</y>
+      <w>135</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>Temporary Adaptor 
+class, remove after
+adapting the view
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>45</x>
+      <y>621</y>
+      <w>126</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Temporary Adaptor 
+class, remove after
+adapting the view
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>738</x>
+      <y>108</y>
+      <w>117</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+RepitionInterval
+Package::model
+--
+WEEKLY
+BIWEEKLY
+MONTHLY
+YEARLY
+--
++getValue(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>225</x>
+      <y>63</y>
+      <w>117</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+ExpenseType
+Package::model
+--
+PURCHASE
+BILL
+COMPOSITE_PURCHASE
+COMPOSITE_BILL
+INVALID
+--
++getValue(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>315</x>
+      <y>243</y>
+      <w>117</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Status
+Package::model
+--
+PAID
+UNPAID
+--
++getValue(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>135</x>
+      <y>243</y>
+      <w>117</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Mode
+Package::model
+--
+CASH
+DEBIT
+CREDIT
+--
++getValue(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
