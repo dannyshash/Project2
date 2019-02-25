@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>648</x>
+      <y>63</y>
+      <w>162</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>/Expense/
+Package::model
+--
+
+--
++add()
++remove()
++get()
++display()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>639</x>
+      <y>234</y>
+      <w>189</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>/AbstractExpense/
+Package::model
+--
+-type: ExpenseType
+-amount: double
+-name String
+-date: Date
+-status: Status
+-dueDate: Date
+-vendor: String
+--
+/+add()/
+/+remove()/
+/+get()/
+/+display()/
++setStatus()
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>729</x>
+      <y>171</y>
+      <w>27</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>540</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>Bill
+Package::model
+--
+-interval: RepitionInterval
+--
++display()
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>918</x>
+      <y>540</y>
+      <w>189</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>CompositeBill
+Package::model
+--
+-description: String
+-items: ArrayList&lt;Expense&gt; 
+--
++add()
++remove()
++get()
++display()
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>540</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>Purchase
+Package::model
+--
+-location: String
+-mode: Mode
+--
++display()
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>540</y>
+      <w>189</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>CompositePurchase
+Package::model
+--
+-description: String
+-items: ArrayList&lt;Expense&gt; 
+--
++add()
++remove()
++get()
++display()
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>459</y>
+      <w>315</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>330.0;10.0;330.0;60.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>459</y>
+      <w>153</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;150.0;70.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>747</x>
+      <y>459</y>
+      <w>72</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;60.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>783</x>
+      <y>459</y>
+      <w>225</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;230.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>711</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>PurchaseAdaptor
+Package::misc
+--
+-category: String
+-categoryName: String
+--
++getStatusByString()
++getMethodByString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>711</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>BillAdaptor
+Package::misc
+--
+-method: String
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>369</x>
+      <y>639</y>
+      <w>27</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>639</y>
+      <w>27</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+</diagram>
