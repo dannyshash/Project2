@@ -1,3 +1,4 @@
+package misc;
 /**
  * Description: Definition of Expense class with 2 subclass Purchase and Bill.
  * Author: Tony Lac
