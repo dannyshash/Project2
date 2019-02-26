@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>90</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>/ExpenseSubject/
+Package::controller
+--
+
+--
++register(ExpenseObserver)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>280</y>
+      <w>340</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>ExpenseContainerImpl
+Package::controller
+--
+-observer: ExpenseObserver
+-List&lt;Map&lt;ExpenseKey , Expense&gt;&gt; expenseData;
+-purchases: Map&lt;ExpenseKey , Expense&gt; 
+-comp_purchases: Map&lt;ExpenseKey , Expense&gt; 
+-bill: Map&lt;ExpenseKey , Expense&gt; 
+-comp_bill: Map&lt;ExpenseKey , Expense&gt; 
+--
+-ExpenseContainerImpl()
+-notifyObserver()
++getInstance()
++init()
++register()
++addExpense(Expense)
++modifyExpense(Expense, Expense)
++removeExpense(Expense)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>320</y>
+      <w>210</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>ExpenseObserverImpl
+Package::view
+--
+
+--
+-ExpenseContainerImpl()
++getInstance()
++init()
++update()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>50</y>
+      <w>240</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>/ExpenseContainer/
+Package::controller
+--
+
+--
++init()
++addExpense(Expense)
++modifyExpense(Expense, Expense)
++removeExpense(Expense)
++getPurchases()
++getCompositePurchases()
++getBills()
++getCompositeBills()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>180</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>270</x>
+      <y>240</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>110</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>/ExpenseObserver/
+Package::view
+--
+
+--
++update()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>690</x>
+      <y>200</y>
+      <w>30</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>380</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+&lt; register</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>410</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+update &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>630</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>AddExpensePanel
+Package::misc
+--
+
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>550</y>
+      <w>130</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+
+addExpense &gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>630</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>UserInterface
+Package::misc
+--
+
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>550</y>
+      <w>110</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+
+init() &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>450</y>
+      <w>150</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+
+init() &gt;</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+</diagram>
