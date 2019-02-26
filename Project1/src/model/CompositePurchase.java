@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class CompositePurchase extends AbstractExpense{
-	private String description;
+	private String description; //primary key element
 	private ArrayList<Expense> items;
 	
 	public CompositePurchase(String description) {
@@ -50,6 +50,37 @@ public class CompositePurchase extends AbstractExpense{
 
 	public void setItems(ArrayList<Expense> items) {
 		this.items = items;
+	}
+	
+	@Override
+	public boolean iseqal(Expense expense) {
+		CompositePurchase c = (CompositePurchase)expense;
+		if(super.iseqal(expense) && this.getDescription().equals(c.getDescription())) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public ArrayList<Expense> getPurchasesList() {
+		ArrayList<Expense> l_items = new ArrayList<Expense>();
+		Iterator<Expense> compPurchase = items.iterator();
+		while(compPurchase.hasNext()) {
+			l_items.add(compPurchase.next());
+		}	
+
+		return l_items;		
+	}
+
+	public Expense getMatchedPurchase(Expense expense) {
+		Iterator<Expense> compPurchase = items.iterator();
+		while(compPurchase.hasNext()) {
+			Expense it = compPurchase.next();
+			if (it.iseqal(expense))
+				return it;
+		}	
+
+		return null;		
 	}
 
 	public String toString() {

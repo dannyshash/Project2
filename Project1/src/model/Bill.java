@@ -10,13 +10,21 @@ public class Bill extends AbstractExpense {
 		this.interval = interval;
 	}
 
-	public Bill(double amount, String name, Date date, String vendor) {
-		this(amount, name, date, Status.UNPAID, date, vendor, RepitionInterval.MONTHLY);
+	public Bill(double amount, String name, Date date) {
+		super(ExpenseType.PURCHASE, amount, name, date);
+		this.interval = RepitionInterval.MONTHLY;
 	}
 
 	public Bill() {
-		this(0.0, "dummy bill", new Date(), "dummy vendor"); 
+		this(0.0, "dummy bill", new Date()); 
 	}
+	
+	//Copy constructor
+	Bill(Bill from) {
+		this(from.getAmount(), from.getName(), from.getDate());	
+	}
+	
+	//Assignment=
 
 	@Override
 	public void display() {

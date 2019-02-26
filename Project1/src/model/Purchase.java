@@ -13,23 +13,40 @@ public class Purchase extends AbstractExpense {
 	}
 	
 
-	public Purchase(double amount, String name, Date date, String vendor) {
-		this(amount, name, date, Status.PAID, date, vendor, "dummy location", Mode.CASH);
+	public Purchase(double amount, String name, Date date) {
+		super(ExpenseType.PURCHASE, amount, name, date);
+		this.location = "dummy location";
+		this.mode = Mode.CASH;
 	}
 
 	public Purchase() {
 		//Calendar.getInstance().setTime(new Date())
-		this(0.0, "dummy purchase", new Date(), "dummy vendor"); 
+		this(0.0, "dummy purchase", new Date()); 
+	}
+	
+	//Copy constructor
+	Purchase(Purchase from) {
+		this(from.getAmount(), from.getName(), from.getDate());	
 	}
 
-
+	//Assignment=
+			
 	@Override
 	public void display() {
 		this.toString();
 		
 	}
 
-
+	@Override
+	public boolean changePaymentStatus() {
+		if(super.changePaymentStatus()) {
+			this.setMode(Mode.CASH);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public String getLocation() {
 		return location;
 	}

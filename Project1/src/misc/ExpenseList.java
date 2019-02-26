@@ -25,7 +25,7 @@ public class ExpenseList {
 	}
 	
 	public void markPaidUnpaid(int index) {
-		expenseList.get(index).setStatus();
+		expenseList.get(index).changePaymentStatus();
 	}
 
 	public ArrayList<AbstractExpense> getList() {

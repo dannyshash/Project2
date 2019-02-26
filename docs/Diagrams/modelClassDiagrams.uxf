@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>486</x>
-      <y>0</y>
-      <w>162</w>
-      <h>117</h>
+      <x>675</x>
+      <y>18</y>
+      <w>207</w>
+      <h>162</h>
     </coordinates>
     <panel_attributes>/Expense/
 Package::model
@@ -18,16 +18,19 @@ Package::model
 +remove()
 +get()
 +display()
++getType(): ExpenseType
++changePaymentStatus(): boolean
++iseqal(): boolean
 bg=dark_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>477</x>
-      <y>171</y>
+      <x>675</x>
+      <y>216</y>
       <w>189</w>
-      <h>234</h>
+      <h>279</h>
     </coordinates>
     <panel_attributes>/AbstractExpense/
 Package::model
@@ -44,7 +47,10 @@ Package::model
 /+remove()/
 /+get()/
 /+display()/
-+setStatus()
++setStatus() !Deprecated
++getType(): ExpenseType
++changePaymentStatus(): boolean
++iseqal(): boolean
 +toString()
 
 bg=light_gray</panel_attributes>
@@ -53,19 +59,19 @@ bg=light_gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>567</x>
-      <y>108</y>
+      <x>765</x>
+      <y>171</y>
       <w>27</w>
-      <h>81</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>342</x>
-      <y>477</y>
+      <x>540</x>
+      <y>549</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -81,10 +87,10 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>477</y>
+      <x>954</x>
+      <y>549</y>
       <w>189</w>
-      <h>153</h>
+      <h>162</h>
     </coordinates>
     <panel_attributes>CompositeBill
 Package::model
@@ -96,16 +102,17 @@ Package::model
 +remove()
 +get()
 +display()
++iseqal(): boolean
 +toString()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
-      <y>477</y>
+      <x>324</x>
+      <y>549</y>
       <w>189</w>
-      <h>108</h>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Purchase
 Package::model
@@ -114,16 +121,17 @@ Package::model
 -mode: Mode
 --
 +display()
++changePaymentStatus(): boolean
 +toString()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>549</x>
-      <y>477</y>
+      <x>747</x>
+      <y>549</y>
       <w>189</w>
-      <h>153</h>
+      <h>162</h>
     </coordinates>
     <panel_attributes>CompositePurchase
 Package::model
@@ -135,58 +143,59 @@ Package::model
 +remove()
 +get()
 +display()
++iseqal(): boolean
 +toString()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
-      <y>396</y>
-      <w>315</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>330.0;10.0;330.0;60.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>414</x>
-      <y>396</y>
+      <y>486</y>
+      <w>315</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>330.0;10.0;330.0;40.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>612</x>
+      <y>486</y>
       <w>153</w>
-      <h>99</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;150.0;70.0;10.0;90.0</additional_attributes>
+    <additional_attributes>150.0;10.0;150.0;50.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>396</y>
+      <x>783</x>
+      <y>486</y>
       <w>72</w>
-      <h>99</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0;60.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;60.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>621</x>
-      <y>396</y>
+      <x>819</x>
+      <y>486</y>
       <w>225</w>
-      <h>99</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0;230.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;230.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
-      <y>648</y>
+      <x>324</x>
+      <y>720</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -203,8 +212,8 @@ Package::misc
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>342</x>
-      <y>648</y>
+      <x>540</x>
+      <y>720</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -218,19 +227,19 @@ Package::misc
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>576</y>
+      <x>405</x>
+      <y>657</y>
       <w>27</w>
-      <h>90</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>423</x>
-      <y>576</y>
+      <x>621</x>
+      <y>648</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
@@ -240,22 +249,20 @@ Package::misc
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>639</x>
-      <y>315</y>
-      <w>216</w>
-      <h>54</h>
+      <x>837</x>
+      <y>405</y>
+      <w>171</w>
+      <h>27</h>
     </coordinates>
-    <panel_attributes>setStatus() is a temporary 
-method, until better implementation,
-should come from view
+    <panel_attributes>setStatus() is deprecated
 bg=pink</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>504</x>
-      <y>684</y>
+      <x>702</x>
+      <y>756</y>
       <w>135</w>
       <h>54</h>
     </coordinates>
@@ -268,8 +275,8 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>45</x>
-      <y>621</y>
+      <x>243</x>
+      <y>693</y>
       <w>126</w>
       <h>63</h>
     </coordinates>
@@ -282,8 +289,8 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>738</x>
-      <y>108</y>
+      <x>936</x>
+      <y>180</y>
       <w>117</w>
       <h>135</h>
     </coordinates>
@@ -303,8 +310,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>225</x>
-      <y>63</y>
+      <x>423</x>
+      <y>135</y>
       <w>117</w>
       <h>153</h>
     </coordinates>
@@ -325,8 +332,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>243</y>
+      <x>513</x>
+      <y>315</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -344,8 +351,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>135</x>
-      <y>243</y>
+      <x>333</x>
+      <y>315</y>
       <w>117</w>
       <h>117</h>
     </coordinates>

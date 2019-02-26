@@ -8,9 +8,9 @@ import java.util.Date;
 
 public abstract class AbstractExpense implements Expense{
 	private final ExpenseType type;
-	private double amount; //expense amount
-	private String name; //expense name
-	private Date date; //date of the expense
+	private double amount; //expense amount, primary key element
+	private String name; //expense name, primary key element
+	private Date date; //date of the expense, primary key element
 	private Status status; //Status of the expense, paid or not
 	private Date dueDate; //Due date
 	private String vendor; //Store name
@@ -24,6 +24,11 @@ public abstract class AbstractExpense implements Expense{
 		this.setDueDate(dueDate);
 		this.setVendor(vendor);
 	}
+	
+	public AbstractExpense(ExpenseType type, double amount, String name, Date date) {
+		this(type, amount, name, date, Status.UNPAID, date, "dummy vendor");
+	}
+
 	
 	public double getAmount() {
 		return amount;
@@ -57,7 +62,7 @@ public abstract class AbstractExpense implements Expense{
 		this.status = status;
 	}
 	
-	//TODO: Should have better implementation, now depends on view?
+	@Deprecated
 	public void setStatus() {
 		if(getStatus().getValue()==Status.PAID.getValue()) {
 			setStatus(Status.UNPAID);
@@ -113,6 +118,30 @@ public abstract class AbstractExpense implements Expense{
 		
 	}
 
+	@Override
+	public boolean changePaymentStatus() {
+		if(this.getStatus() == Status.UNPAID) {
+			this.setStatus(Status.PAID);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public boolean iseqal(Expense expense) {
+		AbstractExpense p = (AbstractExpense)expense;
+		
+		if(this.getType() == p.getType() &&
+				this.getAmount() == p.getAmount() &&
+				this.getName().equals(p.getName()) &&
+				this.getDate().equals(p.getDate())) {
+			return true;			
+		}
+	
+		return false;
+	}
+	
 	public String toString() {
 		return amount + " " + name + " " + date + " " + getStatus().getValue();
 	}
