@@ -45,6 +45,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.TableRowSorter;
+
+import controller.ExpenseContainerImpl;
+import view.ExpenseObserverImpl;
+
 import java.util.Arrays;
 
 public class UserInterface extends JFrame {
@@ -67,6 +71,9 @@ public class UserInterface extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		ExpenseContainerImpl.getInstance().init();
+		ExpenseObserverImpl.getInstance().init();
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -148,6 +155,7 @@ public class UserInterface extends JFrame {
 				if (table.getSelectedRow() >= 0) {
 					myList.remove(table.getSelectedRow());
 					tableModel.fireTableDataChanged();
+					//ExpenseContainerImpl.getInstance().removeExpense(expense);
 				}
 			}
 		});

@@ -94,6 +94,11 @@ public abstract class AbstractExpense implements Expense{
 	public ExpenseType getType() {
 		return type;
 	}
+	
+	@Override
+	public ExpenseKey getKey() {
+		return new ExpenseKey(amount, name, date);
+	}
 
 	@Override
 	public void add(Expense expense) {

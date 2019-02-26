@@ -28,8 +28,7 @@ public class Bill extends AbstractExpense {
 
 	@Override
 	public void display() {
-		this.toString();
-		
+		System.out.println(this.toString());
 	}
 
 	public RepitionInterval getInterval() {

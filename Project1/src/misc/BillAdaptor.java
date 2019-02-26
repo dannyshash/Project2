@@ -28,6 +28,12 @@ public class BillAdaptor extends Bill {
 		this.method = method;
 	}
 
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+		super.display();
+	}
+	
 	public String getMethod() {
 		return method;
 	}

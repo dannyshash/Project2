@@ -33,8 +33,7 @@ public class Purchase extends AbstractExpense {
 			
 	@Override
 	public void display() {
-		this.toString();
-		
+		System.out.println(this.toString());
 	}
 
 	@Override

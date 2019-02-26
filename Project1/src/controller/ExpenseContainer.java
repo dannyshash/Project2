@@ -9,6 +9,8 @@ public interface ExpenseContainer {
 	public ArrayList<Expense> getBills();
 	public ArrayList<Expense> getCompositeBills();
 	
+	public void init();
+	
 	public void addExpense(Expense expense);
 	public void addExpenses(ArrayList<Expense> expenseList);
 	

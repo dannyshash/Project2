@@ -4,6 +4,7 @@
 package model;
 
 public interface Expense {
+	public ExpenseKey getKey();
 	public void add(Expense expense);
 	public void remove(Expense expense);
 	public Expense get(int index);

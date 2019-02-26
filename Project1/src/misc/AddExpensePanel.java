@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.ExpenseContainerImpl;
 import model.Bill;
 import model.Purchase;
 
@@ -266,11 +267,13 @@ public class AddExpensePanel extends UserInterface {
 						
 						//Decide which object to add
 						if(comboBox3.getSelectedItem().toString().equals("Purchase")) {
-							myList.add(purchaseAdd);	
+							myList.add(purchaseAdd);
+							ExpenseContainerImpl.getInstance().addExpense(purchaseAdd);
 						}
 						else if(comboBox3.getSelectedItem().toString().equals("Bill")) {
 							myList.add(billAdd);	
-						}
+							ExpenseContainerImpl.getInstance().addExpense(billAdd);
+						}						
 
 									
 						tableModel.fireTableDataChanged();

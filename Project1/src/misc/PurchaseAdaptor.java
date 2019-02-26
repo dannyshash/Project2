@@ -31,7 +31,12 @@ public class PurchaseAdaptor extends Purchase {
 		
 	}
 	
-
+	@Override
+	public void display() {
+		//TODO Auto-generated method stub
+		super.display();
+	}
+	
 	public String getStatusByString() {
 		return super.getStatus().getValue();
 	}
