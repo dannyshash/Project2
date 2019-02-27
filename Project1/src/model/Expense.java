@@ -17,7 +17,6 @@ public interface Expense {
 	
 	//access
 	public Expense get(int index);
-	public ExpenseType getType();
 	//return the parent in case of composite type
 	public Expense getParent();
 	
@@ -25,5 +24,17 @@ public interface Expense {
 	
 	public void display();
 	
+	//Accessors for Viewer
+	public ExpenseType getType();
+	public double getAmount();
+	public String getName();
+	public Date getDate();
+	public Status getStatus();
+	public Mode getMode();
+	public String getVendor();
+	public String getLocation();
+	public ExpenseCategories getCategory();
+	public Date getPaymentDate();
+	public String getDescription();
 	
 }

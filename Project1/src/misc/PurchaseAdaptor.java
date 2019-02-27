@@ -7,28 +7,16 @@ package misc;
 
 import java.util.Date;
 
+import model.ExpenseCategories;
 import model.Mode;
 import model.Purchase;
 import model.Status;
 
 public class PurchaseAdaptor extends Purchase {
-	private String category;
-	private String categoryName;
 	
-	public PurchaseAdaptor(Date date, String name, double amount, String status, String category, 
-			String categoryname, String location, String method, Date duedate) {
-		super(amount, name, date, Status.PAID, duedate, location, "dummy location", Mode.CASH);
-		for(Status s : Status.values()) {
-			if(s.getValue() == status)
-				super.setStatus(s);
-	    }		
-		for(Mode m : Mode.values()) {
-			if(m.getValue() == method)
-				super.setMode(m);
-	    }		
-		this.category = category;
-		this.categoryName = categoryname;
-		
+	public PurchaseAdaptor(Date date, String name, Double amount, Status status, ExpenseCategories category, 
+			String vendor, String location, Mode method, Date duedate) {
+		super(amount, name, date, status, duedate, vendor, location, method, category);
 	}
 	
 	@Override
@@ -43,13 +31,6 @@ public class PurchaseAdaptor extends Purchase {
 
 	public String getMethodByString() {
 		return super.getMode().getValue();
-	}
-
-	public String getCategory() {
-		return category;
-	}
-	public String getCategoryName() {
-		return categoryName;
 	}
 
 }

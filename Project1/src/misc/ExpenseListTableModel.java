@@ -9,15 +9,17 @@ package misc;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.AbstractExpense;
+import model.Expense;
+import model.ExpenseType;
+import model.Purchase;
 
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
 public class ExpenseListTableModel extends AbstractTableModel {
 
-	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Category", "Category Name", "Location", "Method", "Due Date", "Interval" };
-	private ArrayList<AbstractExpense> myList;
+	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Method", "Vendor", "Location", "Category", "Due Date", "Interval" };
+	private ArrayList<Expense> myList;
 	private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public ExpenseListTableModel(ExpenseList pList) {
@@ -42,28 +44,60 @@ public class ExpenseListTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 		Object temp = null;
-		if (col == 0) {
+		if (col == 0) {//Type
 			temp = myList.get(row).getType().getValue();
-		} else if (col == 1) {
+		} else if (col == 1) {//Date
 			temp = dateformat.format(myList.get(row).getDate());
-		} else if (col == 2) {
+		} else if (col == 2) {//Name
 			temp = myList.get(row).getName();
-		} else if (col == 3) {
+		} else if (col == 3) {//Amount
 			temp = myList.get(row).getAmount();
-		} else if (col == 4) {
+		} else if (col == 4) {//Status
 			temp = myList.get(row).getStatus().getValue();
-		} else if (col == 5) {
-			temp = "N/A";//myList.get(row).getCategory();
-		} else if (col == 6) {
-			temp = "N/A";//myList.get(row).getCategoryName();
-		} else if (col == 7) {
+		} else if (col == 5) {//Method
+			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
+				temp = ((Purchase)myList.get(row)).getMode().getValue();
+			}
+			else if(myList.get(row).getType()==ExpenseType.BILL ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
+				temp = "";
+			}
+			else {
+				throw new RuntimeException("Invalid method");
+			}
+		} else if (col == 6) {//Vendor
 			temp = myList.get(row).getVendor();
-		} else if (col == 8) {
-			temp = "Should_Fix_In_View!";//TODO: myList.get(row).getMethod();
-		} else if (col == 9) {
+		} else if (col == 7) {//Location
+			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
+				temp = ((Purchase)myList.get(row)).getLocation();
+			}
+			else if(myList.get(row).getType()==ExpenseType.BILL ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
+				temp = "";
+			}
+			else {
+				throw new RuntimeException("Invalid method");
+			}
+		} else if (col == 8) {//Category
+			temp = myList.get(row).getCategory().getValue();
+		} else if (col == 9) {//Due Date
 			temp = dateformat.format(myList.get(row).getPaymentDate());
-		} else if (col == 10) {
-			temp = "Should_Fix_In_View!";//TODO: myList.get(row).getInterval();
+		} else if (col == 10) {//Interval
+			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
+				temp = "";
+			}
+			else if(myList.get(row).getType()==ExpenseType.BILL ||
+					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
+				//TODO:Will not work now
+				//temp = (Bill)myList.get(row).getInterval().getValue();
+				temp="TODO";
+			}
+			else {
+				throw new RuntimeException("Invalid method");
+			}
 		}
 		return temp;
 	}

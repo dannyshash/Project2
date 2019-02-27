@@ -47,6 +47,10 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.TableRowSorter;
 
 import controller.ExpenseContainerImpl;
+import model.ExpenseCategories;
+import model.Mode;
+import model.RepitionInterval;
+import model.Status;
 import view.ExpenseObserverImpl;
 
 import java.util.Arrays;
@@ -112,22 +116,20 @@ public class UserInterface extends JFrame {
 		contentPaneMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneMain);
 		contentPaneMain.setLayout(null);
-
 		
 		// Insert Sample Data
-		PurchaseAdaptor p1 = new PurchaseAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Sandwich", 2.30, "Paid", "Single", "", "Starbucks",
-				"Cash", new Date((2019 - 1900), 0, 1));
-		PurchaseAdaptor p2 = new PurchaseAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Coffee", 1.15, "Paid", "Single", "", "Second Cup",
-				"Debit", new Date((2019 - 1900), 0, 1));
+		PurchaseAdaptor p1 = new PurchaseAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Sandwich", 
+				new Double(2.30), Status.PAID, ExpenseCategories.DINING, "Starbucks", "Campus", Mode.CASH, new Date((2019 - 1900), 0, 1));
 			
 		
-		BillAdaptor b1 = new BillAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Hydro Quebec", 60, "Unpaid", "Single", "", "Downtown Montreal",
-				"Debit", new Date((2019 - 1900), 0, 1), "Monthly");
+		BillAdaptor b1 = new BillAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Electricity", 
+				new Double(65.09), Status.UNPAID, ExpenseCategories.UTILITIES, "Hydro Quebec", "",
+				Mode.DEBIT, new Date((2019 - 1900), 0, 1), RepitionInterval.MONTHLY);
 
 		// Jtable Definition
 		myList = new ExpenseList();
 		myList.add(p1);
-		myList.add(p2);
+		//myList.add(p2);
 		myList.add(b1);
 		tableModel = new ExpenseListTableModel(myList);
 		table = new JTable(tableModel);

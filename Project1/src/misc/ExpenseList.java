@@ -12,10 +12,10 @@ import model.*;
 
 public class ExpenseList {
 
-	private ArrayList<AbstractExpense> expenseList;
+	private ArrayList<Expense> expenseList;
 	
 	public ExpenseList() {
-		expenseList = new ArrayList<AbstractExpense>();
+		expenseList = new ArrayList<Expense>();
 	}
 	
 	public void add(AbstractExpense pl) {
@@ -30,7 +30,7 @@ public class ExpenseList {
 		expenseList.get(index).changePaymentStatus(new Date());
 	}
 
-	public ArrayList<AbstractExpense> getList() {
+	public ArrayList<Expense> getList() {
 		return expenseList;
 	}
 	

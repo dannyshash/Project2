@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 public class CompositeBill extends AbstractExpense{
 
-	public CompositeBill(String description) {
-		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor");
+	public CompositeBill(String description, ExpenseCategories category) {
+		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}

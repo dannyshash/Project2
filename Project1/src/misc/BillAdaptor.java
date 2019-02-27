@@ -8,24 +8,16 @@ package misc;
 import java.util.Date;
 
 import model.Bill;
+import model.ExpenseCategories;
 import model.RepitionInterval;
 import model.Status;
+import model.Mode;
 
 public class BillAdaptor extends Bill {
-	String method;
 	
-	public BillAdaptor(Date date, String name, double amount, String status, String category, String categoryname, String location, String method,
-			Date duedate, String interval) {
-		super(amount, name, date, Status.PAID, duedate, location, RepitionInterval.MONTHLY);
-		for(Status s : Status.values()) {
-			if(s.getValue() == status)
-				super.setStatus(s);
-	    }		
-		for(RepitionInterval r : RepitionInterval.values()) {
-			if(r.getValue() == interval)
-				super.setInterval(r);
-	    }	
-		this.method = method;
+	public BillAdaptor(Date date, String name, Double amount, Status status, ExpenseCategories category, String vendor, String location, Mode method,
+			Date duedate, RepitionInterval interval) {
+		super(amount, name, date, status, duedate, vendor, interval, category);
 	}
 
 	@Override
@@ -34,7 +26,4 @@ public class BillAdaptor extends Bill {
 		super.display();
 	}
 	
-	public String getMethod() {
-		return method;
-	}
 }

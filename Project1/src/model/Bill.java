@@ -6,8 +6,8 @@ public class Bill extends AbstractExpense {
 	private RepitionInterval interval;
 	private Date dueDate;
 	
-	public Bill(double amount, String name, Date date, Status status, Date dueDate, String vendor, RepitionInterval interval) {
-		super(ExpenseType.BILL, amount, name, date, status, dueDate, vendor);
+	public Bill(double amount, String name, Date date, Status status, Date dueDate, String vendor, RepitionInterval interval, ExpenseCategories category) {
+		super(ExpenseType.BILL, amount, name, date, status, dueDate, vendor, category);
 		this.interval = interval;
 		this.dueDate = dueDate;
 	}

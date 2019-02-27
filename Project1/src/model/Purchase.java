@@ -6,8 +6,8 @@ public class Purchase extends AbstractExpense {
 	private String location;
 	private Mode mode;
 	
-	public Purchase(double amount, String name, Date date, Status status, Date dueDate, String vendor, String location, Mode mode) {
-		super(ExpenseType.PURCHASE, amount, name, date, status, dueDate, vendor);
+	public Purchase(double amount, String name, Date date, Status status, Date dueDate, String vendor, String location, Mode mode, ExpenseCategories category) {
+		super(ExpenseType.PURCHASE, amount, name, date, status, dueDate, vendor, category);
 		this.setLocation(location);
 		this.mode=mode;
 	}
@@ -56,8 +56,9 @@ public class Purchase extends AbstractExpense {
 	}
 
 
+	@Override
 	public Mode getMode() {
-		return mode;
+		return this.mode;
 	}
 
 
