@@ -61,7 +61,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		} else if (col == 8) {
 			temp = "Should_Fix_In_View!";//TODO: myList.get(row).getMethod();
 		} else if (col == 9) {
-			temp = dateformat.format(myList.get(row).getDueDate());
+			temp = dateformat.format(myList.get(row).getPaymentDate());
 		} else if (col == 10) {
 			temp = "Should_Fix_In_View!";//TODO: myList.get(row).getInterval();
 		}

@@ -5,24 +5,33 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class CompositePurchase extends AbstractExpense{
-	private String description; //primary key element
-	private ArrayList<Expense> items;
 	
 	public CompositePurchase(String description) {
 		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor");
-		this.description=description;
-		
+		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 
 	@Override
 	public void add(Expense expense) {
 		items.add(expense);
+		expense.setParent(this);
+		this.setNoOfSubItems(this.getNoOfSubItems()+1);
 	}
 
 	@Override
-	public void remove(Expense expense) {
-		items.remove(expense);
+	public boolean remove(Expense expense) {
+		if(getIndex(expense)>0) {
+			items.remove(expense);
+			this.setNoOfSubItems(this.getNoOfSubItems()-1);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private int getIndex(Expense expense){
+		return items.indexOf(expense);
 	}
 
 	@Override
@@ -38,14 +47,6 @@ public class CompositePurchase extends AbstractExpense{
 			Expense expenseItem = compPurchase.next();
 			expenseItem.display();
 		}	
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public void setItems(ArrayList<Expense> items) {

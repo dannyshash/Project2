@@ -16,6 +16,7 @@ import view.ExpenseObserver;
 public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	private static final ExpenseContainerImpl expenseContainer = new ExpenseContainerImpl();
 	private ExpenseObserver observer;
+	private boolean dataStateChanged;
 	
 	//data
 	private List<Map<ExpenseKey , Expense>> expenseData;
@@ -44,10 +45,13 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		comp_purchases = new HashMap<ExpenseKey , Expense>();
 		bill = new HashMap<ExpenseKey , Expense>();
 		comp_bill = new HashMap<ExpenseKey , Expense>();
+		
 		expenseData.add(ExpenseType.PURCHASE.ordinal(), purchases);
 		expenseData.add(ExpenseType.BILL.ordinal(), bill);
 		expenseData.add(ExpenseType.COMPOSITE_PURCHASE.ordinal(), comp_purchases);
 		expenseData.add(ExpenseType.COMPOSITE_BILL.ordinal(), comp_bill);
+		
+		dataStateChanged=true;
 	}
 	
 	@Override
@@ -81,6 +85,7 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 
 	private void notifyObservers() {
 		observer.update();
+		setDataStateChanged(false);
 	}
 	
 	@Override
@@ -96,32 +101,51 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		case 3 : comp_bill.put(expense.getKey(), expense);
 			break;
 		default:
-			throw new RuntimeException() ;
+			throw new RuntimeException("Invalid Expense type") ;
 		}
+		
 		notifyObservers();
 	}
 
 	@Override
-	public void addExpenses(ArrayList<Expense> expenseList) {
-		// TODO Auto-generated method stub
-		
+	public void addExpenseIntoComposite(Expense compExpense, Expense expense) {
+		getCompositeExpenseFromMap(compExpense).add(expense);
+		notifyObservers();		
 	}
 
 	@Override
 	public boolean modifyExpense(Expense from, Expense to) {
-		switch(from.getType().ordinal()){
-		case 0 : purchases.put(from.getKey(), to);
-			break;
-		case 1 : bill.put(from.getKey(), to);
-			break;
-		case 2 : comp_purchases.put(from.getKey(), to);
-			break;
-		case 3 : comp_bill.put(from.getKey(), to);
-			break;
-		default:
-			throw new RuntimeException() ;
+		//Let's check if they are same
+		if(from.iseqal(to)) {
+			return false;
 		}
-		return false;
+		
+		//Composite
+		if(from.getParent() != null) {
+			Expense parent = getCompositeExpenseFromMap(from.getParent());
+			parent.remove(from);
+			parent.remove(to);			
+		}
+		else {
+			switch(from.getType().ordinal()){
+			case 0 : purchases.put(from.getKey(), to);
+				break;
+			case 1 : bill.put(from.getKey(), to);
+				break;
+/*		
+	 		case 2 : 
+				comp_purchases.put(from.getKey(), to);
+				break;
+			case 3 : comp_bill.put(from.getKey(), to);
+				break;
+*/		
+			default:
+				throw new RuntimeException() ;
+			}
+		}
+		
+		setDataStateChanged(true);
+		return true;
 	}
 
 	@Override
@@ -138,6 +162,13 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		default:
 			throw new RuntimeException() ;
 		}
+		setDataStateChanged(true);
+	}
+
+	@Override
+	public void removeExpenseFromComposite(Expense compExpense, Expense expense) {
+		getCompositeExpenseFromMap(compExpense).remove(expense);
+		setDataStateChanged(true);
 	}
 
 	@Override
@@ -152,4 +183,64 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		return null;
 	}
 
+	@Override
+	public boolean changePaymentStatus(Expense expense, Date date) {
+		return getExpenseFromMap(expense).changePaymentStatus(date);
+	}
+
+	public boolean isDataStateChanged() {
+		return dataStateChanged;
+	}
+
+	public void setDataStateChanged(boolean dataStateChanged) {
+		this.dataStateChanged = dataStateChanged;
+	}
+
+	private Expense getExpenseFromMap(Expense exp) {
+		Expense expense = null;
+
+		switch(exp.getType().ordinal()){
+		case 0 :
+			expense = purchases.get(exp.getKey());
+			break;
+		case 1 : 
+			expense = bill.get(exp.getKey());
+			break;
+		case 2 :
+			expense = comp_purchases.get(exp.getKey());
+			break;
+		case 3 : 
+			expense = comp_bill.get(exp.getKey());
+			break;
+		default:
+			throw new RuntimeException("Invalid Expense type") ;
+		}
+
+		if(expense==null){
+			throw new RuntimeException("Can't find the composite expense"+exp.toString());
+		}
+		
+		return expense;		
+	}
+
+	private Expense getCompositeExpenseFromMap(Expense compExpense) {
+		Expense compositeExpense = null;
+
+		switch(compExpense.getType().ordinal()){
+		case 2 :
+			compositeExpense = comp_purchases.get(compExpense.getKey());
+			break;
+		case 3 : 
+			compositeExpense = comp_bill.get(compExpense.getKey());
+			break;
+		default:
+			throw new RuntimeException("Invalid Expense type") ;
+		}
+
+		if(compositeExpense==null){
+			throw new RuntimeException("Can't find the composite expense"+compExpense.toString());
+		}
+		
+		return compositeExpense;		
+	}
 }

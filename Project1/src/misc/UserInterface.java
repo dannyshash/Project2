@@ -71,9 +71,11 @@ public class UserInterface extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		ExpenseContainerImpl.getInstance().init();
-		ExpenseObserverImpl.getInstance().init();
+		/**
+		 * Very important to do this very first as this creates the singleton objects
+		 * start the managers, and does subscriptions... 
+		 */
+		prestartPhase();
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -86,6 +88,16 @@ public class UserInterface extends JFrame {
 				}
 			}
 		});
+	}
+
+
+	/**
+	 * creates Singletons
+	 */
+	private static void prestartPhase() {
+		ExpenseContainerImpl.getInstance().init();
+		ExpenseObserverImpl.getInstance().init();
+		System.out.println("Start " + new Date());
 	}
 
 

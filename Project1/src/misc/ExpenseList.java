@@ -6,6 +6,8 @@
 package misc;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import model.*;
 
 public class ExpenseList {
@@ -25,7 +27,7 @@ public class ExpenseList {
 	}
 	
 	public void markPaidUnpaid(int index) {
-		expenseList.get(index).changePaymentStatus();
+		expenseList.get(index).changePaymentStatus(new Date());
 	}
 
 	public ArrayList<AbstractExpense> getList() {

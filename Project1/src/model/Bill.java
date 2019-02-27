@@ -4,10 +4,12 @@ import java.util.Date;
 
 public class Bill extends AbstractExpense {
 	private RepitionInterval interval;
+	private Date dueDate;
 	
 	public Bill(double amount, String name, Date date, Status status, Date dueDate, String vendor, RepitionInterval interval) {
 		super(ExpenseType.BILL, amount, name, date, status, dueDate, vendor);
 		this.interval = interval;
+		this.dueDate = dueDate;
 	}
 
 	public Bill(double amount, String name, Date date) {
@@ -41,6 +43,14 @@ public class Bill extends AbstractExpense {
 	
 	public String toString() {
 		return getType().getValue() + super.toString() + " " + getInterval().getValue();
+	}
+
+	public Date getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
 	}
 
 }
