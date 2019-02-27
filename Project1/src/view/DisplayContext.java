@@ -1,20 +1,14 @@
 package view;
 
-import java.util.Date;
-
-import model.ExpenseType;
-import model.RepitionInterval;
-
 /**
- * information about what's being displayed in the report
+ *	context data for current page to display 
  *
  */
 class DisplayContext {
-	public ExpenseType type;
-	public Date time;
-	public RepitionInterval period;
 	public int currentIndex;
-	public int totalItems;
 	public int rowsPerDisplayPage;
-	public int totalRows;
+	//no of expense items
+	public int totalItems; 
+	//Total expenses (including the expenses in composite expense)
+	public int totalRows; 
 }

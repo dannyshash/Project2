@@ -11,7 +11,7 @@ import model.Expense;
 public interface ExpenseReportDisplay {
 	public ArrayList<Expense> getNextPage();
 	
-	public DisplayContext getContext();
+	public DisplayParameters getContext();
 	//sets the index to the current page being displayed
 	public boolean setOffset(int index);
 	//set the no of rows displayed per page

@@ -1,9 +1,11 @@
 package model;
 
 public enum RepitionInterval {
+	DAILY("Daily"),
 	WEEKLY("Weekly"),
 	BIWEEKLY("BiWeekly"),
 	MONTHLY("Monthly"),
+	QUARTERLY("Quarterly"),
 	YEARLY("Yearly");
 	
 	private String value;

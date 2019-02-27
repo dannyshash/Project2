@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>430</y>
+      <w>360</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>/ExpenseContentApi/
+Package::view
+--
+
+--
++getData(final DisplayParameters):ArrayList&lt;Expense&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>380</y>
+      <w>330</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>/UserActionsApi/
+Package::view
+--
+
+--
++addExpense(Expense)
++removeExpense(Expense)
++modifyExpense(Expense, Expense)
++AddExpensesToComposite(ArrayList&lt;Expense&gt;)
++changePaymentStatus(Expense)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>180</x>
+      <y>70</y>
+      <w>750</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>view
+--
+
+bg=gray
+fg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>740</x>
+      <y>100</y>
+      <w>180</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>DisplayContext
+Package::view
+--
++currentIndex: int
++rowsPerDisplayPage: int
++totalItems: int
++totalRows: int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>190</x>
+      <y>100</y>
+      <w>180</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>DisplayParameter
+Package::view
+--
++type: ExpenseType
++time: Date
++period: RepitionInterval
++totalRows: int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>570</x>
+      <y>360</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Invoked on user 
+actions
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>550</x>
+      <y>210</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>To be used by theview manager, 
+while traversing between the 
+report pages by clicking next button
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>350</x>
+      <y>140</y>
+      <w>140</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Set according to the 
+user selection on 
+main GUI
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>200</x>
+      <y>390</y>
+      <w>220</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Invoked by the view manager to
+ask the data to be displayed
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
