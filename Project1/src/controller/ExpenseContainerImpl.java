@@ -90,7 +90,6 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	
 	@Override
 	public void addExpense(Expense expense) {
-		expense.display();
 		switch(expense.getType().ordinal()){
 		case 0 : purchases.put(expense.getKey(), expense);
 			break;

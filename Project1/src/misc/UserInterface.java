@@ -8,45 +8,28 @@
 package misc;
 
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
 import javax.swing.RowFilter;
 import javax.swing.JTextField;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.ScrollPane;
-import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import java.util.Random;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.Font;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.table.TableRowSorter;
 
 import controller.ExpenseContainerImpl;
+import model.Purchase;
+import model.Bill;
 import model.ExpenseCategories;
 import model.Mode;
 import model.RepitionInterval;
@@ -118,13 +101,11 @@ public class UserInterface extends JFrame {
 		contentPaneMain.setLayout(null);
 		
 		// Insert Sample Data
-		PurchaseAdaptor p1 = new PurchaseAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Sandwich", 
-				new Double(2.30), Status.PAID, ExpenseCategories.DINING, "Starbucks", "Campus", Mode.CASH, new Date((2019 - 1900), 0, 1));
-			
+		Purchase p1 = new Purchase(2.30, "Sandwich", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))),
+				Status.PAID, new Date((2019 - 1900), 0, 1), "Starbucks", "Campus", Mode.CASH, ExpenseCategories.DINING);
 		
-		BillAdaptor b1 = new BillAdaptor(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))), "Electricity", 
-				new Double(65.09), Status.UNPAID, ExpenseCategories.UTILITIES, "Hydro Quebec", "",
-				Mode.DEBIT, new Date((2019 - 1900), 0, 1), RepitionInterval.MONTHLY);
+		Bill b1 = new Bill(65.09, "Electricity", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))),
+				Status.UNPAID, new Date((2019 - 1900), 0, 1), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
 
 		// Jtable Definition
 		myList = new ExpenseList();

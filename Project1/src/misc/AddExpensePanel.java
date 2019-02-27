@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.ExpenseContainerImpl;
+import model.Expense;
 import model.Bill;
 import model.Purchase;
 import model.RepitionInterval;
@@ -221,29 +222,23 @@ public class AddExpensePanel extends UserInterface {
 	
 		btnAddExpense1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Expense expense = null;
 							
 				//Decide which object to add
-				System.out.println("Expense Type selected "+expTypeCombo.getSelectedItem().toString());
+				System.out.println("Adding Expense Type " + expTypeCombo.getSelectedItem().toString());
 				if(expTypeCombo.getSelectedItem() == ExpenseType.PURCHASE) {
-					System.out.println("Expense Status selected "+expStatusCombo.getSelectedItem().toString());
 					//Define Purchase Object
-					Purchase purchaseAdd = new PurchaseAdaptor(getDate(), textField_2.getText(), new Double(textField_3.getText()),
-							(Status)expStatusCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem(), textField_8.getText(), textField_5.getText(),
-							(Mode)paymentMethodCombo.getSelectedItem(), getDueDate());
-
-					System.out.println("Adding purchase: "+ purchaseAdd);
-					myList.add(purchaseAdd);
-					ExpenseContainerImpl.getInstance().addExpense(purchaseAdd);
+					expense = new Purchase(new Double(textField_3.getText()).doubleValue(), textField_2.getText(), getDate(), (Status)expStatusCombo.getSelectedItem(),
+							getDueDate(), textField_8.getText(), textField_5.getText(), (Mode)paymentMethodCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
 				}
 				else if(expTypeCombo.getSelectedItem() == ExpenseType.BILL) {
 					//Define Bill Object
-					Bill billAdd = new BillAdaptor(getDate(), textField_2.getText(), new Double(textField_3.getText()),
-							(Status)expStatusCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem(), textField_8.getText(), textField_5.getText(),
-							(Mode)paymentMethodCombo.getSelectedItem(), getDueDate(), (RepitionInterval)paymentIntervalCombo.getSelectedItem());
-					
-					myList.add(billAdd);	
-					ExpenseContainerImpl.getInstance().addExpense(billAdd);
-				}						
+					expense = new Bill(new Double(textField_3.getText()).doubleValue(), textField_2.getText(), getDate(), (Status)expStatusCombo.getSelectedItem(),
+							getDueDate(), textField_8.getText(), (RepitionInterval)paymentIntervalCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
+				}	
+				System.out.println("Adding an Expense: " + expense);
+				myList.add(expense);
+				ExpenseContainerImpl.getInstance().addExpense(expense);
 
 							
 				tableModel.fireTableDataChanged();

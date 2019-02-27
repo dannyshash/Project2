@@ -18,7 +18,7 @@ public class ExpenseList {
 		expenseList = new ArrayList<Expense>();
 	}
 	
-	public void add(AbstractExpense pl) {
+	public void add(Expense pl) {
 		expenseList.add(pl);
 	}
 	
