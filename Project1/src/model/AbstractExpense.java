@@ -7,6 +7,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import misc.MyDate;
+
 /**
  * this is Abstract implementation of Expense
  * TODO: should be package private, not public scope, should change after the view is adapted
@@ -144,6 +146,16 @@ public abstract class AbstractExpense implements Expense{
 	}
 
 	@Override
+	public Date getDueDate() {
+		throw new RuntimeException("Not implemented");
+	}
+	
+	@Override
+	public RepitionInterval getInterval() {
+		throw new RuntimeException("Not implemented");
+	}
+	
+	@Override
 	public boolean changePaymentStatus(Date date) {
 		if(this.getStatus() == Status.UNPAID) {
 			this.setStatus(Status.PAID);
@@ -169,7 +181,7 @@ public abstract class AbstractExpense implements Expense{
 	}
 	
 	public String toString() {
-		return amount + " " + name + " " + date + " " + getStatus().getValue()+ " "+
+		return amount + " " + name + " " + MyDate.getDateString(date) + " " + getStatus().getValue()+ " "+
 				getVendor()+" "+getCategory().getValue();
 	}
 

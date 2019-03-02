@@ -2,6 +2,7 @@ package model;
 
 public enum ExpenseCategories {
 	DAFAULT("Default"),
+	Food("Food"),
 	DINING("Dining"),
 	GROCERY("Grocery"),
 	GAS("Gas"),

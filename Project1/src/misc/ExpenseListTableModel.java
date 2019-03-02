@@ -91,9 +91,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			}
 			else if(myList.get(row).getType()==ExpenseType.BILL ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
-				//TODO:Will not work now
-				//temp = (Bill)myList.get(row).getInterval().getValue();
-				temp="TODO";
+				temp = myList.get(row).getInterval().getValue();
 			}
 			else {
 				throw new RuntimeException("Invalid method");

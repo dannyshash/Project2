@@ -4,7 +4,7 @@ public enum ExpenseType {
 	PURCHASE("Purchase"),
 	BILL("Bill"),
 	COMPOSITE_PURCHASE("Composite_Purchase"),
-	COMPOSITE_BILL("Composite_BILL"),
+	COMPOSITE_BILL("Composite_Bill"),
 	INVALID("Invalid");
 
 	private final String value;

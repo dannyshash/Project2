@@ -36,5 +36,7 @@ public interface Expense {
 	public ExpenseCategories getCategory();
 	public Date getPaymentDate();
 	public String getDescription();
+	public Date getDueDate();
+	public RepitionInterval getInterval();
 	
 }

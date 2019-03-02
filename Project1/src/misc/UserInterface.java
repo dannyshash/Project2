@@ -47,17 +47,21 @@ public class UserInterface extends JFrame {
 	private JTextField txtExpenseList;
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-	/*
-	 * public ArrayList<Purchase> purchaseList = new ArrayList<Purchase>(); public
-	 * DefaultTableModel model = new DefaultTableModel(); public JTable table = new
-	 * JTable(model); String[] header = { "Type", "Date", "Name", "Amount",
-	 * "Status", "Location", "Method", "Due Date", "Interval" };
-	 */
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		/*
+		 * Just for Testing.
+		for (int i=0;i<30;i++){
+			String dateStr=MyDate.getRandomDateStr();
+			String timeStr=MyDate.getRandomTimeStr();
+			System.out.println("Random date= "+dateStr+", Random time= "+timeStr+", DateObj= "+MyDate.DATE_TIME_PATTERN.format(MyDate.getDateAndTime(dateStr+" "+timeStr)));			
+			System.out.println("+7= "+ MyDate.DATE_TIME_PATTERN.format(MyDate.addDays(MyDate.getDateAndTime(dateStr+" "+timeStr), 7)));
+			System.out.println("-5= "+ MyDate.DATE_PATTERN.format(MyDate.addDays(MyDate.getJustDate(dateStr), -5)));			
+		}
+		*/
+
 		/**
 		 * Very important to do this very first as this creates the singleton objects
 		 * start the managers, and does subscriptions... 
@@ -85,6 +89,7 @@ public class UserInterface extends JFrame {
 		ExpenseContainerImpl.getInstance().init();
 		ExpenseObserverImpl.getInstance().init();
 		System.out.println("Start " + new Date());
+		MyDate.getRandomDate();
 	}
 
 
@@ -101,11 +106,13 @@ public class UserInterface extends JFrame {
 		contentPaneMain.setLayout(null);
 		
 		// Insert Sample Data
-		Purchase p1 = new Purchase(2.30, "Sandwich", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))),
-				Status.PAID, new Date((2019 - 1900), 0, 1), "Starbucks", "Campus", Mode.CASH, ExpenseCategories.DINING);
+		Date purchase_date=MyDate.getRandomDateAndTime();
+		Purchase p1 = new Purchase(2.30, "Sandwich", purchase_date,
+				Status.PAID, purchase_date, "Starbucks", "Campus", Mode.CASH, ExpenseCategories.DINING);
 		
-		Bill b1 = new Bill(65.09, "Electricity", new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1)))),
-				Status.UNPAID, new Date((2019 - 1900), 0, 1), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
+		Date bill_date=MyDate.getRandomDateAndTime();
+		Bill b1 = new Bill(65.09, "Electricity", bill_date,
+				Status.UNPAID, MyDate.addDays(bill_date, 7), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
 
 		// Jtable Definition
 		myList = new ExpenseList();

@@ -100,7 +100,9 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(expTypeCombo);
 
 		// Date
-		dateText = new JTextField(dateFormat.format(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1))))));
+		String expense_date = MyDate.getRandomDateStr();
+		String expense_due_date = MyDate.getDateString(MyDate.addDays(MyDate.getJustDate(expense_date), MyDate.getRandomInRange(1, 9)));
+		dateText = new JTextField(expense_date);
 		dateText.setBounds(147, 83, 174, 20);
 		dateText.setColumns(10);
 		contentPane.add(dateText);
@@ -143,7 +145,7 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(paymentMethodCombo);
 		
 		// Due Date
-		dueDateText = new JTextField(dateFormat.format(new Date()));
+		dueDateText = new JTextField(expense_due_date);
 		dueDateText.setBounds(147, 391, 174, 20);
 		dueDateText.setColumns(10);
 		contentPane.add(dueDateText);
@@ -244,8 +246,11 @@ public class AddExpensePanel extends UserInterface {
 				tableModel.fireTableDataChanged();
 				
 				// Re-initialize values randomly
+				String exp_date = MyDate.getRandomDateStr();
+				String due_date = MyDate.getDateString(MyDate.addDays(MyDate.getJustDate(exp_date), MyDate.getRandomInRange(1, 9)));
 				paymentMethodCombo.setSelectedIndex((int)(Math.random()*3));
-				dateText.setText(dateFormat.format(new Date((2018 - 1900), (int)(Math.round(Math.random() * (12 - 1))), (int)(Math.round(Math.random() * (28 - 1))))));
+				dateText.setText(exp_date);
+				dueDateText.setText(due_date);
 				textField_2.setText(randomName[new Random().nextInt(randomName.length)]);
 				textField_3.setText("" + (Math.round(Math.random() * 1000.0) / 100.0));
 				textField_5.setText(randomLocation[new Random().nextInt(randomLocation.length)]);
@@ -256,19 +261,10 @@ public class AddExpensePanel extends UserInterface {
 	//getDate(), getDueDate() should be better implementation, 
 	//calendar or system time etc...
 	private Date getDate() {
-		// Transform Date into integer inputs
-		int textField_1_year = Integer.valueOf((dateText.getText().substring(0, 4)));
-		int textField_1_month = Integer.valueOf((dateText.getText().substring(5, 7)));
-		int textField_1_day = Integer.valueOf((dateText.getText().substring(8, 10)));
-		
-		return new Date((textField_1_year - 1900), textField_1_month - 1, textField_1_day);
+		return MyDate.getJustDate(dateText.getText());
 	}
 	
 	private Date getDueDate() {	
-		int textField_7_year = Integer.valueOf((dueDateText.getText().substring(0, 4)));
-		int textField_7_month = Integer.valueOf((dueDateText.getText().substring(5, 7)));
-		int textField_7_day = Integer.valueOf((dueDateText.getText().substring(8, 10)));
-		
-		return new Date((textField_7_year - 1900), textField_7_month - 1, textField_7_day);
+		return MyDate.getJustDate(dueDateText.getText());
 	}
 }

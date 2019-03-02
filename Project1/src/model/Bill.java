@@ -33,6 +33,7 @@ public class Bill extends AbstractExpense {
 		System.out.println(this.toString());
 	}
 
+	@Override
 	public RepitionInterval getInterval() {
 		return interval;
 	}
@@ -45,6 +46,7 @@ public class Bill extends AbstractExpense {
 		return getType().getValue() + super.toString() + " " + getInterval().getValue();
 	}
 
+	@Override
 	public Date getDueDate() {
 		return dueDate;
 	}
