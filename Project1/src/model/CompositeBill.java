@@ -48,7 +48,7 @@ public class CompositeBill extends AbstractExpense{
 		return false;
 	}
 	
-	public ArrayList<Expense> getPurchasesList() {
+	public ArrayList<Expense> getBillsList() {
 		ArrayList<Expense> l_items = new ArrayList<Expense>();
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
@@ -58,7 +58,7 @@ public class CompositeBill extends AbstractExpense{
 		return l_items;		
 	}
 
-	public Expense getMatchedPurchase(Expense expense) {
+	public Expense getMatchedBill(Expense expense) {
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense it = compPurchase.next();

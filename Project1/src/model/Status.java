@@ -4,7 +4,7 @@ public enum Status {
 	PAID("Paid"),
 	UNPAID("Unpaid");
 	
-	private String value;
+	private final String value;
 	
 	Status(String value) {
 		this.value = value;

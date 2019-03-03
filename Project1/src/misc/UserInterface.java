@@ -27,7 +27,9 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.table.TableRowSorter;
 
+import controller.DataLoader;
 import controller.ExpenseContainerImpl;
+import controller.FileLoaderImpl;
 import model.Purchase;
 import model.Bill;
 import model.ExpenseCategories;
@@ -86,7 +88,8 @@ public class UserInterface extends JFrame {
 	 * creates Singletons
 	 */
 	private static void prestartPhase() {
-		ExpenseContainerImpl.getInstance().init();
+		DataLoader loader = new FileLoaderImpl();
+		ExpenseContainerImpl.getInstance().init(loader);
 		ExpenseObserverImpl.getInstance().init();
 		System.out.println("Start " + new Date());
 		MyDate.getRandomDate();

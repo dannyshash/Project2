@@ -8,7 +8,7 @@ public enum RepitionInterval {
 	QUARTERLY("Quarterly"),
 	YEARLY("Yearly");
 	
-	private String value;
+	private final String value;
 	
 	RepitionInterval(String value) {
 		this.value= value;

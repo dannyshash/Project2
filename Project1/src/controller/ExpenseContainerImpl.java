@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import view.ExpenseObserver;
 public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	private static final ExpenseContainerImpl expenseContainer = new ExpenseContainerImpl();
 	private ExpenseObserver observer;
+	private DataLoader dataLoader;
 	private boolean dataStateChanged;
+	private boolean initializing =true;
 	
 	//data
 	private List<Map<ExpenseKey , Expense>> expenseData;
@@ -39,7 +42,9 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	/**
 	 * initialize the data members and start
 	 */
-	public void init() {
+	public void init(DataLoader dataLoader) {
+		initializing = true;
+		this.dataLoader = dataLoader;
 		expenseData = new ArrayList<Map<ExpenseKey , Expense>>();
 		purchases = new HashMap<ExpenseKey , Expense>();
 		comp_purchases = new HashMap<ExpenseKey , Expense>();
@@ -51,12 +56,37 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		expenseData.add(ExpenseType.COMPOSITE_PURCHASE.ordinal(), comp_purchases);
 		expenseData.add(ExpenseType.COMPOSITE_BILL.ordinal(), comp_bill);
 		
-		dataStateChanged=true;
+		dataLoader.dataLoad(expenseData);
+		//display();
+	}
+	
+	private void display() {
+		System.out.println("*** Dsplay Purchase");
+		display(purchases);
+		System.out.println("*** Dsplay Comp_Purchase");
+		display(comp_purchases);
+		System.out.println("*** Dsplay Bill");
+		display(bill);
+		System.out.println("*** Dsplay Comp_Bill");
+		display(comp_bill);
+	}
+	
+	private void display(Map<ExpenseKey , Expense> map) {
+		List<Expense> expList = new ArrayList<Expense>(map.values());
+		Iterator<Expense> expIt = expList.iterator();
+		while(expIt.hasNext()) {
+			expIt.next().display();
+		}
 	}
 	
 	@Override
 	public void register(ExpenseObserver observer) {
 		this.observer = observer;
+	}
+	
+	@Override
+	public void resetStateChange() {
+		dataStateChanged = false;		
 	}
 
 	@Override
@@ -83,13 +113,17 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		return null;
 	}
 
-	private void notifyObservers() {
-		observer.update();
-		setDataStateChanged(false);
+	private void notifyObservers(boolean dataStateChange) {
+		if(setDataStateChanged(dataStateChange))
+			observer.update();
 	}
 	
 	@Override
 	public void addExpense(Expense expense) {
+		addExpense(expense, true);
+	}
+	
+	private void addExpense(Expense expense, boolean dataStateChange) {
 		switch(expense.getType().ordinal()){
 		case 0 : purchases.put(expense.getKey(), expense);
 			break;
@@ -103,13 +137,17 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 			throw new RuntimeException("Invalid Expense type") ;
 		}
 		
-		notifyObservers();
+		notifyObservers(dataStateChange);
 	}
 
 	@Override
 	public void addExpenseIntoComposite(Expense compExpense, Expense expense) {
+		addExpenseIntoComposite(compExpense, expense, true);
+	}
+	
+	private void addExpenseIntoComposite(Expense compExpense, Expense expense, boolean dataStateChange) {
 		getCompositeExpenseFromMap(compExpense).add(expense);
-		notifyObservers();		
+		notifyObservers(dataStateChange);		
 	}
 
 	@Override
@@ -161,6 +199,7 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		default:
 			throw new RuntimeException() ;
 		}
+		
 		setDataStateChanged(true);
 	}
 
@@ -191,8 +230,10 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		return dataStateChanged;
 	}
 
-	public void setDataStateChanged(boolean dataStateChanged) {
+	private boolean setDataStateChanged(boolean dataStateChanged) {
 		this.dataStateChanged = dataStateChanged;
+		
+		return dataStateChanged;
 	}
 
 	private Expense getExpenseFromMap(Expense exp) {

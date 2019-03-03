@@ -65,12 +65,20 @@ public class CompositePurchase extends AbstractExpense{
 	
 	public ArrayList<Expense> getPurchasesList() {
 		ArrayList<Expense> l_items = new ArrayList<Expense>();
+		return getPurchasesList(l_items);
+	}
+	private ArrayList<Expense> getPurchasesList(ArrayList<Expense> list) {
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
-			l_items.add(compPurchase.next());
+			Expense e = compPurchase.next(); 
+			list.add(e);
+			if(e.getType().ordinal()>1) {
+				CompositePurchase ce= (CompositePurchase)e;
+				ce.getPurchasesList(list);
+			}
 		}	
 
-		return l_items;		
+		return list;		
 	}
 
 	public Expense getMatchedPurchase(Expense expense) {

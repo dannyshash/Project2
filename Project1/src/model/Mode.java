@@ -5,7 +5,7 @@ public enum Mode {
 	DEBIT("Debit"),
 	CREDIT("Credit");
 	
-	private String value;
+	private final String value;
 	
 	Mode(String value) {
 		this.value= value;
