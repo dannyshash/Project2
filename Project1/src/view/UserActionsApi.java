@@ -12,6 +12,7 @@ public interface UserActionsApi {
 	public void addExpense(Expense exp);
 	public void removeExpense(Expense exp);
 	public void modifyExpense(Expense from, Expense to);
-	public void AddExpensesToComposite(ArrayList<Expense> expenses);
+	public void AddExpenseToComposite(Expense comp_expense, Expense expense);
+	public void AddExpensesToComposite(Expense comp_expense, ArrayList<Expense> expenses);
 	public void changePaymentStatus(Expense exp);
 }

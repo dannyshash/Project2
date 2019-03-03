@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import misc.MyDate;
 import model.Bill;
 import model.CompositeBill;
 import model.CompositePurchase;
@@ -24,13 +23,19 @@ import model.Mode;
 import model.Purchase;
 import model.RepitionInterval;
 import model.Status;
+import utils.MyDate;
+import utils.Util;
 
 public class FileLoaderImpl implements DataLoader{
+	private final String filename;
 	Map<ExpenseKey , Expense> purchase = null;
 	Map<ExpenseKey , Expense> bill = null;
 	Map<ExpenseKey , Expense> comp_purchase = null;
 	Map<ExpenseKey , Expense> comp_bill = null;
 
+	public FileLoaderImpl(String filename) {
+		this.filename=filename;
+	}
 
 	@Override
 	public void dataLoad(List<Map<ExpenseKey , Expense>> expenseData) {
@@ -39,14 +44,14 @@ public class FileLoaderImpl implements DataLoader{
 		comp_purchase = expenseData.get(ExpenseType.COMPOSITE_PURCHASE.ordinal());
 		comp_bill = expenseData.get(ExpenseType.COMPOSITE_BILL.ordinal());
 		
-		//14 
+		//14 items, this can be improved. heavily depends on csv file columns.
 		String[] item_name = {"Type","parent","Date","Name","Amount","Status","Mode","Payment Date","Vendor","Location","Category","Duedate","Interval","Description"};
 
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-	    //InputStream inputStream = FileLoaderImpl.class.getResourceAsStream("SampleExpensesData.csv");
-		InputStream inputStream = classloader.getResourceAsStream("SampleExpensesData.csv");
 
 	    try{
+			ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		    //InputStream inputStream = FileLoaderImpl.class.getResourceAsStream("SampleExpensesData.csv");
+			InputStream inputStream = classloader.getResourceAsStream(filename);
     	    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 	    	String line = null;
 	    	while ((line = reader.readLine()) != null) {
@@ -70,11 +75,10 @@ public class FileLoaderImpl implements DataLoader{
 	    		}
 	    	}	   
 	    	reader.close();
-	    } catch (IOException e){
-	    	System.out.println("Cannot open the file");
-	    	System.exit(0);
+	    } catch (Throwable e){
+	    	throw  new RuntimeException(e+" Cannot open the file: "+filename);
 	    } finally {
-	    	    
+	    	//Anything else to do?
 	    }
 	}
 	
@@ -84,14 +88,14 @@ public class FileLoaderImpl implements DataLoader{
 			//create Purchase
 			System.out.println("Creating Purchase");
 			e = new Purchase(new Double(expenseDataItems[4]).doubleValue(), 
-					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), getStatusEnum(expenseDataItems[5]), 
-					new Date(), expenseDataItems[8], expenseDataItems[9], getModeEnum(expenseDataItems[6]), ExpenseCategories.DAFAULT);
+					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), Util.getStatusEnum(expenseDataItems[5]), 
+					new Date(), expenseDataItems[8], expenseDataItems[9], Util.getModeEnum(expenseDataItems[6]), ExpenseCategories.DAFAULT);
 		} else if(ExpenseType.BILL.getValue().equalsIgnoreCase(expenseDataItems[0])) {
 			//create Bill
 			System.out.println("Creating Bill");
 			e = new Bill(new Double(expenseDataItems[4]).doubleValue(), 
-					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), getStatusEnum(expenseDataItems[5]), 
-					MyDate.getJustDate(expenseDataItems[11]), expenseDataItems[8], getRepitionIntervalEnum(expenseDataItems[12]), ExpenseCategories.DAFAULT);
+					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), Util.getStatusEnum(expenseDataItems[5]), 
+					MyDate.getJustDate(expenseDataItems[11]), expenseDataItems[8], Util.getRepitionIntervalEnum(expenseDataItems[12]), ExpenseCategories.DAFAULT);
 		} else if(ExpenseType.COMPOSITE_PURCHASE.getValue().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Purchase
 			System.out.println("Creating composite Purchase");
@@ -158,32 +162,4 @@ public class FileLoaderImpl implements DataLoader{
 		throw new RuntimeException("findParent error");
 	}
 	
-	//TODO: should move to some Utility class
-	private Status getStatusEnum(String str){
-		switch(str){
-		case "Paid": return Status.PAID;
-		case "Unpaid": return Status.UNPAID;
-		default: throw new RuntimeException("getStatusEnum Error");
-		}
-	}
-	private Mode getModeEnum(String str) {
-		switch(str){
-		case "Cash": return Mode.CASH;
-		case "Debit": return Mode.DEBIT;
-		case "Credit": return Mode.CREDIT;
-		default: throw new RuntimeException("getModeEnum Error");
-		}		
-	}
-	private RepitionInterval getRepitionIntervalEnum(String str){
-		switch(str){
-		case "Daily": return RepitionInterval.DAILY;
-		case "Weekly": return RepitionInterval.WEEKLY;
-		case "BiWeekly": return RepitionInterval.BIWEEKLY;
-		case "Monthly": return RepitionInterval.MONTHLY;
-		case "Quarterly": return RepitionInterval.QUARTERLY;
-		case "Yearly": return RepitionInterval.YEARLY;
-		default: throw new RuntimeException("getRepitionIntervalEnum Error");
-		}				
-	}
-
 }

@@ -7,15 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import misc.Constants;
 import model.Expense;
 import model.ExpenseKey;
 import model.ExpenseType;
-import model.Purchase;
 import view.ExpenseObserver;
 
-public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
-	private static final ExpenseContainerImpl expenseContainer = new ExpenseContainerImpl();
+public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject{
+	private static final ExpenseContainerApi expenseContainer = new ExpenseContainerImpl();
 	private ExpenseObserver observer;
 	private DataLoader dataLoader;
 	private boolean dataStateChanged;
@@ -35,7 +33,7 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static ExpenseContainerImpl getInstance() {
+	public static ExpenseContainerApi getInstance() {
 		return expenseContainer;
 	}
 	
@@ -115,7 +113,7 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 
 	private void notifyObservers(boolean dataStateChange) {
 		if(setDataStateChanged(dataStateChange))
-			observer.update();
+			observer.update(expenseData);
 	}
 	
 	@Override
@@ -134,7 +132,7 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 		case 3 : comp_bill.put(expense.getKey(), expense);
 			break;
 		default:
-			throw new RuntimeException("Invalid Expense type") ;
+			throw new RuntimeException("Invalid Expense type");
 		}
 		
 		notifyObservers(dataStateChange);
@@ -143,6 +141,12 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	@Override
 	public void addExpenseIntoComposite(Expense compExpense, Expense expense) {
 		addExpenseIntoComposite(compExpense, expense, true);
+	}
+	
+	@Override
+	public void addExpensesIntoComposite(Expense compositeExpense, ArrayList<Expense> expenses) {
+		throw new RuntimeException("addExpensesIntoComposite Not implemented");
+		
 	}
 	
 	private void addExpenseIntoComposite(Expense compExpense, Expense expense, boolean dataStateChange) {
@@ -210,9 +214,8 @@ public class ExpenseContainerImpl implements ExpenseContainer, ExpenseSubject{
 	}
 
 	@Override
-	public ArrayList<Expense> getExpenses() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Expense> getExpenses(int type) {
+		throw new RuntimeException("getExpenses error");
 	}
 
 	@Override

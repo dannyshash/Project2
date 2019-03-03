@@ -36,7 +36,11 @@ import model.ExpenseCategories;
 import model.Mode;
 import model.RepitionInterval;
 import model.Status;
+import utils.MyDate;
+import utils.Constants;
+import view.ContentUpdator;
 import view.ExpenseObserverImpl;
+import view.ExpenseContentApi;
 
 import java.util.Arrays;
 
@@ -53,17 +57,6 @@ public class UserInterface extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*
-		 * Just for Testing.
-		for (int i=0;i<30;i++){
-			String dateStr=MyDate.getRandomDateStr();
-			String timeStr=MyDate.getRandomTimeStr();
-			System.out.println("Random date= "+dateStr+", Random time= "+timeStr+", DateObj= "+MyDate.DATE_TIME_PATTERN.format(MyDate.getDateAndTime(dateStr+" "+timeStr)));			
-			System.out.println("+7= "+ MyDate.DATE_TIME_PATTERN.format(MyDate.addDays(MyDate.getDateAndTime(dateStr+" "+timeStr), 7)));
-			System.out.println("-5= "+ MyDate.DATE_PATTERN.format(MyDate.addDays(MyDate.getJustDate(dateStr), -5)));			
-		}
-		*/
-
 		/**
 		 * Very important to do this very first as this creates the singleton objects
 		 * start the managers, and does subscriptions... 
@@ -88,11 +81,11 @@ public class UserInterface extends JFrame {
 	 * creates Singletons
 	 */
 	private static void prestartPhase() {
-		DataLoader loader = new FileLoaderImpl();
+		DataLoader loader = new FileLoaderImpl(Constants.SAMPLE_DATA_FILENAME);
 		ExpenseContainerImpl.getInstance().init(loader);
 		ExpenseObserverImpl.getInstance().init();
-		System.out.println("Start " + new Date());
-		MyDate.getRandomDate();
+		ExpenseContentApi contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
+		System.out.println("Start PBM " + new Date());
 	}
 
 

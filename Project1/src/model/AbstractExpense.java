@@ -7,7 +7,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-import misc.MyDate;
+import utils.MyDate;
 
 /**
  * this is Abstract implementation of Expense
