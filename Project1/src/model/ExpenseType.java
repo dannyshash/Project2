@@ -12,8 +12,9 @@ public enum ExpenseType {
 	ExpenseType(String val) {
 		this.value = val;
 	}
-	
-	public String getValue() {
+
+	@Override
+	public String toString() {
 		return value;
 	}
 }

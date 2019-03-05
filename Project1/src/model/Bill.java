@@ -43,7 +43,7 @@ public class Bill extends AbstractExpense {
 	}
 	
 	public String toString() {
-		return getType().getValue() + super.toString() + " " + getInterval().getValue();
+		return getType()+":"+ super.toString() + " " + getInterval();
 	}
 
 	@Override

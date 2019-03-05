@@ -67,7 +67,7 @@ public class Purchase extends AbstractExpense {
 	}
 	
 	public String toString() {
-		return getType().getValue() + super.toString() + " " + getLocation() + " " + getMode().getValue();
+		return getType()+":"+ super.toString() + " " + getLocation() + " " + getMode();
 	}
 
 }

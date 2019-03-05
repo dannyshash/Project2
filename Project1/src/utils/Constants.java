@@ -2,7 +2,8 @@ package utils;
 
 import model.ExpenseType;
 
-public class Constants {
+public final class Constants {
+	//Unfortunately none of the following works 1. case Constants.PURCHASE_VAL: 2. case ExpenseType.PURCHASE.ordinal()
 	final public static int PURCHASE_VAL = ExpenseType.PURCHASE.ordinal(); 
 	final public static int COMPOSITE_PURCHASE_VAL = ExpenseType.COMPOSITE_PURCHASE.ordinal();
 	final public static int BILL_VAL = ExpenseType.BILL.ordinal();

@@ -14,8 +14,8 @@ public class CompositePurchase extends AbstractExpense{
 
 	@Override
 	public void add(Expense expense) {
-		items.add(expense);
 		expense.setParent(this);
+		items.add(expense);
 		this.setNoOfSubItems(this.getNoOfSubItems()+1);
 	}
 
@@ -41,7 +41,6 @@ public class CompositePurchase extends AbstractExpense{
 
 	@Override
 	public void display() {
-		System.out.println(this.toString());
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense expenseItem = compPurchase.next();
@@ -92,7 +91,8 @@ public class CompositePurchase extends AbstractExpense{
 		return null;		
 	}
 
+	@Override
 	public String toString() {
-		return getType().getValue() + super.toString() + " " + getDescription();
+		return getType() + super.toString() + " " + getDescription();
 	}
 }

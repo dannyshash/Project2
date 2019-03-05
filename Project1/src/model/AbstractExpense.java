@@ -77,10 +77,10 @@ public abstract class AbstractExpense implements Expense{
 	
 	@Deprecated
 	public void setStatus() {
-		if(getStatus().getValue()==Status.PAID.getValue()) {
+		if(getStatus()==Status.PAID) {
 			setStatus(Status.UNPAID);
 		}
-		else if(getStatus().getValue()==Status.UNPAID.getValue()) {
+		else if(getStatus()==Status.UNPAID) {
 			setStatus(Status.PAID);
 		}
 		else {
@@ -180,9 +180,10 @@ public abstract class AbstractExpense implements Expense{
 		return false;
 	}
 	
+	@Override
 	public String toString() {
-		return amount + " " + name + " " + MyDate.getDateString(date) + " " + getStatus().getValue()+ " "+
-				getVendor()+" "+getCategory().getValue();
+		return amount + " " + name + " " + MyDate.getDateString(date) + " " + getStatus()+ " "+
+				getVendor()+" "+getCategory();
 	}
 
 	@Override

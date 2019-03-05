@@ -45,7 +45,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		Object temp = null;
 		if (col == 0) {//Type
-			temp = myList.get(row).getType().getValue();
+			temp = myList.get(row).getType();
 		} else if (col == 1) {//Date
 			temp = dateformat.format(myList.get(row).getDate());
 		} else if (col == 2) {//Name
@@ -53,11 +53,11 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		} else if (col == 3) {//Amount
 			temp = myList.get(row).getAmount();
 		} else if (col == 4) {//Status
-			temp = myList.get(row).getStatus().getValue();
+			temp = myList.get(row).getStatus();
 		} else if (col == 5) {//Method
 			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
-				temp = ((Purchase)myList.get(row)).getMode().getValue();
+				temp = ((Purchase)myList.get(row)).getMode();
 			}
 			else if(myList.get(row).getType()==ExpenseType.BILL ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
@@ -81,7 +81,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 				throw new RuntimeException("Invalid method");
 			}
 		} else if (col == 8) {//Category
-			temp = myList.get(row).getCategory().getValue();
+			temp = myList.get(row).getCategory();
 		} else if (col == 9) {//Due Date
 			temp = dateformat.format(myList.get(row).getPaymentDate());
 		} else if (col == 10) {//Interval
@@ -91,7 +91,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			}
 			else if(myList.get(row).getType()==ExpenseType.BILL ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
-				temp = myList.get(row).getInterval().getValue();
+				temp = myList.get(row).getInterval();
 			}
 			else {
 				throw new RuntimeException("Invalid method");

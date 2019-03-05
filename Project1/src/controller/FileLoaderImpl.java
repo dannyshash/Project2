@@ -23,6 +23,7 @@ import model.Mode;
 import model.Purchase;
 import model.RepitionInterval;
 import model.Status;
+import utils.Constants;
 import utils.MyDate;
 import utils.Util;
 
@@ -84,23 +85,23 @@ public class FileLoaderImpl implements DataLoader{
 	
 	private Expense createExpense(String[] expenseDataItems) {
 		Expense e = null;
-		if(ExpenseType.PURCHASE.getValue().equalsIgnoreCase(expenseDataItems[0])) {
+		if(ExpenseType.PURCHASE.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create Purchase
 			System.out.println("Creating Purchase");
 			e = new Purchase(new Double(expenseDataItems[4]).doubleValue(), 
 					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), Util.getStatusEnum(expenseDataItems[5]), 
 					new Date(), expenseDataItems[8], expenseDataItems[9], Util.getModeEnum(expenseDataItems[6]), ExpenseCategories.DAFAULT);
-		} else if(ExpenseType.BILL.getValue().equalsIgnoreCase(expenseDataItems[0])) {
+		} else if(ExpenseType.BILL.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create Bill
 			System.out.println("Creating Bill");
 			e = new Bill(new Double(expenseDataItems[4]).doubleValue(), 
 					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), Util.getStatusEnum(expenseDataItems[5]), 
 					MyDate.getJustDate(expenseDataItems[11]), expenseDataItems[8], Util.getRepitionIntervalEnum(expenseDataItems[12]), ExpenseCategories.DAFAULT);
-		} else if(ExpenseType.COMPOSITE_PURCHASE.getValue().equalsIgnoreCase(expenseDataItems[0])) {
+		} else if(ExpenseType.COMPOSITE_PURCHASE.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Purchase
 			System.out.println("Creating composite Purchase");
 			e = new CompositePurchase(expenseDataItems[13], ExpenseCategories.DAFAULT);
-		} else if(ExpenseType.COMPOSITE_BILL.getValue().equalsIgnoreCase(expenseDataItems[0])) {
+		} else if(ExpenseType.COMPOSITE_BILL.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Bill
 			System.out.println("Creating composite Bill");
 			e = new CompositeBill(expenseDataItems[13], ExpenseCategories.DAFAULT);
@@ -111,7 +112,7 @@ public class FileLoaderImpl implements DataLoader{
 		return e;
 	}
 	
-	private void addExpenseToArray(Expense e) {
+	private void addExpenseToArray(Expense e) {		
 		switch(e.getType().ordinal()){
 		case 0: purchase.put(e.getKey(), e);break;
 		case 1: bill.put(e.getKey(), e);break;
