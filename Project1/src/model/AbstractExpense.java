@@ -119,7 +119,7 @@ public abstract class AbstractExpense implements Expense{
 	
 	@Override
 	public ExpenseKey getKey() {
-		return new ExpenseKey(amount, name, date);
+		return new ExpenseKey(type, amount, name, date);
 	}
 
 	@Override

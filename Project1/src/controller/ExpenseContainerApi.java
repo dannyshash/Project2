@@ -10,7 +10,7 @@ import model.Expense;
  * should be back-end (files/database/in-memory hash) independent 
  */
 public interface ExpenseContainerApi {
-	public void init(DataLoader loader);
+	public void init(Store store);
 
 	//Data access methods for viewer
 	public ArrayList<Expense> getPurchases();

@@ -30,6 +30,8 @@ import javax.swing.table.TableRowSorter;
 import controller.DataLoader;
 import controller.ExpenseContainerImpl;
 import controller.FileLoaderImpl;
+import controller.InMemoryStore;
+import controller.Store;
 import model.Purchase;
 import model.Bill;
 import model.ExpenseCategories;
@@ -82,7 +84,8 @@ public class UserInterface extends JFrame {
 	 */
 	private static void prestartPhase() {
 		DataLoader loader = new FileLoaderImpl(Constants.SAMPLE_DATA_FILENAME);
-		ExpenseContainerImpl.getInstance().init(loader);
+		Store dataStore= new InMemoryStore(loader);
+		ExpenseContainerImpl.getInstance().init(dataStore);
 		ExpenseObserverImpl.getInstance().init();
 		ExpenseContentApi contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
 		System.out.println("Start PBM " + new Date());

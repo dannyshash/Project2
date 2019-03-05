@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>216</x>
-      <y>264</y>
+      <y>384</y>
       <w>288</w>
       <h>80</h>
     </coordinates>
@@ -21,7 +21,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>528</x>
-      <y>264</y>
+      <y>384</y>
       <w>264</w>
       <h>128</h>
     </coordinates>
@@ -42,7 +42,7 @@ Package::view
     <id>UMLPackage</id>
     <coordinates>
       <x>120</x>
-      <y>0</y>
+      <y>120</y>
       <w>848</w>
       <h>624</h>
     </coordinates>
@@ -57,7 +57,7 @@ fg=red</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>760</x>
-      <y>24</y>
+      <y>144</y>
       <w>144</w>
       <h>120</h>
     </coordinates>
@@ -76,7 +76,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>128</x>
-      <y>24</y>
+      <y>144</y>
       <w>144</w>
       <h>96</h>
     </coordinates>
@@ -94,7 +94,7 @@ Package::view
     <id>UMLNote</id>
     <coordinates>
       <x>736</x>
-      <y>264</y>
+      <y>384</y>
       <w>152</w>
       <h>24</h>
     </coordinates>
@@ -106,7 +106,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>608</x>
-      <y>120</y>
+      <y>240</y>
       <w>184</w>
       <h>56</h>
     </coordinates>
@@ -120,7 +120,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>264</x>
-      <y>32</y>
+      <y>152</y>
       <w>112</w>
       <h>48</h>
     </coordinates>
@@ -134,7 +134,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>128</x>
-      <y>248</y>
+      <y>368</y>
       <w>168</w>
       <h>24</h>
     </coordinates>
@@ -145,20 +145,21 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>312</x>
-      <y>144</y>
-      <w>264</w>
-      <h>72</h>
+      <x>256</x>
+      <y>248</y>
+      <w>344</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>/UI/
-</panel_attributes>
+fg=red
+bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>400</x>
-      <y>208</y>
+      <y>328</y>
       <w>48</w>
       <h>72</h>
     </coordinates>
@@ -169,7 +170,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>544</x>
-      <y>208</y>
+      <y>328</y>
       <w>48</w>
       <h>72</h>
     </coordinates>
@@ -180,7 +181,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>328</x>
-      <y>336</y>
+      <y>456</y>
       <w>24</w>
       <h>72</h>
     </coordinates>
@@ -191,7 +192,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>240</x>
-      <y>392</y>
+      <y>512</y>
       <w>200</w>
       <h>64</h>
     </coordinates>
@@ -207,7 +208,7 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>640</x>
-      <y>384</y>
+      <y>504</y>
       <w>24</w>
       <h>56</h>
     </coordinates>
@@ -218,7 +219,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>576</x>
-      <y>424</y>
+      <y>544</y>
       <w>184</w>
       <h>72</h>
     </coordinates>
@@ -234,7 +235,7 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>656</x>
-      <y>488</y>
+      <y>608</y>
       <w>48</w>
       <h>48</h>
     </coordinates>
@@ -245,7 +246,7 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>336</x>
-      <y>448</y>
+      <y>568</y>
       <w>48</w>
       <h>56</h>
     </coordinates>
@@ -256,7 +257,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>200</x>
-      <y>488</y>
+      <y>608</y>
       <w>288</w>
       <h>80</h>
     </coordinates>
@@ -272,7 +273,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>512</x>
-      <y>520</y>
+      <y>640</y>
       <w>288</w>
       <h>80</h>
     </coordinates>

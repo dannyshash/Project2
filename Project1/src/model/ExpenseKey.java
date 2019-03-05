@@ -3,11 +3,12 @@ package model;
 import java.util.Date;
 
 public class ExpenseKey {
+	public ExpenseType type;
 	public double amount;
 	public String expName;
 	public Date expDate;
 	
-	public ExpenseKey(double amount, String name, Date date) {
+	public ExpenseKey(ExpenseType type, double amount, String name, Date date) {
 		this.amount = amount;
 		this.expName = name;
 		this.expDate = date;
