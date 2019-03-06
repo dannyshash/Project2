@@ -44,6 +44,11 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	}
 		
 	@Override
+	public void start() {
+		notifyObservers(true);
+	}
+	
+	@Override
 	public void register(ExpenseObserver observer) {
 		this.observer = observer;
 	}

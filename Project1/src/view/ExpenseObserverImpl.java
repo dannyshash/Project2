@@ -40,16 +40,22 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 				ldata.get(2).size()+", " + 	//comp_purchase
 				ldata.get(3).size()			//comp_bill
 				);
+		subject.resetStateChange();
 		
 	}
 
 	@Override
 	public ArrayList<Expense> getData(DisplayParameters params) {
 		ArrayList<Expense> expList = null;
+		
+		if(ldata.get(0) == null) {
+			System.out.println("###### AMGA reurning as data is null, refresh");
+		}
 		switch(params.type.ordinal()) {
 		case 0:
 		case 2:
 			expList = new ArrayList<Expense>();
+			System.out.println("###### AMGA size:"+ldata.get(0).size());
 			ArrayList<Expense> purchase_List = new ArrayList<Expense>(ldata.get(0).values());
 			ArrayList<Expense> comp_purchase_List = new ArrayList<Expense>(ldata.get(2).values());
 			expList.addAll(purchase_List);

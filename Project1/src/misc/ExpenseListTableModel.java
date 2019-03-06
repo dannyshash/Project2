@@ -9,6 +9,7 @@ package misc;
 
 import javax.swing.table.AbstractTableModel;
 
+import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseType;
 import model.Purchase;
@@ -25,7 +26,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	
 	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
 		//TODO use expenseContent, uncomment the following line
-		//expenseContent.getData(ExpenseType.PURCHASE);
+		//myList = expenseContent.getData(ExpenseType.BILL);
 		myList = pList.getList();
 	}
 	
@@ -59,8 +60,8 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			temp = myList.get(row).getStatus();
 		} else if (col == 5) {//Method
 			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
-				temp = ((Purchase)myList.get(row)).getMode();
+					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){				
+				temp = myList.get(row).getMode();
 			}
 			else if(myList.get(row).getType()==ExpenseType.BILL ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
@@ -74,7 +75,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		} else if (col == 7) {//Location
 			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
-				temp = ((Purchase)myList.get(row)).getLocation();
+				temp = myList.get(row).getLocation();
 			}
 			else if(myList.get(row).getType()==ExpenseType.BILL ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){

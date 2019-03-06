@@ -5,9 +5,13 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class CompositePurchase extends AbstractExpense{
+	private Mode mode;
+	private String location;
 	
-	public CompositePurchase(String description, ExpenseCategories category) {
+	public CompositePurchase(String description, ExpenseCategories category, Mode mode, String location) {
 		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
+		this.mode = mode;
+		this.location = location;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
@@ -28,6 +32,16 @@ public class CompositePurchase extends AbstractExpense{
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Mode getMode() {
+		return this.mode;
+	}
+	
+	@Override
+	public String getLocation() {
+		return this.location;
 	}
 	
 	private int getIndex(Expense expense){

@@ -29,6 +29,7 @@ import javax.swing.table.TableRowSorter;
 
 import controller.DataLoader;
 import controller.ExpenseContainerImpl;
+import controller.ExpenseSubject;
 import controller.FileLoaderImpl;
 import controller.InMemoryStore;
 import controller.Store;
@@ -90,6 +91,8 @@ public class UserInterface extends JFrame {
 		Store dataStore= new InMemoryStore(loader);
 		ExpenseContainerImpl.getInstance().init(dataStore);
 		ExpenseObserverImpl.getInstance().init();
+		ExpenseSubject subject = (ExpenseSubject)ExpenseContainerImpl.getInstance();
+		subject.start();
 		System.out.println("Start PBM " + new Date());
 	}
 

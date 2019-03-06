@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class CompositeBill extends AbstractExpense{
+	private RepitionInterval interval;
 
 	public CompositeBill(String description, ExpenseCategories category) {
 		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
+		this.interval=RepitionInterval.MONTHLY;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
@@ -28,6 +30,11 @@ public class CompositeBill extends AbstractExpense{
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public RepitionInterval getInterval() {
+		return this.interval;
 	}
 	
 	private int getIndex(Expense expense){

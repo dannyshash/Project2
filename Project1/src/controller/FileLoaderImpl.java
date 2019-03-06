@@ -100,7 +100,7 @@ public class FileLoaderImpl implements DataLoader{
 		} else if(ExpenseType.COMPOSITE_PURCHASE.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Purchase
 			System.out.println("Creating composite Purchase");
-			e = new CompositePurchase(expenseDataItems[13], ExpenseCategories.DAFAULT);
+			e = new CompositePurchase(expenseDataItems[13], ExpenseCategories.DAFAULT, Mode.CASH, "");
 		} else if(ExpenseType.COMPOSITE_BILL.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Bill
 			System.out.println("Creating composite Bill");
