@@ -42,6 +42,8 @@ import utils.MyDate;
 import utils.Constants;
 import view.ContentUpdator;
 import view.ExpenseObserverImpl;
+import view.UserActionsApi;
+import view.UserActionsImpl;
 import view.ExpenseContentApi;
 
 import java.util.Arrays;
@@ -87,7 +89,11 @@ public class UserInterface extends JFrame {
 		Store dataStore= new InMemoryStore(loader);
 		ExpenseContainerImpl.getInstance().init(dataStore);
 		ExpenseObserverImpl.getInstance().init();
+		/**
+		 * The following 2 lines are for the view manager to use
+		 */
 		ExpenseContentApi contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
+		UserActionsApi actions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
 		System.out.println("Start PBM " + new Date());
 	}
 

@@ -6,7 +6,7 @@ import java.util.Date;
 import controller.ExpenseContainerApi;
 import model.Expense;
 
-class UserActionsImpl implements UserActionsApi {
+public class UserActionsImpl implements UserActionsApi {
 	private final ExpenseContainerApi container;
 	
 	public UserActionsImpl(ExpenseContainerApi container) {

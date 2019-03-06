@@ -10,7 +10,7 @@ import model.Expense;
 import model.ExpenseKey;
 
 public class ExpenseObserverImpl implements ExpenseObserver{
-	private static final ExpenseObserverImpl expenseObserver = new ExpenseObserverImpl();
+	private static final ExpenseObserver expenseObserver = new ExpenseObserverImpl();
 	private final ExpenseSubject subject;
 	private List<Map<ExpenseKey , Expense>> ldata=null;
 	//private final ExpenseContentApi contentUpdator;
@@ -23,7 +23,7 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 		subject = (ExpenseContainerImpl)ExpenseContainerImpl.getInstance();
 	}
 
-	public static ExpenseObserverImpl getInstance() {
+	public static ExpenseObserver getInstance() {
 		return expenseObserver;
 	}
 	
