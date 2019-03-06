@@ -1,6 +1,8 @@
 package view;
 
 import model.Expense;
+import model.ExpenseType;
+
 import java.util.ArrayList;
 
 /**
@@ -8,4 +10,5 @@ import java.util.ArrayList;
  */
 public interface ExpenseContentApi {
 	ArrayList<Expense> getData(final DisplayParameters params);
+	ArrayList<Expense> getData(final ExpenseType type);
 }

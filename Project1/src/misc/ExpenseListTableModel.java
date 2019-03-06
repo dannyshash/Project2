@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import model.Expense;
 import model.ExpenseType;
 import model.Purchase;
+import view.ExpenseContentApi;
 
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,9 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	private ArrayList<Expense> myList;
 	private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public ExpenseListTableModel(ExpenseList pList) {
+	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
+		//TODO use expenseContent, uncomment the following line
+		//expenseContent.getData(ExpenseType.PURCHASE);
 		myList = pList.getList();
 	}
 	

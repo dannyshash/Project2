@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import model.Expense;
+import model.ExpenseType;
 
 public class ContentUpdator implements ExpenseContentApi {
 	private final ExpenseObserver container;
@@ -15,4 +16,10 @@ public class ContentUpdator implements ExpenseContentApi {
 		return container.getData(params);
 	}
 
+	@Override
+	public ArrayList<Expense> getData(ExpenseType type) {
+		DisplayParameters params = new DisplayParameters();
+		params.type = type;
+		return container.getData(params);
+	}
 }

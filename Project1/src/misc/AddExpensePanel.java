@@ -24,6 +24,7 @@ import model.RepitionInterval;
 import model.ExpenseCategories;
 import model.Status;
 import utils.MyDate;
+import view.UserActionsApi;
 import model.Mode;
 import model.ExpenseType;
 
@@ -41,7 +42,7 @@ public class AddExpensePanel extends UserInterface {
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel(ExpenseList myList, ExpenseListTableModel tableModel) {
+	public AddExpensePanel(ExpenseList myList, ExpenseListTableModel tableModel, UserActionsApi userActions) {
 		
 		this.myList = myList;
 		this.tableModel = tableModel;
@@ -240,8 +241,9 @@ public class AddExpensePanel extends UserInterface {
 							getDueDate(), textField_8.getText(), (RepitionInterval)paymentIntervalCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
 				}	
 				System.out.println("Adding an Expense: " + expense);
+				//TODO should remove myList and use userActions
 				myList.add(expense);
-				ExpenseContainerImpl.getInstance().addExpense(expense);
+				userActions.addExpense(expense);
 
 							
 				tableModel.fireTableDataChanged();

@@ -9,7 +9,7 @@ import model.RepitionInterval;
  * information about what's being displayed in the report
  *
  */
-class DisplayParameters {
+public class DisplayParameters {
 	public ExpenseType type;
 	public Date time;
 	public RepitionInterval period;

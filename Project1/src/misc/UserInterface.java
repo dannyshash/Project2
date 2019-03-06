@@ -55,7 +55,8 @@ public class UserInterface extends JFrame {
 	public JTable table;
 	public ExpenseList myList;
 	private JTextField txtExpenseList;
-	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	ExpenseContentApi contentUpdator;
+	UserActionsApi userActions;
 
 	/**
 	 * Launch the application.
@@ -89,11 +90,6 @@ public class UserInterface extends JFrame {
 		Store dataStore= new InMemoryStore(loader);
 		ExpenseContainerImpl.getInstance().init(dataStore);
 		ExpenseObserverImpl.getInstance().init();
-		/**
-		 * The following 2 lines are for the view manager to use
-		 */
-		ExpenseContentApi contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
-		UserActionsApi actions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
 		System.out.println("Start PBM " + new Date());
 	}
 
@@ -109,7 +105,14 @@ public class UserInterface extends JFrame {
 		contentPaneMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneMain);
 		contentPaneMain.setLayout(null);
-		
+	
+		/**
+		 * The following 2 lines are for the view manager to use
+		 */	
+		contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
+		userActions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
+
+	
 		// Insert Sample Data
 		Date purchase_date=MyDate.getRandomDateAndTime();
 		Purchase p1 = new Purchase(2.30, "Sandwich", purchase_date,
@@ -124,7 +127,7 @@ public class UserInterface extends JFrame {
 		myList.add(p1);
 		//myList.add(p2);
 		myList.add(b1);
-		tableModel = new ExpenseListTableModel(myList);
+		tableModel = new ExpenseListTableModel(myList, contentUpdator);
 		table = new JTable(tableModel);
 		TableRowSorter sorter = new TableRowSorter(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -148,7 +151,7 @@ public class UserInterface extends JFrame {
 		
 		btnAddExpense.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
-				   AddExpensePanel frame1 = new AddExpensePanel(myList, tableModel);
+				   AddExpensePanel frame1 = new AddExpensePanel(myList, tableModel, userActions);
 				   frame1.setVisible(true);
 			   }
 			});
