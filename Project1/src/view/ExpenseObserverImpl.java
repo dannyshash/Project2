@@ -11,7 +11,7 @@ import model.ExpenseKey;
 
 public class ExpenseObserverImpl implements ExpenseObserver{
 	private static final ExpenseObserver expenseObserver = new ExpenseObserverImpl();
-	private final ExpenseSubject subject;
+	private ExpenseSubject subject;
 	private List<Map<ExpenseKey , Expense>> ldata=null;
 	//private final ExpenseContentApi contentUpdator;
 	
@@ -19,16 +19,25 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 	 * private constructor for the singleton
 	 */
 	private ExpenseObserverImpl() {
-		//TODO, Improve it
-		subject = (ExpenseContainerImpl)ExpenseContainerImpl.getInstance();
+		this.subject=null;
 	}
 
 	public static ExpenseObserver getInstance() {
 		return expenseObserver;
 	}
 	
-	public void init() {
-		subject.register(this);
+	public void init(ExpenseSubject subject) {
+		assert(subject!=null);
+		setSubject(subject);
+		getSubject().register(this);
+	}
+	
+	private void setSubject(ExpenseSubject subject) {
+		this.subject = subject;
+	}
+	
+	protected ExpenseSubject getSubject() {
+		return this.subject;
 	}
 	
 	@Override
@@ -40,8 +49,7 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 				ldata.get(2).size()+", " + 	//comp_purchase
 				ldata.get(3).size()			//comp_bill
 				);
-		subject.resetStateChange();
-		
+		subject.resetStateChange();		
 	}
 
 	@Override
@@ -49,13 +57,13 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 		ArrayList<Expense> expList = null;
 		
 		if(ldata.get(0) == null) {
-			System.out.println("###### AMGA reurning as data is null, refresh");
+			System.out.println("reurning as data is null, refresh");
+			return expList;
 		}
 		switch(params.type.ordinal()) {
 		case 0:
 		case 2:
 			expList = new ArrayList<Expense>();
-			System.out.println("###### AMGA size:"+ldata.get(0).size());
 			ArrayList<Expense> purchase_List = new ArrayList<Expense>(ldata.get(0).values());
 			ArrayList<Expense> comp_purchase_List = new ArrayList<Expense>(ldata.get(2).values());
 			expList.addAll(purchase_List);

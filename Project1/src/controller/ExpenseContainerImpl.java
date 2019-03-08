@@ -25,7 +25,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	/**
 	 * private constructor for the Singleton object
 	 */
-	private ExpenseContainerImpl() {
+	public ExpenseContainerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	

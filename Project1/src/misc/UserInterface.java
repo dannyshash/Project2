@@ -28,6 +28,7 @@ import java.awt.Font;
 import javax.swing.table.TableRowSorter;
 
 import controller.DataLoader;
+import controller.ExpenseContainerApi;
 import controller.ExpenseContainerImpl;
 import controller.ExpenseSubject;
 import controller.FileLoaderImpl;
@@ -89,9 +90,10 @@ public class UserInterface extends JFrame {
 	private static void prestartPhase() {
 		DataLoader loader = new FileLoaderImpl(Constants.SAMPLE_DATA_FILENAME);
 		Store dataStore= new InMemoryStore(loader);
-		ExpenseContainerImpl.getInstance().init(dataStore);
-		ExpenseObserverImpl.getInstance().init();
+		ExpenseContainerApi container = (ExpenseContainerApi)ExpenseContainerImpl.getInstance();
 		ExpenseSubject subject = (ExpenseSubject)ExpenseContainerImpl.getInstance();
+		container.init(dataStore);
+		ExpenseObserverImpl.getInstance().init(subject);
 		subject.start();
 		System.out.println("Start PBM " + new Date());
 	}
