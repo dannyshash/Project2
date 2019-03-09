@@ -183,6 +183,27 @@ public class UserInterface extends JFrame {
 		btnHideShow.setBounds(209, 64, 196, 23);
 		contentPaneMain.add(btnHideShow);
 		
+		JButton btnCreateComposite = new JButton("Create Composite Expense");
+		btnCreateComposite.setBounds(433, 30, 196, 23);
+		contentPaneMain.add(btnCreateComposite);
+		
+
+		btnCreateComposite.addActionListener(new ActionListener() {
+			   public void actionPerformed(ActionEvent e) {   
+				   if (table.getSelectedRow() >= 0) {
+					   int[] selection = table.getSelectedRows();
+					   System.out.println("Selection Length " + selection.length);
+					   for (int i = 0; i < selection.length; i++) {
+						     selection[i] = table.convertRowIndexToModel(selection[i]);
+						     System.out.println("Row " + selection[i] + " " + myList.getType(selection[i]));
+						   }
+					   
+					   tableModel.fireTableDataChanged();
+					}
+				   //AddCompositePanel frame1 = new AddCompositePanel(myList, tableModel, userActions);
+				   //frame1.setVisible(true);
+			   }
+			});
 		
 		
 		

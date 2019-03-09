@@ -38,4 +38,8 @@ public class ExpenseList {
 		return expenseList.size();
 	}
 	
+	public ExpenseType getType(int index) {
+		return expenseList.get(index).getType();
+	}
+	
 }
