@@ -51,8 +51,8 @@ public class FileLoaderImpl implements DataLoader{
 
 	    try{
 			ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		    //InputStream inputStream = FileLoaderImpl.class.getResourceAsStream("SampleExpensesData.csv");
-			InputStream inputStream = classloader.getResourceAsStream(filename);
+		    InputStream inputStream = FileLoaderImpl.class.getResourceAsStream("SampleExpensesData.csv");
+			//InputStream inputStream = classloader.getResourceAsStream(filename);
     	    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 	    	String line = null;
 	    	while ((line = reader.readLine()) != null) {

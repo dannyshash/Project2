@@ -123,15 +123,21 @@ public class UserInterface extends JFrame {
 		Purchase p1 = new Purchase(2.30, "Sandwich", purchase_date,
 				Status.PAID, purchase_date, "Starbucks", "Campus", Mode.CASH, ExpenseCategories.DINING);
 		
+		Purchase p2 = new Purchase(3.30, "Wrap", purchase_date,
+				Status.PAID, purchase_date, "Starbucks", "Downtown", Mode.CASH, ExpenseCategories.DINING);
+		
 		Date bill_date=MyDate.getRandomDateAndTime();
 		Bill b1 = new Bill(65.09, "Electricity", bill_date,
+				Status.UNPAID, MyDate.addDays(bill_date, 7), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
+		Bill b2 = new Bill(10.50, "Electricity", bill_date,
 				Status.UNPAID, MyDate.addDays(bill_date, 7), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
 
 		// Jtable Definition
 		myList = new ExpenseList();
 		myList.add(p1);
-		//myList.add(p2);
+		myList.add(p2);
 		myList.add(b1);
+		myList.add(b2);
 		tableModel = new ExpenseListTableModel(myList, contentUpdator);
 		table = new JTable(tableModel);
 		TableRowSorter sorter = new TableRowSorter(tableModel);
@@ -191,17 +197,37 @@ public class UserInterface extends JFrame {
 		btnCreateComposite.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
 				   if (table.getSelectedRow() >= 0) {
+					   
 					   int[] selection = table.getSelectedRows();
-					   System.out.println("Selection Length " + selection.length);
 					   for (int i = 0; i < selection.length; i++) {
 						     selection[i] = table.convertRowIndexToModel(selection[i]);
-						     System.out.println("Row " + selection[i] + " " + myList.getType(selection[i]));
 						   }
+					   
+					   int PurchaseTypeCounter=0;
+					   int BillTypeCounter=0;
+					     for (int i = 0; i < selection.length; i++) {
+					    	 if(myList.getType(selection[i]).equals("Purchase") || myList.getType(selection[i]).equals("Composite_Purchase")) {
+					    		 PurchaseTypeCounter++;
+					    	 }
+					    	 if(myList.getType(selection[i]).equals("Bill") || myList.getType(selection[i]).equals("Composite_Bill")) {
+					    		 BillTypeCounter++;
+					    	 }
+						   }
+					     
+					     if(PurchaseTypeCounter == selection.length) {
+					    	 System.out.println("Success: All the selection are purchases or composite purchases");
+					     }
+					     else if(BillTypeCounter == selection.length){
+					    	 System.out.println("Success: All the selection are bills or composite bills");
+					     }
+					     else {
+					    	 System.out.println("The selections have mismatch in Expense Types");
+					     }
+					   
 					   
 					   tableModel.fireTableDataChanged();
 					}
-				   //AddCompositePanel frame1 = new AddCompositePanel(myList, tableModel, userActions);
-				   //frame1.setVisible(true);
+
 			   }
 			});
 		
