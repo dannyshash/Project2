@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public interface Expense {
@@ -17,7 +18,12 @@ public interface Expense {
 	
 	//access
 	public Expense get(int index);
-	public Expense get(Expense index);
+	//flat find, only among the current children
+	public Expense get(Expense exp);
+	//recursive find, among the children of it's children
+	public Expense find(Expense exp);
+	public ArrayList<Expense> getSubItems();
+	public int getNoOfSubItems();
 	//return the parent in case of composite type
 	public Expense getParent();
 	

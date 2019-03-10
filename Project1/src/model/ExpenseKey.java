@@ -30,5 +30,10 @@ public class ExpenseKey {
     public int hashCode() {
         return new Double(amount).hashCode() ^ expName.hashCode() ^ expDate.hashCode();
     }
-
+    
+    @Override
+    public String toString() {
+    	System.out.println();
+    	return "Expense Key: type="+type+",name="+expName+",amount="+amount+",date="+expDate;
+    }
 }

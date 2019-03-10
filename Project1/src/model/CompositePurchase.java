@@ -63,6 +63,38 @@ public class CompositePurchase extends AbstractExpense{
 	}
 
 	@Override
+	public ArrayList<Expense> getSubItems() {
+		return items;
+	}
+	
+	@Override
+	public Expense find(Expense exp) {
+		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
+		Expense returnVal = null;
+		Iterator<Expense> compPurchase = items.iterator();
+		while(compPurchase.hasNext()) {
+			Expense e = compPurchase.next(); 
+			//if(e.getKey() == exp.getKey()) {
+			if(e.getType().ordinal()<2 && e.iseqal(exp)) {
+				System.out.println("return Expense:"+returnVal);
+				return e;
+			}
+			
+			if(e.getType().ordinal()>1) {
+				if(exp.getType().ordinal()>1 && e.iseqal(exp)) {
+					System.out.println("return comp Expense:"+e);
+					return e;
+				}
+				
+				CompositePurchase ce= (CompositePurchase)e;
+				returnVal = ce.find(exp);
+			}
+		}	
+
+		return returnVal;
+	}
+	
+	@Override
 	public void display() {
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {

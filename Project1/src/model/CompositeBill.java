@@ -43,6 +43,11 @@ public class CompositeBill extends AbstractExpense{
 	}
 
 	@Override
+	public ArrayList<Expense> getSubItems() {
+		return items;
+	}
+	
+	@Override
 	public Expense get(Expense expense) {
 		Iterator<Expense> it = items.iterator();
 		while(it.hasNext()) {
@@ -56,6 +61,33 @@ public class CompositeBill extends AbstractExpense{
 	}
 	
 	@Override
+	public Expense find(Expense exp) {
+		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
+		Expense returnVal = null;
+		Iterator<Expense> compPurchase = items.iterator();
+		while(compPurchase.hasNext()) {
+			Expense e = compPurchase.next(); 
+			//if(e.getKey() == exp.getKey()) {
+			if(e.getType().ordinal()<2 && e.iseqal(exp)) {
+				System.out.println("return Expense:"+e);
+				return e;
+			}
+			
+			if(e.getType().ordinal()>1) {
+				if(exp.getType().ordinal()>1 && e.iseqal(exp)) {
+					System.out.println("return comp Expense:"+e);
+					return e;
+				}
+				
+				CompositeBill ce= (CompositeBill)e;
+				returnVal = ce.find(exp);
+			}
+		}	
+
+		return returnVal;
+	}
+
+	@Override
 	public boolean iseqal(Expense expense) {
 		CompositeBill c = (CompositeBill)expense;
 		if(super.iseqal(expense) && this.getDescription().equals(c.getDescription())) {
@@ -67,12 +99,21 @@ public class CompositeBill extends AbstractExpense{
 	
 	public ArrayList<Expense> getBillsList() {
 		ArrayList<Expense> l_items = new ArrayList<Expense>();
+		return getBillsList(l_items);
+	}
+
+	private ArrayList<Expense> getBillsList(ArrayList<Expense> list) {
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
-			l_items.add(compPurchase.next());
+			Expense e = compPurchase.next(); 
+			list.add(e);
+			if(e.getType().ordinal()>1) {
+				CompositeBill ce= (CompositeBill)e;
+				ce.getBillsList(list);
+			}
 		}	
 
-		return l_items;		
+		return list;		
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class Bill extends AbstractExpense {
 	}
 
 	public Bill(double amount, String name, Date date) {
-		super(ExpenseType.PURCHASE, amount, name, date);
+		super(ExpenseType.BILL, amount, name, date);
 		this.interval = RepitionInterval.MONTHLY;
 	}
 

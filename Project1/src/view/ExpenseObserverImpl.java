@@ -1,11 +1,13 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import controller.ExpenseContainerImpl;
 import controller.ExpenseSubject;
+import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseKey;
 
@@ -49,6 +51,38 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 				ldata.get(2).size()+", " + 	//comp_purchase
 				ldata.get(3).size()			//comp_bill
 				);
+		/*
+		 * Just for debug purpose
+		ArrayList<Expense> cp = new ArrayList<Expense>(ldata.get(2).values());
+		System.out.println("### composite items="+cp.size()+" ###");
+		ArrayList<Expense> si = ((CompositePurchase)cp.get(0)).getSubItems();
+		ArrayList<Expense> pl = ((CompositePurchase)cp.get(0)).getPurchasesList();
+		int no_subitems = ((CompositePurchase)cp.get(0)).getNoOfSubItems();
+		System.out.println("### sub items="+no_subitems+","+pl.size()+" ###");
+		Iterator<Expense> siit = si.iterator();
+		while(siit.hasNext()) {
+			Expense expenseItem = siit.next();
+			if(expenseItem.getType().ordinal()>1){
+				System.out.println("### subItem Display ###"+expenseItem.toString()+",subitem="+expenseItem.getSubItems().size());	
+				ArrayList<Expense> si2 = expenseItem.getSubItems();
+				ArrayList<Expense> pl2 = ((CompositePurchase)expenseItem).getPurchasesList();
+				int no_subitems2 = expenseItem.getNoOfSubItems();
+				System.out.println("### sub items="+no_subitems2+","+pl2.size()+" ###");
+			}
+			else {
+				System.out.println("### subItem Display ###"+expenseItem.toString());
+			}			
+			expenseItem.display();
+		}	
+		
+		Iterator<Expense> compPurchase = pl.iterator();
+		while(compPurchase.hasNext()) {
+			Expense expenseItem = compPurchase.next();
+			System.out.println("### Display ###"+ expenseItem.toString());			
+		}	
+		*/
+
+		
 		subject.resetStateChange();		
 	}
 

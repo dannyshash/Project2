@@ -145,6 +145,16 @@ public abstract class AbstractExpense implements Expense{
 	}
 	
 	@Override
+	public Expense find(Expense exp) {
+		throw new RuntimeException("Not implemented");
+	}
+	
+	@Override
+	public ArrayList<Expense> getSubItems() {
+		throw new RuntimeException("Not implemented");
+	}
+	
+	@Override
 	public void display() {
 		this.toString();
 		
@@ -172,9 +182,7 @@ public abstract class AbstractExpense implements Expense{
 	}
 	
 	@Override
-	public boolean iseqal(Expense expense) {
-		AbstractExpense p = (AbstractExpense)expense;
-		
+	public boolean iseqal(Expense p) {
 		if(this.getType() == p.getType() &&
 				this.getAmount() == p.getAmount() &&
 				this.getName().equals(p.getName()) &&
@@ -201,11 +209,12 @@ public abstract class AbstractExpense implements Expense{
 		this.parent = parent;
 	}
 
+	@Override
 	public int getNoOfSubItems() {
 		return noOfSubItems;
 	}
 
-	public void setNoOfSubItems(int noOfSubItems) {
+	protected void setNoOfSubItems(int noOfSubItems) {
 		this.noOfSubItems = noOfSubItems;
 	}
 

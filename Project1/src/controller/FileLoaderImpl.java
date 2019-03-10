@@ -135,6 +135,7 @@ public class FileLoaderImpl implements DataLoader{
 	}
 
 	private Expense findParent(Map<ExpenseKey , Expense> expMap, Expense e, String parent) {
+		System.out.println("findParent: "+parent);
 		Expense re = null;
 		Expense rce = null;
 		List<Expense> expList = new ArrayList<Expense>(expMap.values());
@@ -142,8 +143,9 @@ public class FileLoaderImpl implements DataLoader{
 		while(expIt.hasNext()) {
 			re = expIt.next();
 			if(re.getType().ordinal()>1) rce=re;
-			System.out.println("findParent: desc="+re.getDescription());
+			System.out.println("findParent: current desc="+re.getDescription());
 			if(re.getDescription().equalsIgnoreCase(parent)) {
+				System.out.println("findParent: return="+re.getDescription());
 				return re; 
 			}
 		}
@@ -155,7 +157,9 @@ public class FileLoaderImpl implements DataLoader{
 		Expense sre = null;
 		while(secIt.hasNext()) {
 			sre = secIt.next();
+			System.out.println("findParent: 2lvl current desc="+re.getDescription());
 			if(sre.getType().ordinal()>1 && sre.getDescription().equalsIgnoreCase(parent)) {
+				System.out.println("findParent: 2lvl return="+sre.getDescription());
 				return sre; 
 			}
 		}
