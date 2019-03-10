@@ -1,10 +1,6 @@
 package view;
 
 import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -27,10 +26,8 @@ import model.ExpenseKey;
 import model.ExpenseType;
 import model.Purchase;
 
-
 public class ExpenseObserverImplTest {
-	@Mock 
-	private ExpenseSubject subject;
+	@Mock private ExpenseSubject subject;
 	@Mock List<Map<ExpenseKey , Expense>> data;
 	@Mock Map<ExpenseKey , Expense> dataItem;
 	@Mock Map<ExpenseKey , Expense> p;
@@ -50,12 +47,13 @@ public class ExpenseObserverImplTest {
 	@After
 	public void after() {
 	}
-	
+
 	@Test
 	public void testInit() {
 		verify(subject, times(1)).register(observer);
+
 	}
-	
+
 	@Test
 	public void testUpdate() {
 		when(data.get(0)).thenReturn(dataItem);
@@ -79,16 +77,16 @@ public class ExpenseObserverImplTest {
 		Map<ExpenseKey , Expense> mp = new HashMap<ExpenseKey , Expense>() {{put(p1.getKey(),p1);put(p2.getKey(),p2);}};
 		Collection<Expense> cp = mp.values();
 		
-		Expense b1=new Bill(1, "1",new Date());Expense b2=new Bill(2, "2",new Date());Expense b3=new Bill(3, "3",new Date());
-		@SuppressWarnings("serial")
-		Map<ExpenseKey , Expense> mb = new HashMap<ExpenseKey , Expense>() {{put(b1.getKey(),b1);put(b2.getKey(),b2);put(b3.getKey(),b3);}};
-		Collection<Expense> cb = mb.values();
-		
 		Expense cp1=new CompositePurchase(null, null, null, null);
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcp = new HashMap<ExpenseKey , Expense>() {{put(cp1.getKey(),cp1);}};
 		Collection<Expense> ccp = mcp.values();
 
+		Expense b1=new Bill(1, "1",new Date());Expense b2=new Bill(2, "2",new Date());Expense b3=new Bill(3, "3",new Date());
+		@SuppressWarnings("serial")
+		Map<ExpenseKey , Expense> mb = new HashMap<ExpenseKey , Expense>() {{put(b1.getKey(),b1);put(b2.getKey(),b2);put(b3.getKey(),b3);}};
+		Collection<Expense> cb = mb.values();
+		
 		Expense cb1=new CompositeBill(null, null);
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcb = new HashMap<ExpenseKey , Expense>() {{put(cb1.getKey(),cb1);}};
@@ -110,7 +108,6 @@ public class ExpenseObserverImplTest {
 
 		params.type = ExpenseType.PURCHASE;
 		assertEquals(3, observer.getData(params).size());
-		
 		params.type = ExpenseType.BILL;		
 		assertEquals(4, observer.getData(params).size());
 	}

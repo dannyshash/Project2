@@ -9,6 +9,7 @@ public class ExpenseKey {
 	public Date expDate;
 	
 	public ExpenseKey(ExpenseType type, double amount, String name, Date date) {
+		this.type = type;
 		this.amount = amount;
 		this.expName = name;
 		this.expDate = date;
@@ -19,7 +20,8 @@ public class ExpenseKey {
 		if (!(obj instanceof ExpenseKey))
 			return false;
 		ExpenseKey ref = (ExpenseKey) obj;
-		return ((this.amount == ref.amount) && 
+		return (this.type == ref.type &&
+					(this.amount == ref.amount) && 
 					this.expName.equals(ref.expName) &&
 					this.expDate.equals(ref.expDate));
    }

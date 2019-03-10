@@ -39,7 +39,7 @@ public abstract class AbstractExpense implements Expense{
 		this.setVendor(vendor);
 		this.category=category;
 		this.setParent(null);
-		this.setNoOfSubItems(1);
+		this.setNoOfSubItems(0);
 	}
 	
 	public AbstractExpense(ExpenseType type, double amount, String name, Date date) {
@@ -136,6 +136,11 @@ public abstract class AbstractExpense implements Expense{
 	
 	@Override
 	public Expense get(int index) {
+		throw new RuntimeException("Not implemented");
+	}
+	
+	@Override
+	public Expense get(Expense index) {
 		throw new RuntimeException("Not implemented");
 	}
 	

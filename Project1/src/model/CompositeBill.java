@@ -23,7 +23,7 @@ public class CompositeBill extends AbstractExpense{
 
 	@Override
 	public boolean remove(Expense expense) {
-		if(getIndex(expense)>0) {
+		if(items.size()>0) {
 			items.remove(expense);
 			this.setNoOfSubItems(this.getNoOfSubItems()-1);
 			return true;
@@ -37,15 +37,24 @@ public class CompositeBill extends AbstractExpense{
 		return this.interval;
 	}
 	
-	private int getIndex(Expense expense){
-		return items.indexOf(expense);
-	}
-
 	@Override
 	public Expense get(int index) {
 		return items.get(index);
 	}
 
+	@Override
+	public Expense get(Expense expense) {
+		Iterator<Expense> it = items.iterator();
+		while(it.hasNext()) {
+			Expense e = it.next();
+			//if (it.iseqal(expense))
+			if (e.getKey() == expense.getKey())
+				return e;
+		}	
+		
+		return null;
+	}
+	
 	@Override
 	public boolean iseqal(Expense expense) {
 		CompositeBill c = (CompositeBill)expense;
@@ -64,17 +73,6 @@ public class CompositeBill extends AbstractExpense{
 		}	
 
 		return l_items;		
-	}
-
-	public Expense getMatchedBill(Expense expense) {
-		Iterator<Expense> compPurchase = items.iterator();
-		while(compPurchase.hasNext()) {
-			Expense it = compPurchase.next();
-			if (it.iseqal(expense))
-				return it;
-		}	
-
-		return null;		
 	}
 
 	@Override

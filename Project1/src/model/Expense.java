@@ -17,6 +17,7 @@ public interface Expense {
 	
 	//access
 	public Expense get(int index);
+	public Expense get(Expense index);
 	//return the parent in case of composite type
 	public Expense getParent();
 	

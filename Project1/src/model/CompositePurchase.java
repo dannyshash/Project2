@@ -25,7 +25,7 @@ public class CompositePurchase extends AbstractExpense{
 
 	@Override
 	public boolean remove(Expense expense) {
-		if(getIndex(expense)>0) {
+		if(items.size()>0) {
 			items.remove(expense);
 			this.setNoOfSubItems(this.getNoOfSubItems()-1);
 			return true;
@@ -44,8 +44,17 @@ public class CompositePurchase extends AbstractExpense{
 		return this.location;
 	}
 	
-	private int getIndex(Expense expense){
-		return items.indexOf(expense);
+	@Override
+	public Expense get(Expense expense) {
+		Iterator<Expense> it = items.iterator();
+		while(it.hasNext()) {
+			Expense e = it.next();
+			//if (it.iseqal(expense))
+			if (e.getKey() == expense.getKey())
+				return e;
+		}	
+		
+		return null;
 	}
 
 	@Override
@@ -64,6 +73,7 @@ public class CompositePurchase extends AbstractExpense{
 
 	public void setItems(ArrayList<Expense> items) {
 		this.items = items;
+		this.setNoOfSubItems(items.size());
 	}
 	
 	@Override
@@ -92,17 +102,6 @@ public class CompositePurchase extends AbstractExpense{
 		}	
 
 		return list;		
-	}
-
-	public Expense getMatchedPurchase(Expense expense) {
-		Iterator<Expense> compPurchase = items.iterator();
-		while(compPurchase.hasNext()) {
-			Expense it = compPurchase.next();
-			if (it.iseqal(expense))
-				return it;
-		}	
-
-		return null;		
 	}
 
 	@Override
