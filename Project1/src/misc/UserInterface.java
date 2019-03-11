@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.RowFilter;
 import javax.swing.JTextField;
@@ -37,18 +38,21 @@ import controller.Store;
 import model.Purchase;
 import model.Bill;
 import model.ExpenseCategories;
+import model.ExpenseType;
 import model.Mode;
 import model.RepitionInterval;
 import model.Status;
 import utils.MyDate;
 import utils.Constants;
 import view.ContentUpdator;
+import view.DispayExpenseComboActionListener;
 import view.ExpenseObserverImpl;
 import view.UserActionsApi;
 import view.UserActionsImpl;
 import view.ExpenseContentApi;
 
 import java.util.Arrays;
+import javax.swing.JComboBox;
 
 public class UserInterface extends JFrame {
 
@@ -59,6 +63,7 @@ public class UserInterface extends JFrame {
 	private JTextField txtExpenseList;
 	ExpenseContentApi contentUpdator;
 	UserActionsApi userActions;
+	JComboBox<ExpenseType> dispayExpenseCombo;
 
 	/**
 	 * Launch the application.
@@ -193,7 +198,16 @@ public class UserInterface extends JFrame {
 		btnCreateComposite.setBounds(433, 30, 196, 23);
 		contentPaneMain.add(btnCreateComposite);
 		
+		dispayExpenseCombo = new JComboBox<>();
+		dispayExpenseCombo.setToolTipText("Choose Expense type to be displayed");
+		dispayExpenseCombo.setBounds(650, 31, 109, 20);
+		dispayExpenseCombo.setModel(new DefaultComboBoxModel<>(ExpenseType.values()));
+		dispayExpenseCombo.setSelectedIndex(0);
+		dispayExpenseCombo.setMaximumRowCount(2);
+		contentPaneMain.add(dispayExpenseCombo);
+		dispayExpenseCombo.addActionListener(new DispayExpenseComboActionListener(dispayExpenseCombo, tableModel));
 
+		
 		btnCreateComposite.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
 				   if (table.getSelectedRow() >= 0) {
@@ -229,19 +243,11 @@ public class UserInterface extends JFrame {
 					}
 
 			   }
-			});
+			});			
 		
-		
-		
-		
-		btnHideShow.addActionListener(new ActionListener() {
-			
-			boolean HideShowSwitch = true;
-			
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				
+		btnHideShow.addActionListener(new ActionListener() {			
+			boolean HideShowSwitch = true;				
+			public void actionPerformed(ActionEvent e) {							
 				if (HideShowSwitch) {
 					sorter.setRowFilter(RowFilter.regexFilter("Unpaid"));
 					table.setRowSorter(sorter);
@@ -249,12 +255,10 @@ public class UserInterface extends JFrame {
 				else {
 					sorter.setRowFilter(RowFilter.regexFilter("."));
 					table.setRowSorter(sorter);
-				}
-				
+				}				
 				HideShowSwitch = !HideShowSwitch;
 			}
 		});
-
 
 		btnMarkPaidunpaid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -264,7 +268,35 @@ public class UserInterface extends JFrame {
 				}
 			}
 		});
-
 		
 	}
+	
 }
+
+/*
+class DispayExpenseComboActionListener implements ActionListener{
+	private JComboBox<ExpenseType> dispayExpenseCombo;
+	private ExpenseContentApi contentUpdator;
+	ExpenseListTableModel tableModel;
+	public DispayExpenseComboActionListener(JComboBox<ExpenseType> comboBox, ExpenseListTableModel tableModel) {
+		this.dispayExpenseCombo = comboBox;
+		this.contentUpdator = contentUpdator;
+		this.tableModel=tableModel;
+	}
+    public void actionPerformed(ActionEvent event) {
+    	if(dispayExpenseCombo.getSelectedItem() ==ExpenseType.PURCHASE ||
+    			dispayExpenseCombo.getSelectedItem() ==ExpenseType.COMPOSITE_PURCHASE) {
+    		System.out.println("#### Purchase selected, items = "+contentUpdator.getAllPurchases().size()+"####");
+    		tableModel.refresh(ExpenseType.PURCHASE);
+		}
+    	else if(dispayExpenseCombo.getSelectedItem() ==ExpenseType.BILL ||
+    			dispayExpenseCombo.getSelectedItem() ==ExpenseType.COMPOSITE_BILL) {
+    		System.out.println("#### Bill selected, items="+contentUpdator.getAllBills().size()+" ####");
+    		tableModel.refresh(ExpenseType.BILL);
+		} 
+		else {
+			System.out.println("#### Invalid Item selected ####");
+		}		
+    }
+}
+*/

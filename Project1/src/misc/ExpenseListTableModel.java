@@ -23,13 +23,27 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Method", "Vendor", "Location", "Category", "Due Date", "Interval" };
 	private ArrayList<Expense> myList;
 	private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+	private ExpenseContentApi expenseContent;
 	
 	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
+		this.expenseContent = expenseContent;
 		//TODO use expenseContent, uncomment the following line
-		//myList = expenseContent.getAllPurchases();
-		myList = pList.getList();
+		myList = expenseContent.getAllPurchases();
+		//myList = pList.getList();
 	}
 	
+	public void refresh(ExpenseType type) {
+		if(type == ExpenseType.PURCHASE) {
+			myList = expenseContent.getAllPurchases();	
+		}
+		else if(type == ExpenseType.BILL){
+			myList = expenseContent.getAllBills();
+		}
+		else {
+			throw new RuntimeException("Data error");
+		}
+		this.fireTableDataChanged();
+	}
 	
 	public int getColumnCount() {
 		return columnNames.length;
