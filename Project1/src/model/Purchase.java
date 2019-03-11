@@ -39,6 +39,7 @@ public class Purchase extends AbstractExpense {
 	@Override
 	public boolean changePaymentStatus(Date date) {
 		if(super.changePaymentStatus(date)) {
+			//check
 			this.setMode(Mode.CASH);
 			return true;
 		}

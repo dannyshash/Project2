@@ -175,10 +175,20 @@ public abstract class AbstractExpense implements Expense{
 		if(this.getStatus() == Status.UNPAID) {
 			this.setStatus(Status.PAID);
 			this.paymentDate = date;
+
 			return true;
 		}
 		
-		return false;
+		if(this.getStatus() == Status.PAID) {
+			this.setStatus(Status.UNPAID);	
+			//reset to the original expense creation data
+			this.paymentDate = this.date;
+			
+			return true;
+		}
+
+		//shouldn't reach here
+		throw new RuntimeException("Data error");
 	}
 	
 	@Override
