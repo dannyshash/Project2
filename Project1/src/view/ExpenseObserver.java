@@ -19,4 +19,5 @@ public interface ExpenseObserver {
 	public void update(List<Map<ExpenseKey , Expense>> data);	
 	//interface for the Viewer to get the data based on the display parameters
 	ArrayList<Expense> getData(final DisplayParameters params);
+	ArrayList<Expense> getDataByExpenseType(final DisplayParameters params);
 }

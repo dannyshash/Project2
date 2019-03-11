@@ -26,7 +26,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	
 	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
 		//TODO use expenseContent, uncomment the following line
-		//myList = expenseContent.getData(ExpenseType.PURCHASE);
+		//myList = expenseContent.getAllPurchases();
 		myList = pList.getList();
 	}
 	

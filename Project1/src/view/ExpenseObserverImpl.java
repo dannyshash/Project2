@@ -90,25 +90,30 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 	public ArrayList<Expense> getData(DisplayParameters params) {
 		ArrayList<Expense> expList = null;
 		
-		if(ldata.get(0) == null) {
+		if(ldata.get(params.type.ordinal()) == null) {
 			System.out.println("reurning as data is null, refresh");
 			return expList;
 		}
+		
 		switch(params.type.ordinal()) {
 		case 0:
-		case 2:
 			expList = new ArrayList<Expense>();
 			ArrayList<Expense> purchase_List = new ArrayList<Expense>(ldata.get(0).values());
-			ArrayList<Expense> comp_purchase_List = new ArrayList<Expense>(ldata.get(2).values());
 			expList.addAll(purchase_List);
+			break;			
+		case 2:
+			expList = new ArrayList<Expense>();
+			ArrayList<Expense> comp_purchase_List = new ArrayList<Expense>(ldata.get(2).values());
 			expList.addAll(comp_purchase_List);
 			break;			
 		case 1:
-		case 3:
 			expList = new ArrayList<Expense>();
 			ArrayList<Expense> bill_List = new ArrayList<Expense>(ldata.get(1).values());
-			ArrayList<Expense> comp_bill_List = new ArrayList<Expense>(ldata.get(3).values());
 			expList.addAll(bill_List);
+			break;			
+		case 3:
+			expList = new ArrayList<Expense>();
+			ArrayList<Expense> comp_bill_List = new ArrayList<Expense>(ldata.get(3).values());
 			expList.addAll(comp_bill_List);
 			break;
 		default:
@@ -117,4 +122,33 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 		
 		return expList;
 	}
+	
+	@Override
+	public ArrayList<Expense> getDataByExpenseType(DisplayParameters params) {
+		ArrayList<Expense> expList = null;
+		
+		switch(params.type.ordinal()) {
+		case 0:
+		case 2:
+			expList = new ArrayList<Expense>();
+			ArrayList<Expense> purchase_List = new ArrayList<Expense>(ldata.get(0).values());
+			expList.addAll(purchase_List);
+			ArrayList<Expense> comp_purchase_List = new ArrayList<Expense>(ldata.get(2).values());
+			expList.addAll(comp_purchase_List);
+			break;			
+		case 1:
+		case 3:
+			expList = new ArrayList<Expense>();
+			ArrayList<Expense> bill_List = new ArrayList<Expense>(ldata.get(1).values());
+			expList.addAll(bill_List);
+			ArrayList<Expense> comp_bill_List = new ArrayList<Expense>(ldata.get(3).values());
+			expList.addAll(comp_bill_List);
+			break;
+		default:
+			throw new RuntimeException("getExpenses error");
+		}
+		
+		return expList;
+	}
+
 }

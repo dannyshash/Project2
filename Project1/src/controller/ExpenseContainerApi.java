@@ -11,13 +11,8 @@ import model.Expense;
  */
 public interface ExpenseContainerApi {
 	public void init(Store store);
+	public Store getStore();
 
-	//Data access methods for viewer
-	public ArrayList<Expense> getPurchases();
-	public ArrayList<Expense> getCompositePurchases();
-	public ArrayList<Expense> getBills();
-	public ArrayList<Expense> getCompositeBills();
-	
 	//Data write methods for viewer
 	public void addExpense(Expense expense);
 	public void addExpenseIntoComposite(Expense compositeExpense, Expense expense);

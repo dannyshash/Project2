@@ -19,13 +19,13 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	private boolean dataStateChanged;
 	private boolean initializing =true;
 	
-	private Store delegator;
+	private Store store;
 	
 
 	/**
 	 * private constructor for the Singleton object
 	 */
-	public ExpenseContainerImpl() {
+	private ExpenseContainerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -38,11 +38,16 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	 */
 	public void init(Store store) {
 		initializing = true;
-		this.delegator = store;
+		this.store = store;
 		
-		delegator.display();
+		store.display();
 	}
-		
+	
+	@Override
+	public Store getStore() {
+		return store;
+	}
+	
 	@Override
 	public void start() {
 		notifyObservers(true);
@@ -58,33 +63,9 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 		dataStateChanged = false;		
 	}
 
-	@Override
-	public ArrayList<Expense> getPurchases() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Expense> getCompositePurchases() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Expense> getBills() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Expense> getCompositeBills() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private void notifyObservers(boolean dataStateChange) {
 		if(setDataStateChanged(dataStateChange))
-			observer.update(delegator.getAll());
+			observer.update(store.getAll());
 	}
 	
 	@Override
@@ -94,7 +75,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	
 	private void addExpense(Expense expense, boolean dataStateChange) {
 		try {
-			delegator.put(expense);
+			store.put(expense);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +98,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	private void addExpenseIntoComposite(Expense compExpense, Expense expense, boolean dataStateChange) {
 		Expense exp=null;
 		try {
-			exp = delegator.get(compExpense.getKey());
+			exp = store.get(compExpense.getKey());
 			exp.add(expense);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -125,7 +106,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 		}
 		
 		try {
-			delegator.put(exp);
+			store.put(exp);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,7 +117,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 
 	@Override
 	public boolean modifyExpense(Expense from, Expense to) {
-		if(delegator.modify(from, to)) {
+		if(store.modify(from, to)) {
 			setDataStateChanged(true);
 			return true;			
 		}
@@ -146,7 +127,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	@Override
 	public void removeExpense(Expense expense) {
 		try {
-			delegator.remove(expense);
+			store.remove(expense);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,7 +140,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	public void removeExpenseFromComposite(Expense compExpense, Expense expense) {
 		Expense exp=null;
 		try {
-			exp = delegator.get(compExpense.getKey());
+			exp = store.get(compExpense.getKey());
 			exp.remove(expense);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -167,7 +148,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 		}
 		
 		try {
-			delegator.put(exp);
+			store.put(exp);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,7 +172,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	public boolean changePaymentStatus(Expense expense, Date date) {
 		Expense exp=null;
 		try {
-			exp = delegator.get(expense.getKey());
+			exp = store.get(expense.getKey());
 			exp.changePaymentStatus(date);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -199,7 +180,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 		}
 		
 		try {
-			delegator.put(exp);
+			store.put(exp);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
