@@ -13,6 +13,7 @@ import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseType;
 import model.Purchase;
+import utils.MyDate;
 import view.ExpenseContentApi;
 
 import java.util.ArrayList;
@@ -22,17 +23,20 @@ public class ExpenseListTableModel extends AbstractTableModel {
 
 	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Method", "Vendor", "Location", "Category", "Due Date", "Interval" };
 	private ArrayList<Expense> myList;
-	private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 	private ExpenseContentApi expenseContent;
+	private ExpenseType type = ExpenseType.PURCHASE;
 	
 	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
 		this.expenseContent = expenseContent;
-		//TODO use expenseContent, uncomment the following line
 		myList = expenseContent.getAllPurchases();
-		//myList = pList.getList();
+	}
+	
+	public void refresh() {
+		refresh(type);
 	}
 	
 	public void refresh(ExpenseType type) {
+		this.type = type;
 		if(type == ExpenseType.PURCHASE) {
 			myList = expenseContent.getAllPurchases();	
 		}
@@ -50,22 +54,20 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		int size;
-		if (myList == null) {
-			size = 0;
-		} else {
+		int size = 0;
+		if(myList != null) {
 			size = myList.size();
 		}
+
 		return size;
 	}
-
 
 	public Object getValueAt(int row, int col) {
 		Object temp = null;
 		if (col == 0) {//Type
 			temp = myList.get(row).getType();
 		} else if (col == 1) {//Date
-			temp = dateformat.format(myList.get(row).getDate());
+			temp = MyDate.getDateString(myList.get(row).getDate());
 		} else if (col == 2) {//Name
 			temp = myList.get(row).getName();
 		} else if (col == 3) {//Amount
@@ -101,7 +103,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		} else if (col == 8) {//Category
 			temp = myList.get(row).getCategory();
 		} else if (col == 9) {//Due Date
-			temp = dateformat.format(myList.get(row).getPaymentDate());
+			temp = MyDate.getDateString(myList.get(row).getPaymentDate());
 		} else if (col == 10) {//Interval
 			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
 					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
@@ -121,11 +123,6 @@ public class ExpenseListTableModel extends AbstractTableModel {
 
 	public String getColumnName(int col) {
 		return columnNames[col];
-	}
-
-	
-	public Class getColumnClass(int col) {
-		return String.class;
 	}
 
 }

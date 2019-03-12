@@ -7,6 +7,7 @@ import java.util.Map;
 
 import controller.ExpenseContainerImpl;
 import controller.ExpenseSubject;
+import misc.UserInterface;
 import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseKey;
@@ -51,6 +52,7 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 				ldata.get(2).size()+", " + 	//comp_purchase
 				ldata.get(3).size()			//comp_bill
 				);
+		UserInterface.getInstance().getTableModel().refresh();
 		/*
 		 * Just for debug purpose
 		ArrayList<Expense> cp = new ArrayList<Expense>(ldata.get(2).values());

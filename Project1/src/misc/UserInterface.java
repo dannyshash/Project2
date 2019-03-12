@@ -60,10 +60,10 @@ public class UserInterface extends JFrame {
 	public ExpenseListTableModel tableModel;
 	public JTable table;
 	public ExpenseList myList;
-	private JTextField txtExpenseList;
 	ExpenseContentApi contentUpdator;
 	UserActionsApi userActions;
 	JComboBox<ExpenseType> dispayExpenseCombo;
+	private static UserInterface frame;
 
 	/**
 	 * Launch the application.
@@ -78,7 +78,7 @@ public class UserInterface extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserInterface frame = new UserInterface();
+					frame = getInstance();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -88,7 +88,13 @@ public class UserInterface extends JFrame {
 		});
 	}
 
-
+	public static UserInterface getInstance() {
+		if(frame == null) {
+			frame = new UserInterface();
+		}
+		return frame;
+	}
+	
 	/**
 	 * creates Singletons
 	 */
@@ -107,7 +113,7 @@ public class UserInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserInterface() {
+	protected UserInterface() {
 		setTitle("Personal Budget Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 879, 554);
@@ -123,26 +129,7 @@ public class UserInterface extends JFrame {
 		userActions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
 
 	
-		// Insert Sample Data
-		Date purchase_date=MyDate.getRandomDateAndTime();
-		Purchase p1 = new Purchase(2.30, "Sandwich", purchase_date,
-				Status.PAID, purchase_date, "Starbucks", "Campus", Mode.CASH, ExpenseCategories.DINING);
-		
-		Purchase p2 = new Purchase(3.30, "Wrap", purchase_date,
-				Status.PAID, purchase_date, "Starbucks", "Downtown", Mode.CASH, ExpenseCategories.DINING);
-		
-		Date bill_date=MyDate.getRandomDateAndTime();
-		Bill b1 = new Bill(65.09, "Electricity", bill_date,
-				Status.UNPAID, MyDate.addDays(bill_date, 7), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
-		Bill b2 = new Bill(10.50, "Electricity", bill_date,
-				Status.UNPAID, MyDate.addDays(bill_date, 7), "Hydro Quebec", RepitionInterval.MONTHLY, ExpenseCategories.UTILITIES);
-
-		// Jtable Definition
 		myList = new ExpenseList();
-		myList.add(p1);
-		myList.add(p2);
-		myList.add(b1);
-		myList.add(b2);
 		tableModel = new ExpenseListTableModel(myList, contentUpdator);
 		table = new JTable(tableModel);
 		TableRowSorter sorter = new TableRowSorter(tableModel);
@@ -271,32 +258,8 @@ public class UserInterface extends JFrame {
 		
 	}
 	
-}
-
-/*
-class DispayExpenseComboActionListener implements ActionListener{
-	private JComboBox<ExpenseType> dispayExpenseCombo;
-	private ExpenseContentApi contentUpdator;
-	ExpenseListTableModel tableModel;
-	public DispayExpenseComboActionListener(JComboBox<ExpenseType> comboBox, ExpenseListTableModel tableModel) {
-		this.dispayExpenseCombo = comboBox;
-		this.contentUpdator = contentUpdator;
-		this.tableModel=tableModel;
+	public ExpenseListTableModel getTableModel() {
+		return tableModel;
 	}
-    public void actionPerformed(ActionEvent event) {
-    	if(dispayExpenseCombo.getSelectedItem() ==ExpenseType.PURCHASE ||
-    			dispayExpenseCombo.getSelectedItem() ==ExpenseType.COMPOSITE_PURCHASE) {
-    		System.out.println("#### Purchase selected, items = "+contentUpdator.getAllPurchases().size()+"####");
-    		tableModel.refresh(ExpenseType.PURCHASE);
-		}
-    	else if(dispayExpenseCombo.getSelectedItem() ==ExpenseType.BILL ||
-    			dispayExpenseCombo.getSelectedItem() ==ExpenseType.COMPOSITE_BILL) {
-    		System.out.println("#### Bill selected, items="+contentUpdator.getAllBills().size()+" ####");
-    		tableModel.refresh(ExpenseType.BILL);
-		} 
-		else {
-			System.out.println("#### Invalid Item selected ####");
-		}		
-    }
+	
 }
-*/

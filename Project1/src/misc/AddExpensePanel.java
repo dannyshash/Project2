@@ -241,8 +241,6 @@ public class AddExpensePanel extends UserInterface {
 							getDueDate(), textField_8.getText(), (RepitionInterval)paymentIntervalCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
 				}	
 				System.out.println("Adding an Expense: " + expense);
-				//TODO should remove myList and use userActions
-				myList.add(expense);
 				userActions.addExpense(expense);
 
 							
