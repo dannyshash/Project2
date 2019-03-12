@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import model.Expense;
+import model.ExpenseKey;
 import model.ExpenseType;
 
 public class ContentUpdator implements ExpenseContentApi {
@@ -11,6 +12,11 @@ public class ContentUpdator implements ExpenseContentApi {
 		this.container=container;
 	}
 
+	@Override
+	public Expense findExpense(ExpenseKey key) {
+		return container.find(key);
+	}
+	
 	private ArrayList<Expense> getData(DisplayParameters params) {
 		return container.getDataByExpenseType(params);
 	}

@@ -153,4 +153,15 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 		return expList;
 	}
 
+	@Override
+	public Expense find(ExpenseKey key) {
+		switch(key.type.ordinal()) {
+		case 0: return ldata.get(0).get(key);
+		case 1: return ldata.get(1).get(key);
+		case 2: return ldata.get(2).get(key);
+		case 3: return ldata.get(3).get(key);
+		default:
+			throw new RuntimeException("find error");
+		}
+	}
 }

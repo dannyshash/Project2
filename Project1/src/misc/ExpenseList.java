@@ -10,11 +10,12 @@ import java.util.Date;
 
 import model.*;
 
+@Deprecated
 public class ExpenseList {
 
 	private ArrayList<Expense> expenseList;
 	
-	public ExpenseList() {
+	private ExpenseList() {
 		expenseList = new ArrayList<Expense>();
 	}
 	

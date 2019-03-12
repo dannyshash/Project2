@@ -42,9 +42,8 @@ public class AddExpensePanel extends UserInterface {
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel(ExpenseList myList, ExpenseListTableModel tableModel, UserActionsApi userActions) {
+	public AddExpensePanel(ExpenseListTableModel tableModel, UserActionsApi userActions) {
 		
-		this.myList = myList;
 		this.tableModel = tableModel;
 		
 		setTitle("Add Expense Panel");

@@ -20,7 +20,6 @@ import javax.swing.RowFilter;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -35,13 +34,9 @@ import controller.ExpenseSubject;
 import controller.FileLoaderImpl;
 import controller.InMemoryStore;
 import controller.Store;
-import model.Purchase;
-import model.Bill;
-import model.ExpenseCategories;
+import model.Expense;
+import model.ExpenseKey;
 import model.ExpenseType;
-import model.Mode;
-import model.RepitionInterval;
-import model.Status;
 import utils.MyDate;
 import utils.Constants;
 import view.ContentUpdator;
@@ -51,7 +46,6 @@ import view.UserActionsApi;
 import view.UserActionsImpl;
 import view.ExpenseContentApi;
 
-import java.util.Arrays;
 import javax.swing.JComboBox;
 
 public class UserInterface extends JFrame {
@@ -59,7 +53,6 @@ public class UserInterface extends JFrame {
 	private JPanel contentPaneMain;
 	public ExpenseListTableModel tableModel;
 	public JTable table;
-	public ExpenseList myList;
 	ExpenseContentApi contentUpdator;
 	UserActionsApi userActions;
 	JComboBox<ExpenseType> dispayExpenseCombo;
@@ -129,8 +122,8 @@ public class UserInterface extends JFrame {
 		userActions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
 
 	
-		myList = new ExpenseList();
-		tableModel = new ExpenseListTableModel(myList, contentUpdator);
+		//myList = new ExpenseList();
+		tableModel = new ExpenseListTableModel(contentUpdator);
 		table = new JTable(tableModel);
 		TableRowSorter sorter = new TableRowSorter(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -154,7 +147,7 @@ public class UserInterface extends JFrame {
 		
 		btnAddExpense.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
-				   AddExpensePanel frame1 = new AddExpensePanel(myList, tableModel, userActions);
+				   AddExpensePanel frame1 = new AddExpensePanel(tableModel, userActions);
 				   frame1.setVisible(true);
 			   }
 			});
@@ -166,9 +159,9 @@ public class UserInterface extends JFrame {
 		btnRemoveExpense.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
-					myList.remove(table.getSelectedRow());
+					Expense expense = getSelectedExpense(table);
+					if(expense != null) userActions.removeExpense(expense);
 					tableModel.fireTableDataChanged();
-					//ExpenseContainerImpl.getInstance().removeExpense(expense);
 				}
 			}
 		});
@@ -207,10 +200,11 @@ public class UserInterface extends JFrame {
 					   int PurchaseTypeCounter=0;
 					   int BillTypeCounter=0;
 					     for (int i = 0; i < selection.length; i++) {
-					    	 if(myList.getType(selection[i]).equals("Purchase") || myList.getType(selection[i]).equals("Composite_Purchase")) {
+					    	 ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), 0));
+					    	 if(type == ExpenseType.PURCHASE || type == ExpenseType.COMPOSITE_PURCHASE) {
 					    		 PurchaseTypeCounter++;
 					    	 }
-					    	 if(myList.getType(selection[i]).equals("Bill") || myList.getType(selection[i]).equals("Composite_Bill")) {
+					    	 if(type == ExpenseType.BILL || type == ExpenseType.COMPOSITE_BILL) {
 					    		 BillTypeCounter++;
 					    	 }
 						   }
@@ -250,12 +244,24 @@ public class UserInterface extends JFrame {
 		btnMarkPaidunpaid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
-					myList.markPaidUnpaid(table.getSelectedRow());
+					Expense expense = getSelectedExpense(table);
+					if(expense != null) userActions.changePaymentStatus(expense);
 					tableModel.fireTableDataChanged();
 				}
 			}
 		});
 		
+	}
+	
+	private Expense getSelectedExpense(JTable table) {
+		ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), 0));
+		double amount = (Double)(table.getValueAt(table.getSelectedRow(), 3));
+		String name = (String)(table.getValueAt(table.getSelectedRow(), 2));
+		Date date = MyDate.getJustDate((String)(table.getValueAt(table.getSelectedRow(), 1)));
+		ExpenseKey key = new ExpenseKey(type, amount, name, date);
+
+		System.out.println("getSelectedExpense return: " + contentUpdator.findExpense(key));
+		return contentUpdator.findExpense(key);
 	}
 	
 	public ExpenseListTableModel getTableModel() {

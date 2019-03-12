@@ -26,7 +26,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	private ExpenseContentApi expenseContent;
 	private ExpenseType type = ExpenseType.PURCHASE;
 	
-	public ExpenseListTableModel(ExpenseList pList, ExpenseContentApi expenseContent) {
+	public ExpenseListTableModel(ExpenseContentApi expenseContent) {
 		this.expenseContent = expenseContent;
 		myList = expenseContent.getAllPurchases();
 	}

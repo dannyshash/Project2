@@ -1,6 +1,7 @@
 package view;
 
 import model.Expense;
+import model.ExpenseKey;
 import model.ExpenseType;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  */
 public interface ExpenseContentApi {
 	//Data access methods for viewer
+	public Expense findExpense(ExpenseKey key);
 	public ArrayList<Expense> getPurchases();
 	public ArrayList<Expense> getAllPurchases();
 	public ArrayList<Expense> getCompositePurchases();

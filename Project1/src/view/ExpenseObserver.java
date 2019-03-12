@@ -18,6 +18,7 @@ public interface ExpenseObserver {
 	//Notification about the data change from controller
 	public void update(List<Map<ExpenseKey , Expense>> data);	
 	//interface for the Viewer to get the data based on the display parameters
+	public Expense find(ExpenseKey key);
 	ArrayList<Expense> getData(final DisplayParameters params);
 	ArrayList<Expense> getDataByExpenseType(final DisplayParameters params);
 }

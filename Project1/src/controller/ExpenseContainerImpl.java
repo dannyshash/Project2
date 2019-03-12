@@ -133,7 +133,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 			e.printStackTrace();
 		}
 				
-		setDataStateChanged(true);
+		notifyObservers(true);
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 			e.printStackTrace();
 		}
 
-		setDataStateChanged(true);
+		notifyObservers(true);
 	}
 
 	@Override
@@ -186,6 +186,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 			e.printStackTrace();
 		}
 		
+		notifyObservers(true);
 		return true;
 	}
 
