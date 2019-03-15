@@ -137,6 +137,17 @@ public class CompositePurchase extends AbstractExpense{
 	}
 
 	@Override
+	public boolean changePaymentStatus(Date date) {
+		Iterator<Expense> compPurchase = items.iterator();
+		while(compPurchase.hasNext()) {
+			Expense expenseItem = compPurchase.next();
+			expenseItem.changePaymentStatus(date);
+		}	
+		
+		return true;
+	}
+	
+	@Override
 	public String toString() {
 		return getType() + super.toString() + " " + getDescription();
 	}
