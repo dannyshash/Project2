@@ -1,0 +1,100 @@
+Use Case 1: Launch the application
+	Description: User able start the application.
+	Actor(s): User
+	Goal: User able to launch the PBM application see the existing Purchase items in the system.
+	Pre-conditions: The project from the github is cloned on the local PC and opened the project called Project1.
+	Main scenario:
+1.	User selects UserInterface class from Eclipse project Project1, right click on it to select run as application option
+	Alternative scenarios:
+1.	User changes the expense type by selecting an expense type from the drop-down list.
+2.	The corresponding expense items are displayed on the main window.
+	Post-conditions: The list of all the expenses for the selected expense type are displayed on the main window. 
+Note: All the Purchases and Composite Purchases are displayed by selecting either of corresponding Expense Type. Similarly, all the Bills and Composite Bills are displayed by selecting either of corresponding Expense Type.
+
+Use Case 2-1: Add a simple expense		
+	Description: User adds a new expense
+	Actor(s): User
+	Goal: User able to add 2 types of simple expenses, Purchase and Bill
+	Pre-conditions: User already started PBM application.
+	Main scenario:
+2.	User chooses to add a new expense
+3.	System opens a new add expense panel where the user can enter expense details.
+4.	User selects the simple expense type, Purchase or Bill
+5.	User enters the details for the selected expense types
+6.	System validates the data 
+7.	System add the expense into the corresponding expense list 
+8.	System refreshes the expense list in the main window with the new expense added.
+	Alternative scenarios:
+                         1. The information is incorrect (amount entered is negative)
+                               1.1 User will receive a prompt indicating which info is incorrect
+                               1.2 After correcting the info, it will be added to the expense list.
+	Post-conditions: The list of all the expenses displayed in the main window for the selected expense list.
+
+Use Case 2-2: Add a composite expense		
+	Description: User adds a new composite expense
+	Actor(s): User
+	Goal: User able to add 2 types of composite expenses, Composite Purchase and Composite Bill
+	Pre-conditions: User already started PBM application.
+	Main scenario:
+1.	User selects the expenses to be grouped as composite.
+2.	User chooses to create a new composite expense by selecting “Composite Expense” button.
+3.	System opens a new add expense panel where the user can enter composite expense details.
+4.	User selects the composite expense type, Purchase or Bill
+5.	User enters the details for the selected composite expense type
+6.	System validates the data 
+7.	System add the expense into the corresponding expense list 
+8.	System refreshes the expense list in the main window with the new expense added.
+	Alternative scenarios:
+                         1. The information is incorrect (amount entered is negative)
+                               1.1 User will receive a prompt indicating which info is incorrect
+                               1.2 After correcting the info, it will be added to the expense list.
+	Post-conditions: The list of all the expenses displayed in the main window for the selected expense list.
+
+Use Case 3: Modify an existing expense
+	Description: User can modify an existing expense
+	Actor(s): User
+	Goal: user is able to modify an expense type belongs to a certain period
+	Pre-conditions: User already started PBM application.
+	Main scenario: 
+		1. User selects a row from the list and modifies allowed details, like paid, amount, any additional details, etc...
+		2. System modifies the expense entry
+		3. System refreshes the main window with existing expense list
+	Alternative scenarios:
+		1. User changes the expense type for the displayed period
+			1.1 System fetched the expense list for the period chosen by the user
+			1.2 System displays the expense list in the main window
+			Same steps as in the main flow.
+		2. User changes the time period for the displayed expense type
+			2.1 System fetched the expense list for the period chosen by the user
+			2.2 System displays the expense list in the main window
+			Same steps as in the main flow.
+		3. User changes the expense type and the time period
+			3.1 System fetched the expense list for the period chosen by the user
+			3.2 System displays the expense list in the main window
+			Same steps as in the main flow.
+	Post-conditions: The list of all the expenses displayed on the main window for the selected time period. 
+
+Use Case 4: Mark an expense as paid or not paid		
+	Description: User Mark an expense as paid or not paid
+	Actor(s): User
+	Goal: User able to Mark an expense as paid or not paid
+	Pre-conditions: User already started PBM application.
+	Main scenario:
+1.	User selects an expense from the list of expenses
+2.	User selects the ‘Mark expense paid/unpaid’ button
+3.	The status is changed to Paid if the status was Unpaid, or Unpaid for Paid.
+4.	The information will be sent and stored in the expense list
+	Alternative scenarios:
+		None
+
+Use Case 5: Remove an expense
+	Description: User chooses to remove an expense
+	Actor(s): User
+	Goal: User able to remove selected expense from the expense list
+	Pre-conditions: User already started PBM application.
+	Main scenario:
+		1. User selects a row in the list to be removed
+		2. User selects the ‘Remove expense’ button
+		3. System refreshes the main window with existing expense list
+	Alternative scenarios:
+		None
