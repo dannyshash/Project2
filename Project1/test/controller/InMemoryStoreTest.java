@@ -47,11 +47,6 @@ public class InMemoryStoreTest {
     }
 
     @Test
-    public void getMatching() {
-        //TODO
-    }
-
-    @Test
     public void remove() throws IOException {
         Purchase purchase = new Purchase(5.55, "cocobun", new Date(2019,12,12));
         inMemoryStore.remove(purchase);
