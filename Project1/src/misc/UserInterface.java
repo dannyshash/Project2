@@ -147,14 +147,9 @@ public class UserInterface extends JFrame {
   				if(!isRowSelected(row)) {
 					c.setBackground(getBackground());
 
-					/*		        
-		        	if(((int)getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal())) > 1) {
-		        		System.out.println("#########");
-		        		//c.setBackground(Color.YELLOW);
-		        	}
-					*/
 		        }
-		        return c;
+
+  				return c;
 		    }
 		};
 		TableRowSorter sorter = new TableRowSorter(tableModel);
@@ -203,26 +198,26 @@ public class UserInterface extends JFrame {
 		    public void mouseClicked(MouseEvent e){
 		    	if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
 		    		int row = table.getSelectedRow();
-		    		int column = 1;
-		    		System.out.println("#### Expand"+getTableModel().getValueAt(row, DisplayColumn.Expand.ordinal())); 
+		    		Expense exp = getTableModel().getExpense(row);
+		    		String expand = getTableModel().getValueAt(row, DisplayColumn.Expand.ordinal()).toString();
+		    		System.out.println("#### Mouse clicked on row"+expand+",Exp="+exp); 
 
-		    		if(getTableModel().getValueAt(row, DisplayColumn.Expand.ordinal()).toString().compareTo("+") == 0){
-			    		TableCellRenderer tableCellRenderer = table.getCellRenderer(row, column);
-			            Component c = table.prepareRenderer(tableCellRenderer, row, column);
-				        JComponent jc = (JComponent)c;
-
-			            jc.setBackground(Color.YELLOW);
-
-						Expense exp = getSelectedExpense(table);
-			    		if(exp.getType().ordinal()<2) {
-			    			System.out.println("Simple Expense, returning");
-			    			return;
-			    		}
-			    		System.out.println("#### Mouse clicked on row:"+row+", Expense : "+exp.toString());
-			    		getTableModel().expandComposite(exp, table.getSelectedRow());		    			
+		    		if(exp.getType().ordinal()>1){
+		    			if(expand.compareTo("+") == 0){
+				    		System.out.println("####  Expanding row");
+				    		getTableModel().expandComposite(exp, table.getSelectedRow());		    			
+		    				
+		    			} else if(expand.compareTo("-") == 0) {
+			    			System.out.println("Collapse row");
+			    			getTableModel().collapseComposite(exp, table.getSelectedRow());
+		    			}
+		    			else {
+		    				throw new RuntimeException("mouseClicked event error");
+		    			}
 		    		}
 		    		else {
-		    			System.out.println("TODO: should collapse");
+		    			System.out.println("Simple Expense, do nothing");
+		    			return;
 		    		}
 		        }
 		    }

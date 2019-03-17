@@ -9,6 +9,7 @@ import model.ExpenseType;
 import utils.MyDate;
 
 public class DisplayExpense {
+	private Expense expRef;
 	public String no;
 	public String expand;
 	public String parent;
@@ -24,17 +25,21 @@ public class DisplayExpense {
 	public String dueDate;
 	public String interval;
 	
-	public static DisplayExpense copy(Expense exp) {
-		DisplayExpense myExpense = new DisplayExpense();
+	public DisplayExpense() {
+		setExpRef(null);
+	}
+	
+	public DisplayExpense copy(Expense exp) {
 
-		myExpense.no = "0";
-		myExpense.expand = "-";
+		this.setExpRef(exp);
+		this.no = "0";
+		this.expand = "-";
 		{
 			if(exp.getType().ordinal()>1)
-				myExpense.expand = "+";
+				this.expand = "+";
 		}
 		{
-			myExpense.parent = "";
+			this.parent = "";
 			if(exp.getParent() !=null) {
 				StringBuilder buf = new StringBuilder();
 				SimpleDateFormat date_format = new SimpleDateFormat("dd-MM");
@@ -46,43 +51,51 @@ public class DisplayExpense {
 				buf = buf.append(exp.getParent().getName());
 				buf = buf.append(":");
 				buf = buf.append(date_format.format(exp.getParent().getDate()));
-				myExpense.parent = buf.toString();
+				this.parent = buf.toString();
 			}
 		}
-		myExpense.type = exp.getType().toString(); 
-		myExpense.date = MyDate.getDateString(exp.getDate()); 
-		myExpense.name = exp.getName(); 
-		myExpense.amount = new Double(exp.getAmount()).toString(); 
-		myExpense.status = exp.getStatus().toString();
+		this.type = exp.getType().toString(); 
+		this.date = MyDate.getDateString(exp.getDate()); 
+		this.name = exp.getName(); 
+		this.amount = new Double(exp.getAmount()).toString(); 
+		this.status = exp.getStatus().toString();
 		{
-			myExpense.method = ""; 
+			this.method = ""; 
 			if(exp.getType()==ExpenseType.PURCHASE ||
 					exp.getType()==ExpenseType.COMPOSITE_PURCHASE){				
-				myExpense.method = exp.getMode().toString(); 
+				this.method = exp.getMode().toString(); 
 			}
 		}
-		myExpense.vendor = exp.getVendor(); 
+		this.vendor = exp.getVendor(); 
 		{
-			myExpense.location = ""; 
+			this.location = ""; 
 			if(exp.getType()==ExpenseType.PURCHASE ||
 					exp.getType()==ExpenseType.COMPOSITE_PURCHASE){				
-				myExpense.location = exp.getLocation(); 
+				this.location = exp.getLocation(); 
 			}
 		}
-		myExpense.category = exp.getCategory().toString(); 
+		this.category = exp.getCategory().toString(); 
 		{
-			myExpense.dueDate = "";
+			this.dueDate = "";
 			if(exp.getType()==ExpenseType.BILL)
-				myExpense.dueDate = ((Bill)exp).getDueDate().toString();
+				this.dueDate = ((Bill)exp).getDueDate().toString();
 		}
 		{
-			myExpense.interval = ""; 
+			this.interval = ""; 
 			if(exp.getType()==ExpenseType.BILL ||
 					exp.getType()==ExpenseType.COMPOSITE_BILL){				
-				myExpense.interval = exp.getInterval().toString();
+				this.interval = exp.getInterval().toString();
 			}
 		}
 		
-		return myExpense;
+		return this;
+	}
+
+	public Expense getExpRef() {
+		return expRef;
+	}
+
+	private void setExpRef(Expense expRef) {
+		this.expRef = expRef;
 	}
 }

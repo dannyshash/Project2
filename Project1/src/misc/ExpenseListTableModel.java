@@ -7,22 +7,18 @@
  */
 package misc;
 
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import model.CompositeBill;
 import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseType;
-import model.Purchase;
-import utils.MyDate;
 import view.DisplayColumn;
 import view.DisplayExpense;
 import view.ExpenseContentApi;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.text.SimpleDateFormat;
 
 public class ExpenseListTableModel extends AbstractTableModel {
 
@@ -38,7 +34,8 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		Iterator<Expense> it = expData.iterator();
 		while(it.hasNext()) {
 			Expense expense = it.next();
-			myDisplayExenseList.add(DisplayExpense.copy(expense));			
+			DisplayExpense de = new DisplayExpense();
+			myDisplayExenseList.add(de.copy(expense));			
 		}	
 	}
 	
@@ -47,7 +44,8 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		Iterator<Expense> it = expData.iterator();
 		while(it.hasNext()) {
 			Expense expense = it.next();
-			DisplayExpense de = DisplayExpense.copy(expense);
+			DisplayExpense de = new DisplayExpense();
+			de.copy(expense);
 			if(expense.getType().ordinal()>1)
 				de.expand = "-";
 			list.add(de);			
@@ -71,6 +69,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		else {
 			throw new RuntimeException("Data error");
 		}
+		System.out.println("refresh: row count="+myDisplayExenseList.size());
 		this.fireTableDataChanged();
 	}
 	
@@ -87,6 +86,10 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		return size;
 	}
 
+	public Expense getExpense(int selectedRow) {			
+		return myDisplayExenseList.get(selectedRow).getExpRef();
+	}
+	
 	void expandComposite(Expense expense, int selectedRow) {
 		System.out.println("## expandComposite ##"+expense.toString()+"items="+expense.getNoOfSubItems());
 		/* this will only show the immediate children
@@ -94,7 +97,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			myList.add(selectedRow+1, expense.getSubItems().get(i));
 		}
 		*/
-		//myList.addAll(selectedRow+1, ((CompositePurchase)expense).getPurchasesList());
+
 		ArrayList<Expense> expItems; 
 		if(expense.getType()==ExpenseType.COMPOSITE_PURCHASE)
 			expItems = ((CompositePurchase)expense).getPurchasesList();
@@ -105,9 +108,38 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			
 		myDisplayExenseList.addAll(selectedRow+1, getDisplayExenseList(expItems));
 		setValueAt("-", selectedRow, DisplayColumn.Expand.ordinal());
+		System.out.println("expandComposite: row count="+myDisplayExenseList.size());
 		this.fireTableDataChanged();		
-		//setValueAt("-", selectedRow, DisplayColumn.Expand.ordinal());
-		//this.fireTableCellUpdated(selectedRow, DisplayColumn.Expand.ordinal());;		
+	}
+
+	void collapseComposite(Expense expense, int selectedRow) {
+		System.out.println("## collapseComposite ##"+expense.toString()+"items="+expense.getNoOfSubItems());
+
+		ArrayList<Expense> expItems; 
+		if(expense.getType()==ExpenseType.COMPOSITE_PURCHASE)
+			expItems = ((CompositePurchase)expense).getPurchasesList();
+		else if(expense.getType()==ExpenseType.COMPOSITE_BILL)
+			expItems = ((CompositeBill)expense).getBillsList();
+		else
+			throw new RuntimeException("expandComposite: invalid expense type");
+		
+		
+		int index = 0; int countIndex = 0;
+		int count = expItems.size();
+		Iterator<DisplayExpense> it = myDisplayExenseList.iterator();
+		while(it.hasNext()) {
+			DisplayExpense d = it.next();
+			
+			if ((index++ > selectedRow) || (countIndex == count)) { //remove
+				System.out.println("removing"+d.getExpRef());
+				++countIndex;			
+				it.remove();
+			}
+		}		
+
+		setValueAt("+", selectedRow, DisplayColumn.Expand.ordinal());
+		System.out.println("collapseComposite: row count="+myDisplayExenseList.size());
+		this.fireTableDataChanged();		
 	}
 	
 	@Override
