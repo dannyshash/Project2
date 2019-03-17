@@ -14,6 +14,7 @@ public interface Expense {
 	public void add(Expense expense);
 	public boolean remove(Expense expense);
 	public boolean changePaymentStatus(Date date);
+	public void changePaymentStatus(Status status, Date date);
 	public void setParent(Expense parent);
 	
 	//access

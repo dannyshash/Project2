@@ -192,6 +192,12 @@ public abstract class AbstractExpense implements Expense{
 	}
 	
 	@Override
+	public void changePaymentStatus(Status status, Date date) {
+		this.paymentDate = date;
+		this.setStatus(status);
+	}
+	
+	@Override
 	public boolean iseqal(Expense p) {
 		if(this.getType() == p.getType() &&
 				this.getAmount() == p.getAmount() &&

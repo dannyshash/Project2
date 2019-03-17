@@ -139,13 +139,24 @@ public class CompositeBill extends AbstractExpense{
 	
 	@Override
 	public boolean changePaymentStatus(Date date) {
+		Status status = Status.PAID;
+		if(getStatus() == Status.PAID)
+			status = Status.UNPAID;
+		this.changePaymentStatus(status, date);
+		
+		return true;
+	}
+	
+	@Override
+	public void changePaymentStatus(Status status, Date date) {
+		//set status for himself
+		setStatus(status); 
+		//set status for children
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense expenseItem = compPurchase.next();
-			expenseItem.changePaymentStatus(date);
+			expenseItem.changePaymentStatus(status, date);
 		}	
-		
-		return true;
 	}
 	
 	@Override
