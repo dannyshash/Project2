@@ -8,12 +8,20 @@ public class CompositeBill extends AbstractExpense{
 	private RepitionInterval interval;
 
 	public CompositeBill(String description, ExpenseCategories category) {
-		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
+		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy comp Bill", new Date(), Status.PAID, new Date(), "dummy vendor", category);
 		this.interval=RepitionInterval.MONTHLY;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 	
+	public CompositeBill(double amount, String name, Date date,
+			String description, ExpenseCategories category) {
+		super(ExpenseType.COMPOSITE_BILL, amount, name, date, Status.PAID, new Date(), "dummy vendor", category);
+		this.interval=RepitionInterval.MONTHLY;
+		this.description=description;		
+		items=new ArrayList<Expense>();
+	}
+
 	@Override
 	public void add(Expense expense) {
 		expense.setParent(this);
@@ -93,7 +101,7 @@ public class CompositeBill extends AbstractExpense{
 		if(super.iseqal(expense) && this.getDescription().equals(c.getDescription())) {
 			return true;
 		}
-		
+		System.out.println("CompositeBill:iseqal return false");		
 		return false;
 	}
 	

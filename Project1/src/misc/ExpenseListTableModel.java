@@ -7,28 +7,52 @@
  */
 package misc;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import model.CompositeBill;
 import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseType;
 import model.Purchase;
 import utils.MyDate;
+import view.DisplayColumn;
+import view.DisplayExpense;
 import view.ExpenseContentApi;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.text.SimpleDateFormat;
 
 public class ExpenseListTableModel extends AbstractTableModel {
 
-	private String[] columnNames = { "Type", "Date", "Name", "Amount", "Status", "Method", "Vendor", "Location", "Category", "Due Date", "Interval" };
-	private ArrayList<Expense> myList;
+	private ArrayList<DisplayExpense> myDisplayExenseList = new ArrayList<DisplayExpense>();
 	private ExpenseContentApi expenseContent;
 	private ExpenseType type = ExpenseType.PURCHASE;
 	
 	public ExpenseListTableModel(ExpenseContentApi expenseContent) {
 		this.expenseContent = expenseContent;
-		myList = expenseContent.getAllPurchases();
+	}
+	
+	void createDisplayExenseList(ArrayList<Expense> expData) {
+		Iterator<Expense> it = expData.iterator();
+		while(it.hasNext()) {
+			Expense expense = it.next();
+			myDisplayExenseList.add(DisplayExpense.copy(expense));			
+		}	
+	}
+	
+	ArrayList<DisplayExpense> getDisplayExenseList(ArrayList<Expense> expData) {
+		ArrayList<DisplayExpense> list = new ArrayList<DisplayExpense>();
+		Iterator<Expense> it = expData.iterator();
+		while(it.hasNext()) {
+			Expense expense = it.next();
+			DisplayExpense de = DisplayExpense.copy(expense);
+			if(expense.getType().ordinal()>1)
+				de.expand = "-";
+			list.add(de);			
+		}		
+		return list;
 	}
 	
 	public void refresh() {
@@ -36,12 +60,13 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	}
 	
 	public void refresh(ExpenseType type) {
+		myDisplayExenseList.clear();
 		this.type = type;
 		if(type == ExpenseType.PURCHASE) {
-			myList = expenseContent.getAllPurchases();	
+			createDisplayExenseList(expenseContent.getAllPurchases());
 		}
 		else if(type == ExpenseType.BILL){
-			myList = expenseContent.getAllBills();
+			createDisplayExenseList(expenseContent.getAllBills());
 		}
 		else {
 			throw new RuntimeException("Data error");
@@ -50,79 +75,119 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	}
 	
 	public int getColumnCount() {
-		return columnNames.length;
+		return DisplayColumn.values().length;
 	}
 
 	public int getRowCount() {
 		int size = 0;
-		if(myList != null) {
-			size = myList.size();
+		if(myDisplayExenseList != null) {
+			size = myDisplayExenseList.size();
 		}
 
 		return size;
 	}
 
-	public Object getValueAt(int row, int col) {
-		Object temp = null;
-		if (col == 0) {//Type
-			temp = myList.get(row).getType();
-		} else if (col == 1) {//Date
-			temp = MyDate.getDateString(myList.get(row).getDate());
-		} else if (col == 2) {//Name
-			temp = myList.get(row).getName();
-		} else if (col == 3) {//Amount
-			temp = myList.get(row).getAmount();
-		} else if (col == 4) {//Status
-			temp = myList.get(row).getStatus();
-		} else if (col == 5) {//Method
-			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){				
-				temp = myList.get(row).getMode();
-			}
-			else if(myList.get(row).getType()==ExpenseType.BILL ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
-				temp = "";
-			}
-			else {
-				throw new RuntimeException("Invalid method");
-			}
-		} else if (col == 6) {//Vendor
-			temp = myList.get(row).getVendor();
-		} else if (col == 7) {//Location
-			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
-				temp = myList.get(row).getLocation();
-			}
-			else if(myList.get(row).getType()==ExpenseType.BILL ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
-				temp = "";
-			}
-			else {
-				throw new RuntimeException("Invalid method");
-			}
-		} else if (col == 8) {//Category
-			temp = myList.get(row).getCategory();
-		} else if (col == 9) {//Due Date
-			temp = MyDate.getDateString(myList.get(row).getPaymentDate());
-		} else if (col == 10) {//Interval
-			if(myList.get(row).getType()==ExpenseType.PURCHASE ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_PURCHASE){
-				temp = "";
-			}
-			else if(myList.get(row).getType()==ExpenseType.BILL ||
-					myList.get(row).getType()==ExpenseType.COMPOSITE_BILL){
-				temp = myList.get(row).getInterval();
-			}
-			else {
-				throw new RuntimeException("Invalid method");
-			}
+	void expandComposite(Expense expense, int selectedRow) {
+		System.out.println("## expandComposite ##"+expense.toString()+"items="+expense.getNoOfSubItems());
+		/* this will only show the immediate children
+		for(int i=0;i<expense.getNoOfSubItems();i++) {
+			myList.add(selectedRow+1, expense.getSubItems().get(i));
 		}
-		return temp;
+		*/
+		//myList.addAll(selectedRow+1, ((CompositePurchase)expense).getPurchasesList());
+		ArrayList<Expense> expItems; 
+		if(expense.getType()==ExpenseType.COMPOSITE_PURCHASE)
+			expItems = ((CompositePurchase)expense).getPurchasesList();
+		else if(expense.getType()==ExpenseType.COMPOSITE_BILL)
+			expItems = ((CompositeBill)expense).getBillsList();
+		else
+			throw new RuntimeException("expandComposite: invalid expense type");		
+			
+		myDisplayExenseList.addAll(selectedRow+1, getDisplayExenseList(expItems));
+		setValueAt("-", selectedRow, DisplayColumn.Expand.ordinal());
+		this.fireTableDataChanged();		
+		//setValueAt("-", selectedRow, DisplayColumn.Expand.ordinal());
+		//this.fireTableCellUpdated(selectedRow, DisplayColumn.Expand.ordinal());;		
+	}
+	
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		//System.out.println("#### setValueAt row:"+rowIndex+",col="+columnIndex+",val="+(String)aValue);
+		DisplayExpense dExp = myDisplayExenseList.get(rowIndex);
+		
+		if (columnIndex == DisplayColumn.NO.ordinal()) {//No
+			dExp.no = (String)aValue;
+		} else if (columnIndex == DisplayColumn.Expand.ordinal()) {//Expand
+			dExp.expand = (String)aValue;
+		} else if (columnIndex == DisplayColumn.PARENT.ordinal()) {//Parent
+			dExp.parent = (String)aValue;
+		} else if (columnIndex == DisplayColumn.TYPE.ordinal()) {//Type
+			dExp.type = (String)aValue;
+		} else if (columnIndex == DisplayColumn.DATE.ordinal()) {//Date
+			dExp.date = (String)aValue;
+		} else if (columnIndex == DisplayColumn.NAME.ordinal()) {//Name
+			dExp.name = (String)aValue;
+		} else if (columnIndex == DisplayColumn.AMOUNT.ordinal()) {//Amount
+			dExp.amount = (String)aValue;
+		} else if (columnIndex == DisplayColumn.STATUS.ordinal()) {//Status
+			dExp.status = (String)aValue;
+		} else if (columnIndex == DisplayColumn.METHOD.ordinal()) {//Method
+			dExp.method = (String)aValue;
+		} else if (columnIndex == DisplayColumn.VENDOR.ordinal()) {//Vendor
+			dExp.vendor = (String)aValue;
+		} else if (columnIndex == DisplayColumn.LOCATION.ordinal()) {//Location
+			dExp.location = (String)aValue;
+		} else if (columnIndex == DisplayColumn.CATEGORY.ordinal()) {//Category
+			dExp.category = (String)aValue;
+		} else if (columnIndex == DisplayColumn.DUECATE.ordinal()) {//Due Date
+			dExp.dueDate = (String)aValue;
+		} else if (columnIndex == DisplayColumn.INTERVAL.ordinal()) {//Interval
+			dExp.interval = (String)aValue;
+		} else {
+			throw new RuntimeException("setValueAt error");
+		}
+	}
+	
+	public Object getValueAt(int row, int col) {
+		DisplayExpense dExp = myDisplayExenseList.get(row);
+
+		if (col == DisplayColumn.NO.ordinal()) {//No
+			setValueAt(new Integer(row+1).toString(), row, col);
+			return dExp.no;
+		} else if (col == DisplayColumn.Expand.ordinal()) {//Expand
+			return dExp.expand;
+		} else if (col == DisplayColumn.PARENT.ordinal()) {//Parent
+			return dExp.parent;
+		} else if (col == DisplayColumn.TYPE.ordinal()) {//Type
+			return dExp.type;
+		} else if (col == DisplayColumn.DATE.ordinal()) {//Date
+			return dExp.date;
+		} else if (col == DisplayColumn.NAME.ordinal()) {//Name
+			return dExp.name;
+		} else if (col == DisplayColumn.AMOUNT.ordinal()) {//Amount
+			return dExp.amount;
+		} else if (col == DisplayColumn.STATUS.ordinal()) {//Status
+			return dExp.status;
+		} else if (col == DisplayColumn.METHOD.ordinal()) {//Method
+			return dExp.method;
+		} else if (col == DisplayColumn.VENDOR.ordinal()) {//Vendor
+			return dExp.vendor;
+		} else if (col == DisplayColumn.LOCATION.ordinal()) {//Location
+			return dExp.location;
+		} else if (col == DisplayColumn.CATEGORY.ordinal()) {//Category
+			return dExp.category;
+		} else if (col == DisplayColumn.DUECATE.ordinal()) {//Due Date
+			return dExp.dueDate;
+		} else if (col == DisplayColumn.INTERVAL.ordinal()) {//Interval
+			return dExp.interval;
+		} else {
+			throw new RuntimeException("getValueAt error");
+		}
 	}
 
 
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return DisplayColumn.values[col].toString();
 	}
 
 }

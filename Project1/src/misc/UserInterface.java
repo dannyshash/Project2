@@ -8,6 +8,8 @@
 package misc;
 
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.util.Date;
 
@@ -20,11 +22,17 @@ import javax.swing.RowFilter;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.Font;
+
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 import controller.DataLoader;
@@ -39,14 +47,17 @@ import model.ExpenseKey;
 import model.ExpenseType;
 import utils.MyDate;
 import utils.Constants;
+import utils.Util;
 import view.ContentUpdator;
 import view.DispayExpenseComboActionListener;
+import view.DisplayColumn;
 import view.ExpenseObserverImpl;
 import view.UserActionsApi;
 import view.UserActionsImpl;
 import view.ExpenseContentApi;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 public class UserInterface extends JFrame {
 
@@ -106,6 +117,7 @@ public class UserInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	protected UserInterface() {
 		setTitle("Personal Budget Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +136,27 @@ public class UserInterface extends JFrame {
 	
 		//myList = new ExpenseList();
 		tableModel = new ExpenseListTableModel(contentUpdator);
-		table = new JTable(tableModel);
+		table = new JTable(tableModel)
+		{
+		    public Component prepareRenderer(
+		        TableCellRenderer renderer, int row, int column)
+		    {
+		        Component c = super.prepareRenderer(renderer, row, column);
+
+		        //  add custom rendering here
+  				if(!isRowSelected(row)) {
+					c.setBackground(getBackground());
+
+					/*		        
+		        	if(((int)getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal())) > 1) {
+		        		System.out.println("#########");
+		        		//c.setBackground(Color.YELLOW);
+		        	}
+					*/
+		        }
+		        return c;
+		    }
+		};
 		TableRowSorter sorter = new TableRowSorter(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(30, 130, 823, 350);
@@ -166,6 +198,36 @@ public class UserInterface extends JFrame {
 			}
 		});
 
+		table.addMouseListener(new MouseAdapter() { 
+		    @Override
+		    public void mouseClicked(MouseEvent e){
+		    	if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
+		    		int row = table.getSelectedRow();
+		    		int column = 1;
+		    		System.out.println("#### Expand"+getTableModel().getValueAt(row, DisplayColumn.Expand.ordinal())); 
+
+		    		if(getTableModel().getValueAt(row, DisplayColumn.Expand.ordinal()).toString().compareTo("+") == 0){
+			    		TableCellRenderer tableCellRenderer = table.getCellRenderer(row, column);
+			            Component c = table.prepareRenderer(tableCellRenderer, row, column);
+				        JComponent jc = (JComponent)c;
+
+			            jc.setBackground(Color.YELLOW);
+
+						Expense exp = getSelectedExpense(table);
+			    		if(exp.getType().ordinal()<2) {
+			    			System.out.println("Simple Expense, returning");
+			    			return;
+			    		}
+			    		System.out.println("#### Mouse clicked on row:"+row+", Expense : "+exp.toString());
+			    		getTableModel().expandComposite(exp, table.getSelectedRow());		    			
+		    		}
+		    		else {
+		    			System.out.println("TODO: should collapse");
+		    		}
+		        }
+		    }
+		});
+		
 		JButton btnMarkPaidunpaid = new JButton("Mark Expense Paid/Unpaid");
 		btnMarkPaidunpaid.setBounds(209, 30, 196, 23);
 		contentPaneMain.add(btnMarkPaidunpaid);
@@ -200,7 +262,7 @@ public class UserInterface extends JFrame {
 					   int PurchaseTypeCounter=0;
 					   int BillTypeCounter=0;
 					     for (int i = 0; i < selection.length; i++) {
-					    	 ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), 0));
+					    	 ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal()));
 					    	 if(type == ExpenseType.PURCHASE || type == ExpenseType.COMPOSITE_PURCHASE) {
 					    		 PurchaseTypeCounter++;
 					    	 }
@@ -254,14 +316,15 @@ public class UserInterface extends JFrame {
 	}
 	
 	private Expense getSelectedExpense(JTable table) {
-		ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), 0));
-		double amount = (Double)(table.getValueAt(table.getSelectedRow(), 3));
-		String name = (String)(table.getValueAt(table.getSelectedRow(), 2));
-		Date date = MyDate.getJustDate((String)(table.getValueAt(table.getSelectedRow(), 1)));
+		ExpenseType type = Util.getExpenseTypeEnum((String)table.getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal()));
+		double amount = new Double((String)table.getValueAt(table.getSelectedRow(), DisplayColumn.AMOUNT.ordinal())).doubleValue();
+		String name = (String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.NAME.ordinal()));
+		Date date = MyDate.getJustDate((String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.DATE.ordinal())));
 		ExpenseKey key = new ExpenseKey(type, amount, name, date);
 
-		System.out.println("getSelectedExpense return: " + contentUpdator.findExpense(key));
-		return contentUpdator.findExpense(key);
+		Expense exp = contentUpdator.findExpense(key);
+		System.out.println("getSelectedExpense return: " + exp);
+		return exp;
 	}
 	
 	public ExpenseListTableModel getTableModel() {

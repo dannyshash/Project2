@@ -62,8 +62,9 @@ public class FileLoaderImpl implements DataLoader{
 	    		//Skip the first line
 	    		if(sub_items[0].equalsIgnoreCase("Type")) continue;
 	    		
+	    		System.out.print("sub_items: ");
 	    		for(int i=0; i<sub_items.length;i++)
-	    			System.out.print("sub_items: "+item_name[i]+"="+sub_items[i]+",");
+	    			System.out.print(item_name[i]+"="+sub_items[i]+",");
 	    		System.out.println();
 	    		Expense e=createExpense(sub_items);
 	    		e.display();
@@ -100,11 +101,15 @@ public class FileLoaderImpl implements DataLoader{
 		} else if(ExpenseType.COMPOSITE_PURCHASE.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Purchase
 			System.out.println("Creating composite Purchase");
-			e = new CompositePurchase(expenseDataItems[13], ExpenseCategories.DAFAULT, Mode.CASH, "");
+			e = new CompositePurchase(new Double(expenseDataItems[4]).doubleValue(),
+					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]),
+					expenseDataItems[13], ExpenseCategories.DAFAULT, Mode.CASH, "");
 		} else if(ExpenseType.COMPOSITE_BILL.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create composite Bill
 			System.out.println("Creating composite Bill");
-			e = new CompositeBill(expenseDataItems[13], ExpenseCategories.DAFAULT);
+			e = new CompositeBill(new Double(expenseDataItems[4]).doubleValue(),
+					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]),
+					expenseDataItems[13], ExpenseCategories.DAFAULT);
 		} else {
 			throw new RuntimeException("Can not create Expense Type");
 		}

@@ -9,7 +9,16 @@ public class CompositePurchase extends AbstractExpense{
 	private String location;
 	
 	public CompositePurchase(String description, ExpenseCategories category, Mode mode, String location) {
-		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
+		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy comp purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
+		this.mode = mode;
+		this.location = location;
+		this.description=description;		
+		items=new ArrayList<Expense>();
+	}
+
+	public CompositePurchase(double amount, String name, Date date,
+			String description, ExpenseCategories category, Mode mode, String location) {
+		super(ExpenseType.COMPOSITE_PURCHASE, amount, name, date, Status.PAID, new Date(), "dummy vendor", category);
 		this.mode = mode;
 		this.location = location;
 		this.description=description;		
@@ -114,7 +123,7 @@ public class CompositePurchase extends AbstractExpense{
 		if(super.iseqal(expense) && this.getDescription().equals(c.getDescription())) {
 			return true;
 		}
-		
+		System.out.println("CompositePurchase:iseqal return false");
 		return false;
 	}
 	

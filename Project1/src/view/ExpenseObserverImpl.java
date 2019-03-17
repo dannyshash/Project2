@@ -155,6 +155,7 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 
 	@Override
 	public Expense find(ExpenseKey key) {
+		System.out.println("find: key="+key);
 		switch(key.type.ordinal()) {
 		case 0: return ldata.get(0).get(key);
 		case 1: return ldata.get(1).get(key);
