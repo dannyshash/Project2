@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -312,7 +313,7 @@ public class UserInterface extends JFrame {
 						userActions.changePaymentStatus(expense);
 					} else {
 						expense = getTableModel().getExpense(table.getSelectedRow());
-						userActions.changePaymentStatus(expense, expense.getRoot());
+						userActions.changePaymentStatus(expense, contentUpdator.findExpense(expense.getRoot().getKey()));
 					}
 					
 					tableModel.fireTableDataChanged();

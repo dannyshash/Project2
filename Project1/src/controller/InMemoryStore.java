@@ -111,49 +111,25 @@ public class InMemoryStore implements Store {
 			return false;
 		}
 		
-		//Composite
-		if(from.getParent() != null) {
-			Expense parent = getCompositeExpenseFromMap(from.getParent());
-			parent.remove(from);
-			parent.remove(to);			
+		try {
+			this.remove(from);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			switch(from.getType().ordinal()){
-			case 0 : purchases.put(from.getKey(), to);
+ 		switch(from.getType().ordinal()){
+			case 0 : purchases.put(to.getKey(), to);
 				break;
-			case 1 : bill.put(from.getKey(), to);
+			case 1 : bill.put(to.getKey(), to);
 				break;
-	 		case 2 : 
-				comp_purchases.put(from.getKey(), to);
+	 		case 2 : comp_purchases.put(to.getKey(), to);
 				break;
-			case 3 : comp_bill.put(from.getKey(), to);
+			case 3 : comp_bill.put(to.getKey(), to);
 				break;
 			default:
 				throw new RuntimeException() ;
-			}
 		}
 		return true;
-	}
-
-	private Expense getCompositeExpenseFromMap(Expense compExpense) {
-		Expense compositeExpense = null;
-
-		switch(compExpense.getType().ordinal()){
-		case 2 :
-			compositeExpense = comp_purchases.get(compExpense.getKey());
-			break;
-		case 3 : 
-			compositeExpense = comp_bill.get(compExpense.getKey());
-			break;
-		default:
-			throw new RuntimeException("Invalid Expense type") ;
-		}
-
-		if(compositeExpense==null){
-			throw new RuntimeException("Can't find the composite expense"+compExpense.toString());
-		}
-		
-		return compositeExpense;		
 	}
 
 	@Override
