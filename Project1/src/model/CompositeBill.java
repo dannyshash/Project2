@@ -15,13 +15,23 @@ public class CompositeBill extends AbstractExpense{
 	}
 	
 	public CompositeBill(double amount, String name, Date date,
-			String description, ExpenseCategories category) {
-		super(ExpenseType.COMPOSITE_BILL, amount, name, date, Status.PAID, new Date(), "dummy vendor", category);
-		this.interval=RepitionInterval.MONTHLY;
+			String description, String vendor, Status status, ExpenseCategories category, RepitionInterval interval) {
+		super(ExpenseType.COMPOSITE_BILL, amount, name, date, status, new Date(), vendor, category);
+		this.interval=interval;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 
+	public CompositeBill(CompositeBill from) {
+		this(from.getAmount(), from.getName(), from.getDate(), from.getDescription(),
+				from.getVendor(), from.getStatus(), from.getCategory(), from.getInterval());
+		Iterator<Expense> it = from.getSubItems().iterator();
+		while(it.hasNext()) {
+			Expense e = it.next();
+			this.items.add(e);
+		}	
+	}
+	
 	@Override
 	public void add(Expense expense) {
 		expense.setParent(this);
@@ -72,23 +82,25 @@ public class CompositeBill extends AbstractExpense{
 	public Expense find(Expense exp) {
 		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
 		Expense returnVal = null;
+		
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense e = compPurchase.next(); 
-			//if(e.getKey() == exp.getKey()) {
 			if(e.getType().ordinal()<2 && e.iseqal(exp)) {
 				System.out.println("return Expense:"+e);
 				return e;
 			}
 			
 			if(e.getType().ordinal()>1) {
-				if(exp.getType().ordinal()>1 && e.iseqal(exp)) {
-					System.out.println("return comp Expense:"+e);
-					return e;
+				if(exp.getType().ordinal()>1) {
+					if(e.iseqal(exp)) {
+						System.out.println("return comp Expense:"+e);
+						return e;
+					}
 				}
 				
 				CompositeBill ce= (CompositeBill)e;
-				returnVal = ce.find(exp);
+				return ce.find(exp);
 			}
 		}	
 
@@ -126,6 +138,7 @@ public class CompositeBill extends AbstractExpense{
 
 	@Override
 	public void display() {
+		System.out.println("Comp Bill:"+this.toString());
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense expenseItem = compPurchase.next();

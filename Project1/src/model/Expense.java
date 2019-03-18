@@ -10,6 +10,9 @@ public interface Expense {
 	//Keys are amount, name, date
 	public ExpenseKey getKey();
 	
+	//returns the copy of a
+	//public Expense copy(Expense a);
+	
 	//modification 
 	public void add(Expense expense);
 	public boolean remove(Expense expense);
@@ -27,6 +30,7 @@ public interface Expense {
 	public int getNoOfSubItems();
 	//return the parent in case of composite type
 	public Expense getParent();
+	public Expense getRoot();
 	
 	public boolean iseqal(final Expense expense);
 	

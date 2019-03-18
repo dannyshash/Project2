@@ -107,7 +107,7 @@ public class InMemoryStore implements Store {
 	public boolean modify(Expense from, Expense to) {
 		
 		//Let's check if they are same
-		if(from.iseqal(to)) {
+		if(!from.iseqal(to)) {
 			return false;
 		}
 		
@@ -123,13 +123,11 @@ public class InMemoryStore implements Store {
 				break;
 			case 1 : bill.put(from.getKey(), to);
 				break;
-/*		
 	 		case 2 : 
 				comp_purchases.put(from.getKey(), to);
 				break;
 			case 3 : comp_bill.put(from.getKey(), to);
 				break;
-*/		
 			default:
 				throw new RuntimeException() ;
 			}

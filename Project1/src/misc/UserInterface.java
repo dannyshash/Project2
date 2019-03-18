@@ -187,7 +187,13 @@ public class UserInterface extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
 					Expense expense = getSelectedExpense(table);
-					if(expense != null) userActions.removeExpense(expense);
+					if(expense != null) {
+						userActions.removeExpense(expense);
+					} else {
+						expense = getTableModel().getExpense(table.getSelectedRow());
+						userActions.removeExpense(expense, expense.getRoot());
+					}
+
 					tableModel.fireTableDataChanged();
 				}
 			}
@@ -302,8 +308,13 @@ public class UserInterface extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() >= 0) {
 					Expense expense = getSelectedExpense(table);
-					//Expense expense = getTableModel().getExpense(table.getSelectedRow());
-					if(expense != null) userActions.changePaymentStatus(expense);
+					if(expense != null) { 
+						userActions.changePaymentStatus(expense);
+					} else {
+						expense = getTableModel().getExpense(table.getSelectedRow());
+						userActions.changePaymentStatus(expense, expense.getRoot());
+					}
+					
 					tableModel.fireTableDataChanged();
 				}
 			}

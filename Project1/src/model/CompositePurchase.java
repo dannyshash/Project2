@@ -17,14 +17,24 @@ public class CompositePurchase extends AbstractExpense{
 	}
 
 	public CompositePurchase(double amount, String name, Date date,
-			String description, ExpenseCategories category, Mode mode, String location) {
-		super(ExpenseType.COMPOSITE_PURCHASE, amount, name, date, Status.PAID, new Date(), "dummy vendor", category);
+			String description, ExpenseCategories category, Status status, Mode mode, String location) {
+		super(ExpenseType.COMPOSITE_PURCHASE, amount, name, date, status, new Date(), "dummy vendor", category);
 		this.mode = mode;
 		this.location = location;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 
+	public CompositePurchase(CompositePurchase from) {
+		this(from.getAmount(), from.getName(), from.getDate(), from.getDescription(),
+				from.getCategory(), from.getStatus(), from.getMode(), from.getLocation());
+		Iterator<Expense> it = from.getSubItems().iterator();
+		while(it.hasNext()) {
+			Expense e = it.next();
+			this.items.add(e);
+		}	
+	}
+	
 	@Override
 	public void add(Expense expense) {
 		expense.setParent(this);
@@ -80,31 +90,34 @@ public class CompositePurchase extends AbstractExpense{
 	public Expense find(Expense exp) {
 		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
 		Expense returnVal = null;
+		
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense e = compPurchase.next(); 
-			//if(e.getKey() == exp.getKey()) {
+			System.out.println("find: looping:"+e);
 			if(e.getType().ordinal()<2 && e.iseqal(exp)) {
-				System.out.println("return Expense:"+returnVal);
+				System.out.println("return Expense:"+e);
 				return e;
 			}
 			
 			if(e.getType().ordinal()>1) {
-				if(exp.getType().ordinal()>1 && e.iseqal(exp)) {
-					System.out.println("return comp Expense:"+e);
-					return e;
+				if(exp.getType().ordinal()>1) {
+					if(e.iseqal(exp)) {
+						System.out.println("return comp Expense:" + e);
+						return e;										
+					}
 				}
-				
 				CompositePurchase ce= (CompositePurchase)e;
-				returnVal = ce.find(exp);
+				return ce.find(exp);
 			}
-		}	
-
+		}
+		
 		return returnVal;
 	}
 	
 	@Override
 	public void display() {
+		System.out.println("Comp Purchase:"+this.toString());
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext()) {
 			Expense expenseItem = compPurchase.next();
@@ -147,10 +160,10 @@ public class CompositePurchase extends AbstractExpense{
 
 	@Override
 	public boolean changePaymentStatus(Date date) {
-		Status status = Status.PAID;
+		Status lstatus = Status.PAID;
 		if(getStatus() == Status.PAID)
-			status = Status.UNPAID;
-		this.changePaymentStatus(status, date);
+			lstatus = Status.UNPAID;
+		this.changePaymentStatus(lstatus, date);
 		
 		return true;
 	}

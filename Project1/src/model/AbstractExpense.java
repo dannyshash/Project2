@@ -29,7 +29,8 @@ public abstract class AbstractExpense implements Expense{
 	private Expense parent; //to point to the parent, in case of composite
 	private int noOfSubItems; //in case of composite
 
-	public AbstractExpense(ExpenseType type, double amount, String name, Date date, Status status, Date dueDate, String vendor, ExpenseCategories category) {
+	public AbstractExpense(ExpenseType type, double amount, String name, Date date, Status status, 
+			Date dueDate, String vendor, ExpenseCategories category) {
 		this.type=type;
 		this.amount=amount;
 		this.name=name;
@@ -203,6 +204,7 @@ public abstract class AbstractExpense implements Expense{
 				this.getAmount() == p.getAmount() &&
 				this.getName().equals(p.getName()) &&
 				this.getDate().equals(p.getDate())) {
+			System.out.println("isequal return true for "+this.toString());
 			return true;			
 		}
 	
@@ -220,6 +222,16 @@ public abstract class AbstractExpense implements Expense{
 		return parent;
 	}
 
+	@Override
+	public Expense getRoot() {
+		Expense ret = this;
+		while(ret.getParent() != null){
+			ret = ret.getParent();
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public void setParent(Expense parent) {
 		this.parent = parent;

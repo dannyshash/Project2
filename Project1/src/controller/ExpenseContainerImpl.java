@@ -118,7 +118,7 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 	@Override
 	public boolean modifyExpense(Expense from, Expense to) {
 		if(store.modify(from, to)) {
-			setDataStateChanged(true);
+			notifyObservers(true);
 			return true;			
 		}
 		return false;

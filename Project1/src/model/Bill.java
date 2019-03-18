@@ -6,7 +6,8 @@ public class Bill extends AbstractExpense {
 	private RepitionInterval interval;
 	private Date dueDate;
 	
-	public Bill(double amount, String name, Date date, Status status, Date dueDate, String vendor, RepitionInterval interval, ExpenseCategories category) {
+	public Bill(double amount, String name, Date date, Status status, Date dueDate, String vendor, 
+			RepitionInterval interval, ExpenseCategories category) {
 		super(ExpenseType.BILL, amount, name, date, status, dueDate, vendor, category);
 		this.interval = interval;
 		this.dueDate = dueDate;
@@ -22,8 +23,9 @@ public class Bill extends AbstractExpense {
 	}
 	
 	//Copy constructor
-	Bill(Bill from) {
-		this(from.getAmount(), from.getName(), from.getDate());	
+	public Bill(Bill from) {
+		this(from.getAmount(), from.getName(), from.getDate(), from.getStatus(), from.getDueDate(),
+				from.getVendor(), from.getInterval(), from.getCategory());	
 	}
 	
 	//Assignment=

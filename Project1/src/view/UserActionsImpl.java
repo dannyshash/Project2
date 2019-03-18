@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import controller.ExpenseContainerApi;
+import model.CompositeBill;
+import model.CompositePurchase;
 import model.Expense;
+import model.ExpenseType;
 
 public class UserActionsImpl implements UserActionsApi {
 	private final ExpenseContainerApi container;
@@ -24,6 +27,33 @@ public class UserActionsImpl implements UserActionsApi {
 	}
 
 	@Override
+	public void removeExpense(Expense exp, Expense root) {
+		System.out.println("removing one of the child:"+exp+",root:"+root);
+
+		Expense newCopy = null;
+		if(root.getType() == ExpenseType.COMPOSITE_PURCHASE) {
+			newCopy = new CompositePurchase((CompositePurchase)root);
+			newCopy.display();
+		} else if (root.getType() == ExpenseType.COMPOSITE_BILL) {
+			newCopy = new CompositeBill((CompositeBill)root);
+		} else {
+			throw new RuntimeException("changePaymentStatus error");
+		}
+		
+		Expense parent = exp.getParent();
+		System.out.println("parent:"+parent);
+		Expense node = null;
+		if(parent.iseqal(root))
+			node = newCopy;
+		else
+			node = newCopy.find(parent);
+		if(node !=null){
+			node.remove(exp);			
+			this.modifyExpense(root, newCopy);			
+		}
+	}
+	
+	@Override
 	public void modifyExpense(Expense from, Expense to) {
 		container.modifyExpense(from, to);
 	}
@@ -41,9 +71,27 @@ public class UserActionsImpl implements UserActionsApi {
 
 	@Override
 	public void changePaymentStatus(Expense exp) {
-		//TODO check
 		container.changePaymentStatus(exp, new Date());
 
 	}
 
+	@Override
+	public void changePaymentStatus(Expense exp, Expense root) {
+		System.out.println("changing one of the child:"+exp+",root:"+root);
+
+		Expense newCopy = null;
+		if(root.getType() == ExpenseType.COMPOSITE_PURCHASE) {
+			newCopy = new CompositePurchase((CompositePurchase)root);
+		} else if (root.getType() == ExpenseType.COMPOSITE_BILL) {
+			newCopy = new CompositeBill((CompositeBill)root);
+		} else {
+			throw new RuntimeException("changePaymentStatus error");
+		}
+		
+		Expense newExp = newCopy.find(exp);
+		if(newExp != null) {
+			newExp.changePaymentStatus(new Date());
+			this.modifyExpense(root, newCopy);
+		}		
+	}
 }

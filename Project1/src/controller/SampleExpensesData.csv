@@ -4,13 +4,13 @@ Purchase,null,2019-02-02,Lunch,12.45,Paid,Debit,,Thai Express,Downtown,Dining,,,
 Bill,null,2019-02-02,Metro pass,130.35,Paid,Credit,,STM,,Transportation,2019-02-02,Monthly,
 Purchase,null,2019-02-05,Goceries,61.45,Unpaid,Credit,,IGA,LaSalle,,,,
 Bill,null,2019-02-10,Electricity Bill,576.39,Unpaid,Credit,,Hydro Quebec,,Utilities,2019-02-18,Quarterly,
-Composite_Purchase,null,2019-02-02,Outing,11,,,,,,Food,,,Comp1P
+Composite_Purchase,null,2019-02-02,Outing,11,Paid,,,,,Food,,,Comp1P
 Purchase,Comp1P,2019-02-02,Coffee,3.27,Paid,Cash,,,Campus,Food,,,
 Purchase,Comp1P,2019-02-02,IceCream,4.58,Paid,Debit,,,Downtown,Food,,,
-Composite_Purchase,Comp1P,2019-02-02,Meals,12,,,,,,Dining,,,Comp2P
+Composite_Purchase,Comp1P,2019-02-02,Meals,12,Unpaid,,,,,Dining,,,Comp2P
 Purchase,Comp2P,2019-02-02,Lunch,16.38,Unpaid,Credit,,,,Dining,,,
 Purchase,Comp2P,2019-02-02,Dinner,24.89,Unpaid,Credit,,,,Dining,,,
-Composite_Purchase,Comp2P,2019-02-02,Shop,13,,,,,,Grocery,,,Comp3P
+Composite_Purchase,Comp2P,2019-02-02,Shop,13,Paid,,,,,Grocery,,,Comp3P
 Purchase,Comp3P,2019-02-12,Uber,23.84,Paid,Debit,2/12/2019,Uber,Downtown,Taxi,,,
 Purchase,Comp3P,2019-02-02,Groceries,38.12,Unpaid,Credit,,Marche PA,Downtown,Grocery,,,
 Bill,null,2019-02-15,Parking fee,225,Paid,Debit,2/15/2019,M1 Parking,Downtown,Parking,2019-02-20,Monthly,
