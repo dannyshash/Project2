@@ -34,6 +34,7 @@ import model.Mode;
 import model.ExpenseType;
 
 import javax.swing.UIManager;
+import java.awt.Font;
 
 public class AddExpensePanel extends UserInterface {
 
@@ -118,6 +119,11 @@ public class AddExpensePanel extends UserInterface {
 		expTypeCombo.setMaximumRowCount(2);
 		contentPane.add(expTypeCombo);
 
+		JLabel lblDateInvalid = new JLabel("Invalid Date");
+		lblDateInvalid.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblDateInvalid.setBounds(84, 84, 53, 23);
+		lblDateInvalid.setForeground(contentPane.getBackground());
+		contentPane.add(lblDateInvalid);
 		// Date
 		String expense_date = MyDate.getRandomDateStr();
 		String expense_due_date = MyDate.getDateString(MyDate.addDays(MyDate.getJustDate(expense_date), MyDate.getRandomInRange(1, 9)));
@@ -125,6 +131,31 @@ public class AddExpensePanel extends UserInterface {
 		dateText.setBounds(147, 83, 174, 20);
 		dateText.setColumns(10);
 		contentPane.add(dateText);
+		dateText.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub			
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if(!UIValidations.dateValidation(dateText.getText())) {
+					lblDateInvalid.setForeground(Color.RED);
+					btnAddExpense1.setEnabled(false);
+				} else {
+					btnAddExpense1.setEnabled(true);
+					lblDateInvalid.setForeground(contentPane.getBackground());
+				}				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
 
 		// Name
 		String[] randomName = { "Tea", "Coffee", "Sandwich", "Cookie", "Toast", "Chocolate",
@@ -134,8 +165,9 @@ public class AddExpensePanel extends UserInterface {
 		textField_2.setColumns(10);
 		contentPane.add(textField_2);
 
-		JLabel lblAmountInvalid = new JLabel("Invalid Input");
-		lblAmountInvalid.setBounds(76, 152, 61, 14);
+		JLabel lblAmountInvalid = new JLabel("Invalid Amount");
+		lblAmountInvalid.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblAmountInvalid.setBounds(76, 153, 61, 14);
 		lblAmountInvalid.setForeground(contentPane.getBackground());
 		contentPane.add(lblAmountInvalid);
 		
