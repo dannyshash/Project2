@@ -1,6 +1,8 @@
 package misc;
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.ExpenseContainerImpl;
 import model.Expense;
@@ -24,6 +28,7 @@ import model.RepitionInterval;
 import model.ExpenseCategories;
 import model.Status;
 import utils.MyDate;
+import view.UIValidations;
 import view.UserActionsApi;
 import model.Mode;
 import model.ExpenseType;
@@ -91,6 +96,19 @@ public class AddExpensePanel extends UserInterface {
 		lblInterval.setBounds(30, 425, 53, 23);
 		contentPane.add(lblInterval);
 
+		JButton btnAddExpense1 = new JButton("Add Expense");
+		btnAddExpense1.setBounds(122, 480, 108, 23);
+		contentPane.add(btnAddExpense1);
+		
+		txtChooseExpense = new JTextField();
+		txtChooseExpense.setBorder(null);
+		txtChooseExpense.setBackground(UIManager.getColor("Button.background"));
+		txtChooseExpense.setText("Expense Details");
+		txtChooseExpense.setBounds(110, 11, 90, 20);
+		contentPane.add(txtChooseExpense);
+		txtChooseExpense.setColumns(10);
+		
+		
 		// Type
 		JComboBox<ExpenseType> expTypeCombo = new JComboBox<>();
 		//ExpenseType.PURCHASE,ExpenseType.BILL
@@ -116,11 +134,40 @@ public class AddExpensePanel extends UserInterface {
 		textField_2.setColumns(10);
 		contentPane.add(textField_2);
 
+		JLabel lblAmountInvalid = new JLabel("Invalid Input");
+		lblAmountInvalid.setBounds(76, 152, 61, 14);
+		lblAmountInvalid.setForeground(contentPane.getBackground());
+		contentPane.add(lblAmountInvalid);
+		
 		// Amount
 		JTextField textField_3 = new JTextField("" + (Math.round(Math.random() * 1000.0) / 100.0));
 		textField_3.setBounds(147, 149, 174, 20);
 		textField_3.setColumns(10);
 		contentPane.add(textField_3);
+		textField_3.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub			
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if(!UIValidations.amountValidation(textField_3.getText())) {
+					lblAmountInvalid.setForeground(Color.RED);
+					btnAddExpense1.setEnabled(false);
+				} else {
+					btnAddExpense1.setEnabled(true);
+					lblAmountInvalid.setForeground(contentPane.getBackground());
+				}				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		// Status
 		JComboBox<Status> expStatusCombo = new JComboBox<>();
@@ -210,19 +257,6 @@ public class AddExpensePanel extends UserInterface {
         });
 						
 		
-		JButton btnAddExpense1 = new JButton("Add Expense");
-		btnAddExpense1.setBounds(122, 480, 108, 23);
-		contentPane.add(btnAddExpense1);
-		
-		txtChooseExpense = new JTextField();
-		txtChooseExpense.setBorder(null);
-		txtChooseExpense.setBackground(UIManager.getColor("Button.background"));
-		txtChooseExpense.setText("Expense Details");
-		txtChooseExpense.setBounds(110, 11, 90, 20);
-		contentPane.add(txtChooseExpense);
-		txtChooseExpense.setColumns(10);
-		
-	
 		btnAddExpense1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Expense expense = null;
