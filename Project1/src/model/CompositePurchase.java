@@ -8,6 +8,7 @@ public class CompositePurchase extends AbstractExpense{
 	private Mode mode;
 	private String location;
 	
+	@Deprecated
 	public CompositePurchase(String description, ExpenseCategories category, Mode mode, String location) {
 		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy comp purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
 		this.mode = mode;

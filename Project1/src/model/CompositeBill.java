@@ -7,6 +7,7 @@ import java.util.Iterator;
 public class CompositeBill extends AbstractExpense{
 	private RepitionInterval interval;
 
+	@Deprecated
 	public CompositeBill(String description, ExpenseCategories category) {
 		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy comp Bill", new Date(), Status.PAID, new Date(), "dummy vendor", category);
 		this.interval=RepitionInterval.MONTHLY;
