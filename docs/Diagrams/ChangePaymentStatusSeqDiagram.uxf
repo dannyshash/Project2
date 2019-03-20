@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>232</x>
-      <y>88</y>
+      <x>336</x>
+      <y>96</y>
       <w>88</w>
       <h>56</h>
     </coordinates>
@@ -17,7 +17,7 @@
     <id>UMLActor</id>
     <coordinates>
       <x>48</x>
-      <y>72</y>
+      <y>80</y>
       <w>96</w>
       <h>88</h>
     </coordinates>
@@ -25,22 +25,10 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>344</x>
-      <y>88</y>
-      <w>120</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>:AddExpensePanel
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>136</y>
+      <x>368</x>
+      <y>144</y>
       <w>24</w>
       <h>568</h>
     </coordinates>
@@ -50,113 +38,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>80</x>
-      <y>120</y>
-      <w>32</w>
-      <h>600</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;730.0;20.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>368</x>
-      <y>264</y>
-      <w>256</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-addExpense(expense)</panel_attributes>
-    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>72</x>
-      <y>168</y>
-      <w>136</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>User clicks Add Expense 
-button on the main window
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>368</x>
-      <y>136</y>
-      <w>24</w>
-      <h>208</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>264</x>
-      <y>152</y>
-      <w>128</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-creates</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLActor</id>
-    <coordinates>
-      <x>448</x>
-      <y>88</y>
-      <w>96</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>User - Action 2</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>488</x>
-      <y>136</y>
-      <w>24</w>
-      <h>208</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>384</x>
-      <y>176</y>
-      <w>208</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>User enters Expense details and clicks 
-"Add Expense" button on AddExpense Panel
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>568</x>
-      <y>80</y>
-      <w>104</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>:UserActionsImpl
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
+      <x>104</x>
       <y>128</y>
       <w>24</w>
       <h>576</h>
@@ -167,21 +49,57 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>368</x>
-      <y>224</y>
+      <x>544</x>
+      <y>216</y>
       <w>184</w>
-      <h>48</h>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-Create an Expense object 
-for the selected type</panel_attributes>
-    <additional_attributes>10.0;40.0;50.0;40.0;50.0;10.0;10.0;10.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;-
+changePaymentStatus(expense)</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>48</x>
+      <y>168</y>
+      <w>184</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>User Selects an Expense from the 
+main window and clicks 
+Remove Expense button
+bg=blue</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>696</x>
-      <y>80</y>
+      <x>512</x>
+      <y>88</y>
+      <w>104</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>:UserActionsImpl
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>136</y>
+      <w>24</w>
+      <h>560</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;680.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>88</y>
       <w>136</w>
       <h>56</h>
     </coordinates>
@@ -194,31 +112,31 @@ for the selected type</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>128</y>
+      <x>704</x>
+      <y>136</y>
       <w>24</w>
-      <h>576</h>
+      <h>536</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;700.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;650.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>280</y>
-      <w>152</w>
+      <x>392</x>
+      <y>192</y>
+      <w>176</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-addExpense(expense)</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+changePaymentStatus(expense)</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>848</x>
-      <y>80</y>
+      <x>824</x>
+      <y>88</y>
       <w>136</w>
       <h>56</h>
     </coordinates>
@@ -231,31 +149,31 @@ addExpense(expense)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>896</x>
-      <y>128</y>
+      <x>872</x>
+      <y>136</y>
       <w>24</w>
-      <h>576</h>
+      <h>552</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;700.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;670.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>296</y>
+      <x>704</x>
+      <y>224</y>
       <w>192</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-put(expense)</panel_attributes>
+changePaymentStatus(expense)</panel_attributes>
     <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>896</x>
-      <y>312</y>
+      <x>872</x>
+      <y>248</y>
       <w>208</w>
       <h>48</h>
     </coordinates>
@@ -267,8 +185,8 @@ Expense object into hash map</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>360</y>
+      <x>704</x>
+      <y>424</y>
       <w>144</w>
       <h>48</h>
     </coordinates>
@@ -279,8 +197,8 @@ notifyObservers()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1000</x>
-      <y>80</y>
+      <x>976</x>
+      <y>88</y>
       <w>136</w>
       <h>56</h>
     </coordinates>
@@ -293,8 +211,8 @@ notifyObservers()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>512</y>
+      <x>704</x>
+      <y>448</y>
       <w>352</w>
       <h>32</h>
     </coordinates>
@@ -305,19 +223,19 @@ update(new expense list)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1056</x>
-      <y>128</y>
+      <x>1032</x>
+      <y>136</y>
       <w>24</w>
-      <h>584</h>
+      <h>536</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;710.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;650.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>712</x>
-      <y>424</y>
+      <x>688</x>
+      <y>368</y>
       <w>64</w>
       <h>72</h>
     </coordinates>
@@ -329,8 +247,8 @@ changed</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>712</x>
-      <y>592</y>
+      <x>688</x>
+      <y>536</y>
       <w>64</w>
       <h>72</h>
     </coordinates>
@@ -342,20 +260,20 @@ no change</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>536</y>
-      <w>816</w>
+      <x>368</x>
+      <y>472</y>
+      <w>688</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 refresh()</panel_attributes>
-    <additional_attributes>10.0;20.0;1000.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;840.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>560</y>
+      <x>704</x>
+      <y>496</y>
       <w>352</w>
       <h>32</h>
     </coordinates>
@@ -366,8 +284,8 @@ resetStateChange()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>128</x>
-      <y>560</y>
+      <x>216</x>
+      <y>496</y>
       <w>136</w>
       <h>56</h>
     </coordinates>
@@ -380,8 +298,8 @@ resetStateChange()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>184</x>
-      <y>608</y>
+      <x>280</x>
+      <y>544</y>
       <w>24</w>
       <h>104</h>
     </coordinates>
@@ -391,64 +309,163 @@ resetStateChange()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>624</y>
-      <w>136</w>
+      <x>272</x>
+      <y>568</y>
+      <w>128</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 fireTableDataChanged()</panel_attributes>
-    <additional_attributes>30.0;20.0;130.0;20.0</additional_attributes>
+    <additional_attributes>20.0;20.0;130.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>304</y>
-      <w>40</w>
-      <h>56</h>
+      <x>544</x>
+      <y>280</y>
+      <w>176</w>
+      <h>64</h>
     </coordinates>
-    <panel_attributes>
-
-</panel_attributes>
-    <additional_attributes>10.0;20.0;30.0;40.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-
+Make a New copy of 
+Composite Expense 
+of which a child expense 
+to be removed</panel_attributes>
+    <additional_attributes>10.0;60.0;50.0;60.0;50.0;10.0;10.0;10.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>304</y>
-      <w>40</w>
-      <h>56</h>
+      <x>344</x>
+      <y>176</y>
+      <w>176</w>
+      <h>72</h>
     </coordinates>
-    <panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-
 
+Whole Expense object?
 </panel_attributes>
-    <additional_attributes>10.0;40.0;30.0;20.0</additional_attributes>
+    <additional_attributes>10.0;40.0;40.0;70.0;70.0;40.0;40.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>368</x>
+      <y>232</y>
+      <w>32</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>No
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>384</x>
+      <y>184</y>
+      <w>48</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Yes
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>344</y>
+      <w>184</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+modifyExpense(old, new)</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>352</y>
+      <w>192</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+modifyExpense(old, new)</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>448</x>
+      <y>176</y>
+      <w>304</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>                                                                          Alternate 1
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>448</x>
+      <y>256</y>
+      <w>312</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>		                                                                             Alternate 2
+bg=pink</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
       <x>16</x>
-      <y>624</y>
-      <w>136</w>
+      <y>552</y>
+      <w>184</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>User notices the main 
-window with the list of 
-Exprenses is refreshed
+    <panel_attributes>User notices the main window
+with the list of Exprenses
+is refreshed
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>256</y>
+      <w>200</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+changePaymentStatus(expense, root)</panel_attributes>
+    <additional_attributes>230.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1208</x>
+      <y>400</y>
+      <w>48</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Use case 2
 bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>496</x>
-      <y>24</y>
-      <w>248</w>
+      <x>480</x>
+      <y>48</y>
+      <w>240</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>Add Simple Expense Sequence Diagram
+    <panel_attributes>Change Payment Staus Sequence Diagram
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
