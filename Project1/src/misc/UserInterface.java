@@ -192,7 +192,7 @@ public class UserInterface extends JFrame {
 						userActions.removeExpense(expense);
 					} else {
 						expense = getTableModel().getExpense(table.getSelectedRow());
-						userActions.removeExpense(expense, expense.getRoot());
+						userActions.removeExpense(expense, contentUpdator.findExpense(expense.getRoot().getKey()));
 					}
 
 					tableModel.fireTableDataChanged();

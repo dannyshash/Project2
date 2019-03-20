@@ -16,7 +16,7 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>48</x>
+      <x>64</x>
       <y>80</y>
       <w>96</w>
       <h>88</h>
@@ -178,7 +178,7 @@ changePaymentStatus(expense)</panel_attributes>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
-Add the newly created 
+Change the payment status of
 Expense object into hash map</panel_attributes>
     <additional_attributes>10.0;40.0;50.0;40.0;50.0;10.0;10.0;10.0;10.0;20.0</additional_attributes>
   </element>
@@ -461,7 +461,7 @@ bg=blue</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>480</x>
-      <y>48</y>
+      <y>40</y>
       <w>240</w>
       <h>24</h>
     </coordinates>
