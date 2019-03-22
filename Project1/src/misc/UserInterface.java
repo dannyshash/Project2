@@ -43,9 +43,15 @@ import controller.ExpenseSubject;
 import controller.FileLoaderImpl;
 import controller.InMemoryStore;
 import controller.Store;
+import model.CompositeBill;
+import model.CompositePurchase;
 import model.Expense;
+import model.ExpenseCategories;
 import model.ExpenseKey;
 import model.ExpenseType;
+import model.Mode;
+import model.RepitionInterval;
+import model.Status;
 import utils.MyDate;
 import utils.Constants;
 import utils.Util;
@@ -259,25 +265,57 @@ public class UserInterface extends JFrame {
 					   int[] selection = table.getSelectedRows();
 					   for (int i = 0; i < selection.length; i++) {
 						     selection[i] = table.convertRowIndexToModel(selection[i]);
+						     System.out.println(selection[i]);
 						   }
 					   
 					   int PurchaseTypeCounter=0;
 					   int BillTypeCounter=0;
 					     for (int i = 0; i < selection.length; i++) {
-					    	 ExpenseType type = (ExpenseType)(table.getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal()));
-					    	 if(type == ExpenseType.PURCHASE || type == ExpenseType.COMPOSITE_PURCHASE) {
+					    	 String type = (String)(table.getValueAt(selection[i], DisplayColumn.TYPE.ordinal()));
+					    	 if(type.equals("Purchase") || type.equals("Composite_Purchase")) {
 					    		 PurchaseTypeCounter++;
 					    	 }
-					    	 if(type == ExpenseType.BILL || type == ExpenseType.COMPOSITE_BILL) {
+					    	 if(type.equals("Bill") || type.equals("Composite_Bill")) {
 					    		 BillTypeCounter++;
 					    	 }
 						   }
 					     
 					     if(PurchaseTypeCounter == selection.length) {
 					    	 System.out.println("Success: All the selection are purchases or composite purchases");
+					    	 CompositePurchase composite_purchase = new CompositePurchase(new Double(10.00).doubleValue(),
+										"CP1", MyDate.getJustDate("2019-01-01"),
+										"CP1 Desc", ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "");
+					    	 
+							 userActions.addExpense(composite_purchase);
+							 
+							 
+							 for (int i = 0; i < selection.length; i++) {
+								 userActions.AddExpenseToComposite(composite_purchase, getSelectedExpense(table, selection[i]));
+							 }
+							 
+							 /*
+							 for (int i = 0; i < selection.length; i++) {
+					    		 userActions.removeExpense(getSelectedExpense(table, selection[i]));
+							 }
+					    	 */
+					    	 
 					     }
 					     else if(BillTypeCounter == selection.length){
 					    	 System.out.println("Success: All the selection are bills or composite bills");
+					    	 //CompositeBill composite_bill = new CompositeBill("", ExpenseCategories.DAFAULT);
+					    	 CompositeBill composite_bill = new CompositeBill(new Double(10.00).doubleValue(), 
+					    			 "CB1", MyDate.getJustDate("2019-01-01"),
+					    			 "CB1 Desc", "CB1 Vendor", Status.UNPAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY);
+					    	 userActions.addExpense(composite_bill);
+					    	 
+					    	 for (int i = 0; i < selection.length; i++) {
+					    		 userActions.AddExpenseToComposite(composite_bill, getSelectedExpense(table, selection[i])); 
+							 }
+					    	/*
+					    	 for (int i = 0; i < selection.length; i++) {
+					    		 userActions.removeExpense(getSelectedExpense(table, selection[i]));
+							 }
+					    	 */
 					     }
 					     else {
 					    	 System.out.println("The selections have mismatch in Expense Types");
@@ -289,7 +327,7 @@ public class UserInterface extends JFrame {
 
 			   }
 			});			
-		
+
 		btnHideShow.addActionListener(new ActionListener() {			
 			boolean HideShowSwitch = true;				
 			public void actionPerformed(ActionEvent e) {							
@@ -328,6 +366,18 @@ public class UserInterface extends JFrame {
 		double amount = new Double((String)table.getValueAt(table.getSelectedRow(), DisplayColumn.AMOUNT.ordinal())).doubleValue();
 		String name = (String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.NAME.ordinal()));
 		Date date = MyDate.getJustDate((String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.DATE.ordinal())));
+		ExpenseKey key = new ExpenseKey(type, amount, name, date);
+
+		Expense exp = contentUpdator.findExpense(key);
+		System.out.println("getSelectedExpense return: " + exp);
+		return exp;
+	}
+	
+	private Expense getSelectedExpense(JTable table, int row) {
+		ExpenseType type = Util.getExpenseTypeEnum((String)table.getValueAt(row, DisplayColumn.TYPE.ordinal()));
+		double amount = new Double((String)table.getValueAt(row, DisplayColumn.AMOUNT.ordinal())).doubleValue();
+		String name = (String)(table.getValueAt(row, DisplayColumn.NAME.ordinal()));
+		Date date = MyDate.getJustDate((String)(table.getValueAt(row, DisplayColumn.DATE.ordinal())));
 		ExpenseKey key = new ExpenseKey(type, amount, name, date);
 
 		Expense exp = contentUpdator.findExpense(key);
