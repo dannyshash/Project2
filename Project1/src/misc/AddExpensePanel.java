@@ -1,7 +1,6 @@
 package misc;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import controller.ExpenseContainerImpl;
 import model.Expense;
 import model.Bill;
 import model.Purchase;
@@ -28,6 +26,7 @@ import model.RepitionInterval;
 import model.ExpenseCategories;
 import model.Status;
 import utils.MyDate;
+import view.AddExpPanelAddBtnListener;
 import view.UIValidations;
 import view.UserActionsApi;
 import model.Mode;
@@ -36,22 +35,35 @@ import model.ExpenseType;
 import javax.swing.UIManager;
 import java.awt.Font;
 
-public class AddExpensePanel extends UserInterface {
+public class AddExpensePanel extends JFrame {
+	static final public String[] randomName = { "Tea", "Coffee", "Sandwich", "Cookie", "Toast", "Chocolate", "Candy"};
+	static final public String[] randomLocation = { "Downtown", "Brossard", "Campus", "St Henri"};
 
-	private JPanel contentPane;
+	public JPanel contentPane;
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private JTextField txtChooseExpense;
+	public JTextField txtChooseExpense;
 	
-	private JTextField dateText;
-	private JTextField dueDateText;
+	public JTextField dateText;
+	public JTextField dueDateText;
+	
+	public JComboBox<ExpenseType> expTypeCombo;
+	public JLabel lblDateInvalid;
+	public JTextField textField_2;	
+	public JTextField textField_3;
+	public JComboBox<Status> expStatusCombo;
+	public JTextField textField_5;
+	public JComboBox<Mode> paymentMethodCombo;
+	public JComboBox<RepitionInterval> paymentIntervalCombo;
+	public JComboBox<ExpenseCategories> expCategoryCombo;
+	public JTextField textField_8;
+
+	
 	
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel(ExpenseListTableModel tableModel, UserActionsApi userActions) {
-		
-		this.tableModel = tableModel;
-		
+	public AddExpensePanel(UserActionsApi userActions) {
+			
 		setTitle("Add Expense Panel");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 360, 575);
@@ -108,10 +120,9 @@ public class AddExpensePanel extends UserInterface {
 		txtChooseExpense.setBounds(110, 11, 90, 20);
 		contentPane.add(txtChooseExpense);
 		txtChooseExpense.setColumns(10);
-		
-		
+
 		// Type
-		JComboBox<ExpenseType> expTypeCombo = new JComboBox<>();
+		expTypeCombo = new JComboBox<>();
 		//ExpenseType.PURCHASE,ExpenseType.BILL
 		expTypeCombo.setModel(new DefaultComboBoxModel<>(ExpenseType.values()));
 		expTypeCombo.setBounds(147, 51, 174, 20);
@@ -119,7 +130,7 @@ public class AddExpensePanel extends UserInterface {
 		expTypeCombo.setMaximumRowCount(2);
 		contentPane.add(expTypeCombo);
 
-		JLabel lblDateInvalid = new JLabel("Invalid Date");
+		lblDateInvalid = new JLabel("Invalid Date");
 		lblDateInvalid.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		lblDateInvalid.setBounds(84, 84, 53, 23);
 		lblDateInvalid.setForeground(contentPane.getBackground());
@@ -158,9 +169,7 @@ public class AddExpensePanel extends UserInterface {
 
 
 		// Name
-		String[] randomName = { "Tea", "Coffee", "Sandwich", "Cookie", "Toast", "Chocolate",
-				"Candy"};
-		JTextField textField_2 = new JTextField(randomName[new Random().nextInt(randomName.length)]);
+		textField_2 = new JTextField(randomName[new Random().nextInt(randomName.length)]);
 		textField_2.setBounds(147, 117, 174, 20);
 		textField_2.setColumns(10);
 		contentPane.add(textField_2);
@@ -172,7 +181,7 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(lblAmountInvalid);
 		
 		// Amount
-		JTextField textField_3 = new JTextField("" + (Math.round(Math.random() * 1000.0) / 100.0));
+		textField_3 = new JTextField("" + (Math.round(Math.random() * 1000.0) / 100.0));
 		textField_3.setBounds(147, 149, 174, 20);
 		textField_3.setColumns(10);
 		contentPane.add(textField_3);
@@ -202,7 +211,7 @@ public class AddExpensePanel extends UserInterface {
 		});
 
 		// Status
-		JComboBox<Status> expStatusCombo = new JComboBox<>();
+		expStatusCombo = new JComboBox<>();
 		expStatusCombo.setModel(new DefaultComboBoxModel<>(Status.values()));
 		expStatusCombo.setBounds(147, 183, 174, 20);
 		//expStatusCombo.setSelectedIndex(1);
@@ -210,14 +219,13 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(expStatusCombo);
 
 		// Location
-		String[] randomLocation = { "Downtown", "Brossard", "Campus", "St Henri"};
-		JTextField textField_5 = new JTextField(randomLocation[new Random().nextInt(randomLocation.length)]);
+		textField_5 = new JTextField(randomLocation[new Random().nextInt(randomLocation.length)]);
 		textField_5.setBounds(147, 285, 174, 20);
 		textField_5.setColumns(10);
 		contentPane.add(textField_5);
 
 		// Method
-		JComboBox<Mode> paymentMethodCombo = new JComboBox<>();
+		paymentMethodCombo = new JComboBox<>();
 		paymentMethodCombo.setModel(new DefaultComboBoxModel<>(Mode.values()));
 		paymentMethodCombo.setBounds(147, 217, 174, 20);
 		paymentMethodCombo.setSelectedIndex(Mode.CASH.ordinal());
@@ -231,7 +239,7 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(dueDateText);
 		
 		// Interval
-		JComboBox<RepitionInterval> paymentIntervalCombo = new JComboBox<>();
+		paymentIntervalCombo = new JComboBox<>();
 		paymentIntervalCombo.setModel(new DefaultComboBoxModel<>(RepitionInterval.values()));
 		//JComboBox paymentIntervalCombo = new JComboBox(RepitionInterval.values());
 		paymentIntervalCombo.setSelectedIndex(1);
@@ -244,7 +252,7 @@ public class AddExpensePanel extends UserInterface {
 		lblCategory.setBounds(30, 318, 53, 23);
 		contentPane.add(lblCategory);
 		
-		JComboBox<ExpenseCategories> expCategoryCombo = new JComboBox<>();
+		expCategoryCombo = new JComboBox<>();
 		expCategoryCombo.setModel(new DefaultComboBoxModel<>(ExpenseCategories.values()));
 		expCategoryCombo.setSelectedIndex(0);
 		expCategoryCombo.setMaximumRowCount(3);
@@ -257,7 +265,7 @@ public class AddExpensePanel extends UserInterface {
 		contentPane.add(lblVendorname);
 		
 		String[] vendorNames = { "Tim Hortons", "Starbucks", "Second Cup", "Van Houtte"};				
-		JTextField textField_8 = new JTextField(vendorNames[new Random().nextInt(vendorNames.length)]);
+		textField_8 = new JTextField(vendorNames[new Random().nextInt(vendorNames.length)]);
 		textField_8.setBounds(147, 251, 174, 20);
 		textField_8.setColumns(10);
 		contentPane.add(textField_8);
@@ -289,48 +297,17 @@ public class AddExpensePanel extends UserInterface {
         });
 						
 		
-		btnAddExpense1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Expense expense = null;
-							
-				//Decide which object to add
-				System.out.println("Adding Expense Type " + expTypeCombo.getSelectedItem().toString());
-				if(expTypeCombo.getSelectedItem() == ExpenseType.PURCHASE) {
-					//Define Purchase Object
-					expense = new Purchase(new Double(textField_3.getText()).doubleValue(), textField_2.getText(), getDate(), (Status)expStatusCombo.getSelectedItem(),
-							getDueDate(), textField_8.getText(), textField_5.getText(), (Mode)paymentMethodCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
-				}
-				else if(expTypeCombo.getSelectedItem() == ExpenseType.BILL) {
-					//Define Bill Object
-					expense = new Bill(new Double(textField_3.getText()).doubleValue(), textField_2.getText(), getDate(), (Status)expStatusCombo.getSelectedItem(),
-							getDueDate(), textField_8.getText(), (RepitionInterval)paymentIntervalCombo.getSelectedItem(), (ExpenseCategories)expCategoryCombo.getSelectedItem());
-				}	
-				System.out.println("Adding an Expense: " + expense);
-				userActions.addExpense(expense);
-
-							
-				tableModel.fireTableDataChanged();
-				
-				// Re-initialize values randomly
-				String exp_date = MyDate.getRandomDateStr();
-				String due_date = MyDate.getDateString(MyDate.addDays(MyDate.getJustDate(exp_date), MyDate.getRandomInRange(1, 9)));
-				paymentMethodCombo.setSelectedIndex((int)(Math.random()*3));
-				dateText.setText(exp_date);
-				dueDateText.setText(due_date);
-				textField_2.setText(randomName[new Random().nextInt(randomName.length)]);
-				textField_3.setText("" + (Math.round(Math.random() * 1000.0) / 100.0));
-				textField_5.setText(randomLocation[new Random().nextInt(randomLocation.length)]);
-			}
-		});		
+		btnAddExpense1.addActionListener(new AddExpPanelAddBtnListener(this, userActions));		
 	}
 	
 	//getDate(), getDueDate() should be better implementation, 
 	//calendar or system time etc...
-	private Date getDate() {
+	public Date getDate() {
 		return MyDate.getJustDate(dateText.getText());
 	}
 	
-	private Date getDueDate() {	
+	public Date getDueDate() {	
 		return MyDate.getJustDate(dueDateText.getText());
 	}
+	
 }

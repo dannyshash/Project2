@@ -181,7 +181,7 @@ public class UserInterface extends JFrame {
 		
 		btnAddExpense.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
-				   AddExpensePanel frame1 = new AddExpensePanel(tableModel, userActions);
+				   AddExpensePanel frame1 = new AddExpensePanel(userActions);
 				   frame1.setVisible(true);
 			   }
 			});
