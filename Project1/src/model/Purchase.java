@@ -6,9 +6,9 @@ public class Purchase extends AbstractExpense {
 	private String location;
 	private Mode mode;
 	
-	public Purchase(double amount, String name, Date date, Status status, Date dueDate, 
+	public Purchase(double amount, String name, Date date, Status status, 
 			String vendor, String location, Mode mode, ExpenseCategories category) {
-		super(ExpenseType.PURCHASE, amount, name, date, status, dueDate, vendor, category);
+		super(ExpenseType.PURCHASE, amount, name, date, status, new Date(), vendor, category);
 		this.setLocation(location);
 		this.mode=mode;
 	}
@@ -27,7 +27,7 @@ public class Purchase extends AbstractExpense {
 	
 	//Copy constructor
 	public Purchase(Purchase from) {
-		this(from.getAmount(), from.getName(), from.getDate(), from.getStatus(), from.getDueDate(),
+		this(from.getAmount(), from.getName(), from.getDate(), from.getStatus(),
 				from.getVendor(), from.getLocation(), from.getMode(), from.getCategory());	
 	}
 

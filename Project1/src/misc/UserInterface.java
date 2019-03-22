@@ -11,6 +11,7 @@ package misc;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -55,6 +56,8 @@ import model.Status;
 import utils.MyDate;
 import utils.Constants;
 import utils.Util;
+import view.AddCompExpPanelAddBtnListener;
+import view.AddExpPanelAddBtnListener;
 import view.ContentUpdator;
 import view.DispayExpenseComboActionListener;
 import view.DisplayColumn;
@@ -181,7 +184,8 @@ public class UserInterface extends JFrame {
 		
 		btnAddExpense.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
-				   AddExpensePanel frame1 = new AddExpensePanel(userActions);
+				   AddExpPanelAddBtnListener listener = new AddExpPanelAddBtnListener(userActions);
+				   AddExpensePanel frame1 = new AddExpensePanel(userActions, listener);
 				   frame1.setVisible(true);
 			   }
 			});
@@ -259,74 +263,24 @@ public class UserInterface extends JFrame {
 
 		
 		btnCreateComposite.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e) {   
-				   if (table.getSelectedRow() >= 0) {
-					   
-					   int[] selection = table.getSelectedRows();
-					   for (int i = 0; i < selection.length; i++) {
-						     selection[i] = table.convertRowIndexToModel(selection[i]);
-						     System.out.println(selection[i]);
-						   }
-					   
-					   int PurchaseTypeCounter=0;
-					   int BillTypeCounter=0;
-					     for (int i = 0; i < selection.length; i++) {
-					    	 String type = (String)(table.getValueAt(selection[i], DisplayColumn.TYPE.ordinal()));
-					    	 if(type.equals("Purchase") || type.equals("Composite_Purchase")) {
-					    		 PurchaseTypeCounter++;
-					    	 }
-					    	 if(type.equals("Bill") || type.equals("Composite_Bill")) {
-					    		 BillTypeCounter++;
-					    	 }
-						   }
-					     
-					     if(PurchaseTypeCounter == selection.length) {
-					    	 System.out.println("Success: All the selection are purchases or composite purchases");
-					    	 CompositePurchase composite_purchase = new CompositePurchase(new Double(10.00).doubleValue(),
-										"CP1", MyDate.getJustDate("2019-01-01"),
-										"CP1 Desc", ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "");
-					    	 
-							 userActions.addExpense(composite_purchase);
-							 
-							 
-							 for (int i = 0; i < selection.length; i++) {
-								 userActions.AddExpenseToComposite(composite_purchase, getSelectedExpense(table, selection[i]));
-							 }
-							 
-							 /*
-							 for (int i = 0; i < selection.length; i++) {
-					    		 userActions.removeExpense(getSelectedExpense(table, selection[i]));
-							 }
-					    	 */
-					    	 
-					     }
-					     else if(BillTypeCounter == selection.length){
-					    	 System.out.println("Success: All the selection are bills or composite bills");
-					    	 //CompositeBill composite_bill = new CompositeBill("", ExpenseCategories.DAFAULT);
-					    	 CompositeBill composite_bill = new CompositeBill(new Double(10.00).doubleValue(), 
-					    			 "CB1", MyDate.getJustDate("2019-01-01"),
-					    			 "CB1 Desc", "CB1 Vendor", Status.UNPAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY);
-					    	 userActions.addExpense(composite_bill);
-					    	 
-					    	 for (int i = 0; i < selection.length; i++) {
-					    		 userActions.AddExpenseToComposite(composite_bill, getSelectedExpense(table, selection[i])); 
-							 }
-					    	/*
-					    	 for (int i = 0; i < selection.length; i++) {
-					    		 userActions.removeExpense(getSelectedExpense(table, selection[i]));
-							 }
-					    	 */
-					     }
-					     else {
-					    	 System.out.println("The selections have mismatch in Expense Types");
-					     }
-					   
-					   
-					   tableModel.fireTableDataChanged();
-					}
-
-			   }
-			});			
+			public void actionPerformed(ActionEvent e) {   
+			   if (table.getSelectedRow() >= 0) {
+				   ArrayList<Expense> items = new ArrayList<Expense>();
+				   
+				   int[] selection = table.getSelectedRows();
+				   for (int i = 0; i < selection.length; i++) {
+					   Expense exp = getSelectedExpense(table, selection[i]);
+					   if(exp != null) {
+						   items.add(exp);
+					   }
+				   }
+				   
+				   AddCompExpPanelAddBtnListener listener = new AddCompExpPanelAddBtnListener(userActions, items);
+				   AddCompositeExpensePanel frame1 = new AddCompositeExpensePanel(userActions, listener);
+				   frame1.setVisible(true);				   
+				}
+			}
+		});			
 
 		btnHideShow.addActionListener(new ActionListener() {			
 			boolean HideShowSwitch = true;				
@@ -362,15 +316,9 @@ public class UserInterface extends JFrame {
 	}
 	
 	private Expense getSelectedExpense(JTable table) {
-		ExpenseType type = Util.getExpenseTypeEnum((String)table.getValueAt(table.getSelectedRow(), DisplayColumn.TYPE.ordinal()));
-		double amount = new Double((String)table.getValueAt(table.getSelectedRow(), DisplayColumn.AMOUNT.ordinal())).doubleValue();
-		String name = (String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.NAME.ordinal()));
-		Date date = MyDate.getJustDate((String)(table.getValueAt(table.getSelectedRow(), DisplayColumn.DATE.ordinal())));
-		ExpenseKey key = new ExpenseKey(type, amount, name, date);
-
-		Expense exp = contentUpdator.findExpense(key);
-		System.out.println("getSelectedExpense return: " + exp);
-		return exp;
+		int row = table.getSelectedRow();
+		
+		return getSelectedExpense(table, row);		
 	}
 	
 	private Expense getSelectedExpense(JTable table, int row) {
@@ -381,7 +329,7 @@ public class UserInterface extends JFrame {
 		ExpenseKey key = new ExpenseKey(type, amount, name, date);
 
 		Expense exp = contentUpdator.findExpense(key);
-		System.out.println("getSelectedExpense return: " + exp);
+		System.out.println("getSelectedExpense return: " + exp + ", at row: " + row);
 		return exp;
 	}
 	

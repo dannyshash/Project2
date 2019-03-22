@@ -62,7 +62,7 @@ public class AddExpensePanel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel(UserActionsApi userActions) {
+	public AddExpensePanel(UserActionsApi userActions, AddExpPanelAddBtnListener listener) {
 			
 		setTitle("Add Expense Panel");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -297,7 +297,7 @@ public class AddExpensePanel extends JFrame {
         });
 						
 		
-		btnAddExpense1.addActionListener(new AddExpPanelAddBtnListener(this, userActions));		
+		btnAddExpense1.addActionListener(listener);		
 	}
 	
 	//getDate(), getDueDate() should be better implementation, 

@@ -91,7 +91,7 @@ public class FileLoaderImpl implements DataLoader{
 			System.out.println("Creating Purchase");
 			e = new Purchase(new Double(expenseDataItems[4]).doubleValue(), 
 					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]), Util.getStatusEnum(expenseDataItems[5]), 
-					new Date(), expenseDataItems[8], expenseDataItems[9], Util.getModeEnum(expenseDataItems[6]), ExpenseCategories.DAFAULT);
+					expenseDataItems[8], expenseDataItems[9], Util.getModeEnum(expenseDataItems[6]), ExpenseCategories.DAFAULT);
 		} else if(ExpenseType.BILL.toString().equalsIgnoreCase(expenseDataItems[0])) {
 			//create Bill
 			System.out.println("Creating Bill");
