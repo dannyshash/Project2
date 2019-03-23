@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-import misc.ExpenseListTableModel;
 import model.ExpenseType;
 
 public class DispayExpenseComboActionListener implements ActionListener{

@@ -1,4 +1,4 @@
-package misc;
+package view;
 
 
 import java.awt.Color;
@@ -19,16 +19,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import model.Expense;
-import model.Bill;
-import model.Purchase;
 import model.RepitionInterval;
 import model.ExpenseCategories;
 import model.Status;
 import utils.MyDate;
-import view.AddExpPanelAddBtnListener;
-import view.UIValidations;
-import view.UserActionsApi;
 import model.Mode;
 import model.ExpenseType;
 
@@ -56,13 +50,15 @@ public class AddExpensePanel extends JFrame {
 	public JComboBox<RepitionInterval> paymentIntervalCombo;
 	public JComboBox<ExpenseCategories> expCategoryCombo;
 	public JTextField textField_8;
-
+	public JTextField descriptionText;
+	public JButton btnAddExpense1;
+	public JLabel lblTypeLabel ;
 	
 	
 	/**
 	 * Create the frame.
 	 */
-	public AddExpensePanel(UserActionsApi userActions, AddExpPanelAddBtnListener listener) {
+	public AddExpensePanel(UserActionsApi userActions, AddExpPanelAddBtnListener listener, AddExpExpTypeComboListener expTypeListener) {
 			
 		setTitle("Add Expense Panel");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -73,9 +69,9 @@ public class AddExpensePanel extends JFrame {
 		contentPane.setLayout(null);
 	
 		// Label Creation
-		JLabel lblNewLabel = new JLabel("Expense Type");
-		lblNewLabel.setBounds(30, 50, 77, 23);
-		contentPane.add(lblNewLabel);
+		lblTypeLabel = new JLabel("Expense Type");
+		lblTypeLabel.setBounds(30, 50, 77, 23);
+		contentPane.add(lblTypeLabel);
 
 		JLabel lblDate = new JLabel("Date");
 		lblDate.setBounds(30, 82, 53, 23);
@@ -109,7 +105,7 @@ public class AddExpensePanel extends JFrame {
 		lblInterval.setBounds(30, 425, 53, 23);
 		contentPane.add(lblInterval);
 
-		JButton btnAddExpense1 = new JButton("Add Expense");
+		btnAddExpense1 = new JButton("Add Expense");
 		btnAddExpense1.setBounds(122, 480, 108, 23);
 		contentPane.add(btnAddExpense1);
 		
@@ -127,8 +123,11 @@ public class AddExpensePanel extends JFrame {
 		expTypeCombo.setModel(new DefaultComboBoxModel<>(ExpenseType.values()));
 		expTypeCombo.setBounds(147, 51, 174, 20);
 		expTypeCombo.setSelectedIndex(0);
-		expTypeCombo.setMaximumRowCount(2);
+		expTypeCombo.setMaximumRowCount(4);
 		contentPane.add(expTypeCombo);
+		expTypeCombo.addItemListener(expTypeListener);
+
+		
 
 		lblDateInvalid = new JLabel("Invalid Date");
 		lblDateInvalid.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -269,6 +268,16 @@ public class AddExpensePanel extends JFrame {
 		textField_8.setBounds(147, 251, 174, 20);
 		textField_8.setColumns(10);
 		contentPane.add(textField_8);
+		
+		descriptionText = new JTextField();
+		descriptionText.setText("Composite Expense");
+		descriptionText.setBounds(144, 350, 179, 23);
+		contentPane.add(descriptionText);
+		descriptionText.setColumns(10);
+		
+		JLabel lblDescription = new JLabel("Description");
+		lblDescription.setBounds(30, 352, 71, 25);
+		contentPane.add(lblDescription);
 
 		
 		// Default Hide DueDate and Interval
@@ -276,6 +285,8 @@ public class AddExpensePanel extends JFrame {
 		paymentIntervalCombo.setVisible(false);
 		lblDueDate.setVisible(false);
 		lblInterval.setVisible(false);
+		lblDescription.setVisible(false);
+		descriptionText.setVisible(false);
 		
 		
 		expTypeCombo.addActionListener(new ActionListener() {
@@ -292,7 +303,18 @@ public class AddExpensePanel extends JFrame {
 					paymentIntervalCombo.setVisible(false);
 					lblDueDate.setVisible(false);
 					lblInterval.setVisible(false);
+				}	
+            	
+            	if(expTypeCombo.getSelectedItem() ==ExpenseType.COMPOSITE_PURCHASE ||
+            			expTypeCombo.getSelectedItem() ==ExpenseType.COMPOSITE_BILL) {
+            		lblDescription.setVisible(true);
+            		descriptionText.setVisible(true);
+				}
+				else {
+					lblDescription.setVisible(false);
+					descriptionText.setVisible(false);
 				}		
+
             }
         });
 						
@@ -309,5 +331,4 @@ public class AddExpensePanel extends JFrame {
 	public Date getDueDate() {	
 		return MyDate.getJustDate(dueDateText.getText());
 	}
-	
 }

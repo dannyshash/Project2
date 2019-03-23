@@ -8,7 +8,6 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import misc.AddExpensePanel;
 import model.Bill;
 import model.Expense;
 import model.ExpenseCategories;

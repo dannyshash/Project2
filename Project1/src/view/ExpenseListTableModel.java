@@ -5,7 +5,7 @@
  * Author: Tony Lac
  * Created Date: 2019-01-25
  */
-package misc;
+package view;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -13,9 +13,6 @@ import model.CompositeBill;
 import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseType;
-import view.DisplayColumn;
-import view.DisplayExpense;
-import view.ExpenseContentApi;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,11 +89,6 @@ public class ExpenseListTableModel extends AbstractTableModel {
 	
 	void expandComposite(Expense expense, int selectedRow) {
 		System.out.println("## expandComposite ##"+expense.toString()+"items="+expense.getNoOfSubItems());
-		/* this will only show the immediate children
-		for(int i=0;i<expense.getNoOfSubItems();i++) {
-			myList.add(selectedRow+1, expense.getSubItems().get(i));
-		}
-		*/
 
 		ArrayList<Expense> expItems; 
 		if(expense.getType()==ExpenseType.COMPOSITE_PURCHASE)

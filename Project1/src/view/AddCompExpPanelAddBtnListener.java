@@ -9,7 +9,6 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import misc.AddExpensePanel;
 import model.Bill;
 import model.CompositeBill;
 import model.CompositePurchase;
@@ -32,6 +31,10 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 		this.items = items;
 	}
 	
+	public ExpenseType getType() { 
+		return items.get(0).getType();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		final AddExpensePanel addPanel = (AddExpensePanel)SwingUtilities.windowForComponent((JButton)e.getSource());
@@ -44,10 +47,10 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 		String name = addPanel.textField_2.getText();
 		Date date = addPanel.getDate();
 		Status status = (Status)addPanel.expStatusCombo.getSelectedItem();
-		Date dueDate = addPanel.getDueDate();		
 		String vendor = addPanel.textField_8.getText();
 		String location; 
 		Mode mode = (Mode)addPanel.paymentMethodCombo.getSelectedItem();
+		String description = addPanel.descriptionText.getText();
 		ExpenseCategories category = (ExpenseCategories)addPanel.expCategoryCombo.getSelectedItem();
 		RepitionInterval interval;
 					
@@ -57,7 +60,7 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 			//Define Purchase specific Object
 			location = addPanel.textField_5.getText();
 
-			expense = new CompositePurchase(amount, name, date, "descr", category, status, mode, location);
+			expense = new CompositePurchase(amount, name, date, description, category, status, mode, location);
 			for (Expense item : items) {
 				Expense subItem = new Purchase((Purchase)item);
 				expense.add(subItem);
@@ -67,7 +70,7 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 			//Define Bill specific Object
 			interval = (RepitionInterval)addPanel.paymentIntervalCombo.getSelectedItem();
 		
-			expense = new CompositeBill(amount, name, date, "descr", vendor, status, category, interval);
+			expense = new CompositeBill(amount, name, date, description, vendor, status, category, interval);
 			for (Expense item : items) {
 				Expense subItem = new Bill((Bill)item);
 				expense.add(subItem);

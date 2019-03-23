@@ -7,7 +7,6 @@ import java.util.Map;
 
 import controller.ExpenseContainerImpl;
 import controller.ExpenseSubject;
-import misc.UserInterface;
 import model.CompositePurchase;
 import model.Expense;
 import model.ExpenseKey;

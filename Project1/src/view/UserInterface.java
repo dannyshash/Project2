@@ -5,12 +5,10 @@
  * Author: Tony Lac
  * Created Date: 2019-01-25
  */
-package misc;
+package view;
 
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,49 +23,23 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.Font;
 
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
-import controller.DataLoader;
-import controller.ExpenseContainerApi;
 import controller.ExpenseContainerImpl;
-import controller.ExpenseSubject;
-import controller.FileLoaderImpl;
-import controller.InMemoryStore;
-import controller.Store;
-import model.CompositeBill;
-import model.CompositePurchase;
 import model.Expense;
-import model.ExpenseCategories;
 import model.ExpenseKey;
 import model.ExpenseType;
-import model.Mode;
-import model.RepitionInterval;
-import model.Status;
 import utils.MyDate;
-import utils.Constants;
 import utils.Util;
-import view.AddCompExpPanelAddBtnListener;
-import view.AddExpPanelAddBtnListener;
-import view.ContentUpdator;
-import view.DispayExpenseComboActionListener;
-import view.DisplayColumn;
-import view.ExpenseObserverImpl;
-import view.UserActionsApi;
-import view.UserActionsImpl;
-import view.ExpenseContentApi;
 
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 
 public class UserInterface extends JFrame {
 
@@ -79,29 +51,6 @@ public class UserInterface extends JFrame {
 	JComboBox<ExpenseType> dispayExpenseCombo;
 	private static UserInterface frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		/**
-		 * Very important to do this very first as this creates the singleton objects
-		 * start the managers, and does subscriptions... 
-		 */
-		prestartPhase();
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = getInstance();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public static UserInterface getInstance() {
 		if(frame == null) {
 			frame = new UserInterface();
@@ -109,21 +58,6 @@ public class UserInterface extends JFrame {
 		return frame;
 	}
 	
-	/**
-	 * creates Singletons
-	 */
-	private static void prestartPhase() {
-		DataLoader loader = new FileLoaderImpl(Constants.SAMPLE_DATA_FILENAME);
-		Store dataStore= new InMemoryStore(loader);
-		ExpenseContainerApi container = (ExpenseContainerApi)ExpenseContainerImpl.getInstance();
-		ExpenseSubject subject = (ExpenseSubject)ExpenseContainerImpl.getInstance();
-		container.init(dataStore);
-		ExpenseObserverImpl.getInstance().init(subject);
-		subject.start();
-		System.out.println("Start PBM " + new Date());
-	}
-
-
 	/**
 	 * Create the frame.
 	 */
@@ -184,8 +118,9 @@ public class UserInterface extends JFrame {
 		
 		btnAddExpense.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {   
+				   AddExpExpTypeComboListener expTypeListener = new AddExpExpTypeComboListener();
 				   AddExpPanelAddBtnListener listener = new AddExpPanelAddBtnListener(userActions);
-				   AddExpensePanel frame1 = new AddExpensePanel(userActions, listener);
+				   AddExpensePanel frame1 = new AddExpensePanel(userActions, listener, expTypeListener);
 				   frame1.setVisible(true);
 			   }
 			});
@@ -275,8 +210,9 @@ public class UserInterface extends JFrame {
 					   }
 				   }
 				   
+				   AddCompExpExpTypeComboListener expTypeListener = new AddCompExpExpTypeComboListener(items.get(0).getType());
 				   AddCompExpPanelAddBtnListener listener = new AddCompExpPanelAddBtnListener(userActions, items);
-				   AddCompositeExpensePanel frame1 = new AddCompositeExpensePanel(userActions, listener);
+				   AddCompositeExpensePanel frame1 = new AddCompositeExpensePanel(userActions, listener, expTypeListener);
 				   frame1.setVisible(true);				   
 				}
 			}
