@@ -58,18 +58,24 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 			location = addPanel.textField_5.getText();
 
 			expense = new CompositePurchase(amount, name, date, "descr", category, status, mode, location);
+			for (Expense item : items) {
+				Expense subItem = new Purchase((Purchase)item);
+				expense.add(subItem);
+				userActions.removeExpense(item);
+			}
 		} else if(type == ExpenseType.COMPOSITE_BILL) {
 			//Define Bill specific Object
 			interval = (RepitionInterval)addPanel.paymentIntervalCombo.getSelectedItem();
 		
 			expense = new CompositeBill(amount, name, date, "descr", vendor, status, category, interval);
+			for (Expense item : items) {
+				Expense subItem = new Bill((Bill)item);
+				expense.add(subItem);
+				userActions.removeExpense(item);
+			}
+
 		} else {
 			throw new RuntimeException("AddCompExpPanelAddBtnListener: bad expense type");
-		}
-		for (Expense item : items) {
-			Expense subItem = new Purchase((Purchase)item);
-			expense.add(subItem);
-			userActions.removeExpense(item);
 		}
 		System.out.println("Adding a composite Expense: " + expense);
 		expense.display();

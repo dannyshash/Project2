@@ -130,7 +130,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		while(it.hasNext()) {
 			DisplayExpense d = it.next();
 			
-			if ((index++ > selectedRow) || (countIndex == count)) { //remove
+			if ((index++ > selectedRow) && (countIndex < count)) { //remove
 				System.out.println("removing"+d.getExpRef());
 				++countIndex;			
 				it.remove();
