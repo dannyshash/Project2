@@ -50,7 +50,7 @@ public class Bill extends AbstractExpense {
 
 	@Override
 	public Date getDueDate() {
-		return dueDate;
+		return this.dueDate;
 	}
 
 	public void setDueDate(Date dueDate) {

@@ -4,31 +4,39 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>675</x>
-      <y>18</y>
+      <x>486</x>
+      <y>0</y>
       <w>207</w>
-      <h>162</h>
+      <h>279</h>
     </coordinates>
-    <panel_attributes>/Expense/
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/Expense/
 Package::model
 --
 
 --
++getKey(): ExpenseKey
 +add()
 +remove()
-+get()
-+display()
-+getType(): ExpenseType
 +changePaymentStatus(): boolean
++setParent()
++get(Expense): Expense
++find(Expense): Expense
++getSubItems(): ArrayList&lt;Expense&gt;
++getNoOfSubItems(): int
++display()
++getParent(): Expense
++getRoot(): Expense
 +iseqal(): boolean
++getType(): ExpenseType
 bg=dark_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>675</x>
-      <y>216</y>
+      <x>486</x>
+      <y>315</y>
       <w>189</w>
       <h>279</h>
     </coordinates>
@@ -40,27 +48,26 @@ Package::model
 -name String
 -date: Date
 -status: Status
--dueDate: Date
+-paymentDate: Date
 -vendor: String
+-category: ExpenseCategories
+-parent: Expense
+-noOfSubItems: int
+#description: String
+#items: ArrayList&lt;Expense&gt;
 --
-/+add()/
-/+remove()/
-/+get()/
-/+display()/
-+setStatus() !Deprecated
 +getType(): ExpenseType
 +changePaymentStatus(): boolean
 +iseqal(): boolean
 +toString()
-
 bg=light_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>765</x>
-      <y>171</y>
+      <x>576</x>
+      <y>270</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -70,8 +77,8 @@ bg=light_gray</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>549</y>
+      <x>351</x>
+      <y>648</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -79,6 +86,7 @@ bg=light_gray</panel_attributes>
 Package::model
 --
 -interval: RepitionInterval
+-dueDate: Date
 --
 +display()
 +toString()</panel_attributes>
@@ -87,20 +95,24 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>954</x>
-      <y>549</y>
+      <x>765</x>
+      <y>648</y>
       <w>189</w>
-      <h>162</h>
+      <h>189</h>
     </coordinates>
     <panel_attributes>CompositeBill
 Package::model
 --
--description: String
--items: ArrayList&lt;Expense&gt; 
+-interval: RepitionInterval
+-dueDate: Date
 --
++CompositeBill(CompositeBill)
 +add()
 +remove()
-+get()
++get(Expense): Expense
++find(Expense): Expense
++changePaymentStatus(): boolean
++changePaymentStatus(Status, Date)
 +display()
 +iseqal(): boolean
 +toString()</panel_attributes>
@@ -109,9 +121,9 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
-      <y>549</y>
-      <w>189</w>
+      <x>135</x>
+      <y>648</y>
+      <w>207</w>
       <h>117</h>
     </coordinates>
     <panel_attributes>Purchase
@@ -128,20 +140,24 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>747</x>
-      <y>549</y>
+      <x>558</x>
+      <y>648</y>
       <w>189</w>
-      <h>162</h>
+      <h>225</h>
     </coordinates>
     <panel_attributes>CompositePurchase
 Package::model
 --
--description: String
--items: ArrayList&lt;Expense&gt; 
+-mode: Mode
+-location: String
 --
++CompositePurchase(CompositePurchase)
 +add()
 +remove()
-+get()
++get(Expense): Expense
++find(Expense): Expense
++changePaymentStatus(): boolean
++changePaymentStatus(Status, Date)
 +display()
 +iseqal(): boolean
 +toString()</panel_attributes>
@@ -150,8 +166,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>414</x>
-      <y>486</y>
+      <x>225</x>
+      <y>585</y>
       <w>315</w>
       <h>81</h>
     </coordinates>
@@ -161,8 +177,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>486</y>
+      <x>423</x>
+      <y>585</y>
       <w>153</w>
       <h>81</h>
     </coordinates>
@@ -172,8 +188,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>783</x>
-      <y>486</y>
+      <x>594</x>
+      <y>585</y>
       <w>72</w>
       <h>81</h>
     </coordinates>
@@ -183,8 +199,8 @@ Package::model
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>819</x>
-      <y>486</y>
+      <x>630</x>
+      <y>585</y>
       <w>225</w>
       <h>81</h>
     </coordinates>
@@ -194,103 +210,8 @@ Package::model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
-      <y>720</y>
-      <w>189</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>PurchaseAdaptor
-Package::misc
---
--category: String
--categoryName: String
---
-+getStatusByString()
-+getMethodByString()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>540</x>
-      <y>720</y>
-      <w>189</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>BillAdaptor
-Package::misc
---
--method: String
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>405</x>
-      <y>657</y>
-      <w>27</w>
-      <h>81</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>621</x>
-      <y>648</y>
-      <w>27</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>837</x>
-      <y>405</y>
-      <w>171</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>setStatus() is deprecated
-bg=pink</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>702</x>
-      <y>756</y>
-      <w>135</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>Temporary Adaptor 
-class, remove after
-adapting the view
-bg=pink</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>243</x>
-      <y>693</y>
-      <w>126</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>Temporary Adaptor 
-class, remove after
-adapting the view
-bg=pink</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>936</x>
-      <y>180</y>
+      <x>783</x>
+      <y>162</y>
       <w>117</w>
       <h>135</h>
     </coordinates>
@@ -303,15 +224,15 @@ BIWEEKLY
 MONTHLY
 YEARLY
 --
-+getValue(): String
++toString(): String
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>423</x>
-      <y>135</y>
+      <x>234</x>
+      <y>234</y>
       <w>117</w>
       <h>153</h>
     </coordinates>
@@ -323,17 +244,16 @@ PURCHASE
 BILL
 COMPOSITE_PURCHASE
 COMPOSITE_BILL
-INVALID
 --
-+getValue(): String
++toString(): String
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>315</y>
+      <x>324</x>
+      <y>414</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -344,15 +264,15 @@ Package::model
 PAID
 UNPAID
 --
-+getValue(): String
++toString(): String
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>333</x>
-      <y>315</y>
+      <x>144</x>
+      <y>414</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -364,8 +284,28 @@ CASH
 DEBIT
 CREDIT
 --
-+getValue(): String
++toString(): String
 bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>729</x>
+      <y>324</y>
+      <w>207</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>ExpenseKey
+Package::model
+--
++type: ExpenseType
++amount: double
++expName: String
++expDate: Date
+--
++equals(): boolean
+bg=dark_gray</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

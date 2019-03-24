@@ -77,8 +77,9 @@ public class DisplayExpense {
 		this.category = exp.getCategory().toString(); 
 		{
 			this.dueDate = "";
-			if(exp.getType()==ExpenseType.BILL)
-				this.dueDate = ((Bill)exp).getDueDate().toString();
+			if(exp.getType()==ExpenseType.BILL ||
+					exp.getType()==ExpenseType.COMPOSITE_BILL)
+				this.dueDate = MyDate.getDateString(exp.getDueDate());
 		}
 		{
 			this.interval = ""; 

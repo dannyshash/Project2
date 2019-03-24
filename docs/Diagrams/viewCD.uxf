@@ -5,25 +5,31 @@
     <id>UMLClass</id>
     <coordinates>
       <x>216</x>
-      <y>384</y>
+      <y>240</y>
       <w>288</w>
-      <h>80</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>/ExpenseContentApi/
 Package::view
 --
 
 --
-+getData(final DisplayParameters):ArrayList&lt;Expense&gt;</panel_attributes>
++findExpense(ExpenseKey): Expense
++getPurchases(): ArrayList&lt;Expense&gt; 
++getAllPurchases(): ArrayList&lt;Expense&gt;
++getCompositePurchases(): ArrayList&lt;Expense&gt;
++getBills(): ArrayList&lt;Expense&gt;
++getAllBills(): ArrayList&lt;Expense&gt;
++getCompositeBills(): ArrayList&lt;Expense&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>528</x>
-      <y>384</y>
+      <y>240</y>
       <w>264</w>
-      <h>128</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>/UserActionsApi/
 Package::view
@@ -31,20 +37,22 @@ Package::view
 
 --
 +addExpense(Expense)
-+removeExpense(Expense)
++removeExpense(Expense )
++removeExpense(Expense, Expense)
 +modifyExpense(Expense, Expense)
-+AddExpenseToComposite(Expense,Expense)
-+AddExpensesToComposite(Expense,ArrayList&lt;Expense&gt;)
-+changePaymentStatus(Expense)</panel_attributes>
++AddExpenseToComposite(Expense, Expense)
++AddExpensesToComposite(Expense, ArrayList&lt;Expense&gt;)
++changePaymentStatus(Expense)
++changePaymentStatus(Expense, Expense)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
       <x>120</x>
-      <y>120</y>
-      <w>848</w>
-      <h>624</h>
+      <y>0</y>
+      <w>976</w>
+      <h>688</h>
     </coordinates>
     <panel_attributes>view
 --
@@ -57,7 +65,7 @@ fg=red</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>760</x>
-      <y>144</y>
+      <y>24</y>
       <w>144</w>
       <h>120</h>
     </coordinates>
@@ -76,7 +84,7 @@ Package::view
     <id>UMLClass</id>
     <coordinates>
       <x>128</x>
-      <y>144</y>
+      <y>24</y>
       <w>144</w>
       <h>96</h>
     </coordinates>
@@ -93,9 +101,9 @@ Package::view
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>736</x>
-      <y>384</y>
-      <w>152</w>
+      <x>752</x>
+      <y>264</y>
+      <w>136</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>Invoked on user actions
@@ -106,7 +114,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>608</x>
-      <y>240</y>
+      <y>120</y>
       <w>184</w>
       <h>56</h>
     </coordinates>
@@ -120,7 +128,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>264</x>
-      <y>152</y>
+      <y>32</y>
       <w>112</w>
       <h>48</h>
     </coordinates>
@@ -134,7 +142,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>128</x>
-      <y>368</y>
+      <y>248</y>
       <w>168</w>
       <h>24</h>
     </coordinates>
@@ -146,7 +154,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>256</x>
-      <y>248</y>
+      <y>128</y>
       <w>344</w>
       <h>88</h>
     </coordinates>
@@ -159,40 +167,40 @@ bg=yellow</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>400</x>
-      <y>328</y>
+      <y>208</y>
       <w>48</w>
-      <h>72</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Uses</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>544</x>
-      <y>328</y>
+      <y>208</y>
       <w>48</w>
-      <h>72</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Uses</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>328</x>
-      <y>456</y>
+      <y>376</y>
       <w>24</w>
-      <h>72</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>240</x>
-      <y>512</y>
+      <y>408</y>
       <w>200</w>
       <h>64</h>
     </coordinates>
@@ -208,18 +216,18 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>640</x>
-      <y>504</y>
+      <y>392</y>
       <w>24</w>
-      <h>56</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>576</x>
-      <y>544</y>
+      <y>424</y>
       <w>184</w>
       <h>72</h>
     </coordinates>
@@ -235,7 +243,7 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>656</x>
-      <y>608</y>
+      <y>488</y>
       <w>48</w>
       <h>48</h>
     </coordinates>
@@ -246,39 +254,44 @@ Package::view
     <id>Relation</id>
     <coordinates>
       <x>336</x>
-      <y>568</y>
+      <y>464</y>
       <w>48</w>
-      <h>56</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>Uses</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>200</x>
-      <y>608</y>
-      <w>288</w>
-      <h>80</h>
+      <y>488</y>
+      <w>304</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>/ExpenseObserver/
 Package::view
 --
 
 --
-+update(List&lt;Map&lt;ExpenseKey , Expense&gt;&gt; data)</panel_attributes>
++init(ExpenseSubject subject);
++update(List&lt;Map&lt;ExpenseKey , Expense&gt;&gt;);	
++find(ExpenseKey key): Expense 
++getData(final DisplayParameters params): ArrayList&lt;Expense&gt; 
++getDataByExpenseType(DisplayParameters ): ArrayList&lt;Expense&gt; 
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>512</x>
-      <y>640</y>
+      <y>520</y>
       <w>288</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>ExpenseContainerApi
-Package::model
+Package::controller
 --
 
 --

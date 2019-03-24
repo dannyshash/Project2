@@ -53,6 +53,7 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 		String description = addPanel.descriptionText.getText();
 		ExpenseCategories category = (ExpenseCategories)addPanel.expCategoryCombo.getSelectedItem();
 		RepitionInterval interval;
+		Date dueDate;
 					
 		//Decide which object to add
 		System.out.println("Adding Expense Type " + addPanel.expTypeCombo.getSelectedItem().toString());
@@ -69,8 +70,9 @@ public class AddCompExpPanelAddBtnListener extends AddExpPanelAddBtnListener {
 		} else if(type == ExpenseType.COMPOSITE_BILL) {
 			//Define Bill specific Object
 			interval = (RepitionInterval)addPanel.paymentIntervalCombo.getSelectedItem();
+			dueDate = addPanel.getDueDate();
 		
-			expense = new CompositeBill(amount, name, date, description, vendor, status, category, interval);
+			expense = new CompositeBill(amount, name, date, description, vendor, status, category, interval, dueDate);
 			for (Expense item : items) {
 				Expense subItem = new Bill((Bill)item);
 				expense.add(subItem);

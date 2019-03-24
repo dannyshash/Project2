@@ -15,7 +15,6 @@ public class ExpenseObserverImpl implements ExpenseObserver{
 	private static final ExpenseObserver expenseObserver = new ExpenseObserverImpl();
 	private ExpenseSubject subject;
 	private List<Map<ExpenseKey , Expense>> ldata=null;
-	//private final ExpenseContentApi contentUpdator;
 	
 	/**
 	 * private constructor for the singleton

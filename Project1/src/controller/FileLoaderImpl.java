@@ -108,7 +108,7 @@ public class FileLoaderImpl implements DataLoader{
 			System.out.println("Creating composite Bill");
 			e = new CompositeBill(new Double(expenseDataItems[4]).doubleValue(),
 					expenseDataItems[3], MyDate.getJustDate(expenseDataItems[2]),
-					expenseDataItems[13], "dummy vendor", Status.UNPAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY);
+					expenseDataItems[13], "dummy vendor", Util.getStatusEnum(expenseDataItems[5]), ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate(expenseDataItems[11]));
 		} else {
 			throw new RuntimeException("Can not create Expense Type");
 		}

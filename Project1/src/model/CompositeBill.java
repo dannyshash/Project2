@@ -6,26 +6,29 @@ import java.util.Iterator;
 
 public class CompositeBill extends AbstractExpense{
 	private RepitionInterval interval;
+	private Date dueDate;
 
 	@Deprecated
 	public CompositeBill(String description, ExpenseCategories category) {
 		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy comp Bill", new Date(), Status.PAID, new Date(), "dummy vendor", category);
 		this.interval=RepitionInterval.MONTHLY;
+		this.dueDate = new Date();
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 	
 	public CompositeBill(double amount, String name, Date date,
-			String description, String vendor, Status status, ExpenseCategories category, RepitionInterval interval) {
+			String description, String vendor, Status status, ExpenseCategories category, RepitionInterval interval, Date dueDate) {
 		super(ExpenseType.COMPOSITE_BILL, amount, name, date, status, new Date(), vendor, category);
 		this.interval=interval;
+		this.dueDate = dueDate;
 		this.description=description;		
 		items=new ArrayList<Expense>();
 	}
 
 	public CompositeBill(CompositeBill from) {
 		this(from.getAmount(), from.getName(), from.getDate(), from.getDescription(),
-				from.getVendor(), from.getStatus(), from.getCategory(), from.getInterval());
+				from.getVendor(), from.getStatus(), from.getCategory(), from.getInterval(), from.getDueDate());
 		Iterator<Expense> it = from.getSubItems().iterator();
 		while(it.hasNext()) {
 			Expense e = it.next();
@@ -54,6 +57,11 @@ public class CompositeBill extends AbstractExpense{
 	@Override
 	public RepitionInterval getInterval() {
 		return this.interval;
+	}
+	
+	@Override
+	public Date getDueDate() {
+		return this.dueDate;
 	}
 	
 	@Override
