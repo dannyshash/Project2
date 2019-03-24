@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
+      <x>410</x>
       <y>370</y>
       <w>190</w>
       <h>110</h>
@@ -24,7 +24,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>130</x>
+      <x>140</x>
       <y>520</y>
       <w>340</w>
       <h>230</h>
@@ -50,7 +50,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>800</x>
+      <x>810</x>
       <y>560</y>
       <w>270</w>
       <h>130</h>
@@ -72,7 +72,7 @@ Package::view
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
+      <x>90</x>
       <y>270</y>
       <w>300</w>
       <h>210</h>
@@ -97,7 +97,7 @@ Package::controller
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
+      <x>420</x>
       <y>470</y>
       <w>30</w>
       <h>70</h>
@@ -108,7 +108,7 @@ Package::controller
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>250</x>
+      <x>260</x>
       <y>470</y>
       <w>30</w>
       <h>70</h>
@@ -119,7 +119,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>780</x>
+      <x>790</x>
       <y>360</y>
       <w>290</w>
       <h>150</h>
@@ -141,7 +141,7 @@ Package::view
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>940</x>
+      <x>950</x>
       <y>500</y>
       <w>30</w>
       <h>80</h>
@@ -152,7 +152,7 @@ Package::view
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
+      <x>470</x>
       <y>620</y>
       <w>360</w>
       <h>50</h>
@@ -166,7 +166,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
+      <x>470</x>
       <y>650</y>
       <w>360</w>
       <h>50</h>
@@ -180,7 +180,7 @@ update &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>190</x>
+      <x>200</x>
       <y>800</y>
       <w>190</w>
       <h>100</h>
@@ -198,7 +198,7 @@ Package::misc
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
+      <x>310</x>
       <y>740</y>
       <w>120</w>
       <h>80</h>
@@ -213,7 +213,7 @@ addExpense &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
+      <x>650</x>
       <y>800</y>
       <w>190</w>
       <h>100</h>
@@ -231,7 +231,7 @@ Package::misc
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
+      <x>400</x>
       <y>740</y>
       <w>320</w>
       <h>90</h>
@@ -246,7 +246,7 @@ init() &gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
+      <x>760</x>
       <y>680</y>
       <w>200</w>
       <h>140</h>
@@ -261,7 +261,7 @@ init() &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
+      <x>890</x>
       <y>210</y>
       <w>190</w>
       <h>80</h>
@@ -279,7 +279,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>760</x>
+      <x>770</x>
       <y>70</y>
       <w>310</w>
       <h>100</h>
@@ -297,7 +297,7 @@ Package::controller
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>940</x>
+      <x>950</x>
       <y>160</y>
       <w>30</w>
       <h>70</h>
@@ -308,7 +308,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
+      <x>440</x>
       <y>0</y>
       <w>320</w>
       <h>160</h>
@@ -331,7 +331,7 @@ Package::controller
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
+      <x>440</x>
       <y>200</y>
       <w>320</w>
       <h>150</h>
@@ -352,7 +352,7 @@ Package::controller
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
+      <x>580</x>
       <y>150</y>
       <w>30</w>
       <h>70</h>
@@ -363,7 +363,7 @@ Package::controller
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
+      <x>750</x>
       <y>240</y>
       <w>160</w>
       <h>40</h>
@@ -375,7 +375,7 @@ uses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
+      <x>190</x>
       <y>220</y>
       <w>270</w>
       <h>70</h>
@@ -383,5 +383,17 @@ uses</panel_attributes>
     <panel_attributes>lt=-
 uses</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>170</x>
+      <y>40</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>controller Class Diagram
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

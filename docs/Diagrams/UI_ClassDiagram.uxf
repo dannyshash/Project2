@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>153</y>
+      <w>297</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UI&gt;&gt;
+view::ExpenseListTableModel
+--
+-myDisplayExenseList: ArrayList&lt;DisplayExpense&gt; 
+-expenseContent: ExpenseContentApi
+-type: ExpenseType
+--
+~createDisplayExenseList(ArrayList&lt;Expense&gt;)
+-getDisplayExenseList(ArrayList&lt;Expense&gt;): ArrayList&lt;DisplayExpense&gt; 
+-refresh()
++setValueAt()
++getValueAt()
++getColumnName()
++getColumnCount(): int
++getRowCount(): int
+~expandComposite(Expense, int)
+~collapseComposite(Expense, int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>378</y>
+      <w>189</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Swing&gt;&gt;
+Swing::JFrame
+--
+
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>207</x>
+      <y>450</y>
+      <w>27</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>513</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UI&gt;&gt;
+view::UserInterface
+--
+-tableModel: ExpenseListTableModel
+-table: JTable
+--
+-getSelectedExpense(JTable): Expense</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>531</x>
+      <y>36</y>
+      <w>189</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Swing&gt;&gt;
+Swing::AbstractTableModel
+--
+
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>621</x>
+      <y>108</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>54</y>
+      <w>198</w>
+      <h>261</h>
+    </coordinates>
+    <panel_attributes>view::DisplayExpense
+--
+-expRef: Expense
++no: String
++expand: String
++parent: String
++type: String
++date: String 
++name: String 
++amount: String 
++status: String 
++method: String 
++vendor: String 
++location: String 
++category: String 
++dueDate: String
++interval: String
+--
++copy(Expense): DisplayExpense</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>513</x>
+      <y>396</y>
+      <w>189</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Swing&gt;&gt;
+Swing::JFrame
+--
+
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>468</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>513</y>
+      <w>216</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UI&gt;&gt;
+view::AddExpensePanel
+--
+
+--
++AddExpensePanel(UserActionsApi, 
+    AddExpPanelAddBtnListener, 
+    AddExpExpTypeComboListener)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>693</y>
+      <w>279</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UI&gt;&gt;
+view::AddCompositeExpensePanel
+--
+-listener: AddExpPanelAddBtnListener
+--
++AddCompositeExpensePanel(UserActionsApi, 
+               AddCompExpPanelAddBtnListener, 
+               AddCompExpExpTypeComboListener)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>648</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>567</y>
+      <w>216</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>630</y>
+      <w>180</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>297</y>
+      <w>252</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;300.0;260.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>162</y>
+      <w>243</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-
+uses</panel_attributes>
+    <additional_attributes>250.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>306</x>
+      <y>18</y>
+      <w>207</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>UI Class Diagram
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

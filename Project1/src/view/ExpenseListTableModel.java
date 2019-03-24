@@ -70,10 +70,12 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		this.fireTableDataChanged();
 	}
 	
+	@Override
 	public int getColumnCount() {
 		return DisplayColumn.values().length;
 	}
 
+	@Override
 	public int getRowCount() {
 		int size = 0;
 		if(myDisplayExenseList != null) {
@@ -171,7 +173,8 @@ public class ExpenseListTableModel extends AbstractTableModel {
 			throw new RuntimeException("setValueAt error");
 		}
 	}
-	
+
+	@Override
 	public Object getValueAt(int row, int col) {
 		DisplayExpense dExp = myDisplayExenseList.get(row);
 
@@ -209,7 +212,7 @@ public class ExpenseListTableModel extends AbstractTableModel {
 		}
 	}
 
-
+	@Override
 	public String getColumnName(int col) {
 		return DisplayColumn.values[col].toString();
 	}

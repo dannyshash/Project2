@@ -308,4 +308,16 @@ Package::model
 bg=dark_gray</panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>180</x>
+      <y>54</y>
+      <w>162</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>model Class Diagram
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
