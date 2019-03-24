@@ -22,8 +22,10 @@ import model.Bill;
 import model.CompositeBill;
 import model.CompositePurchase;
 import model.Expense;
+import model.ExpenseCategories;
 import model.ExpenseKey;
 import model.ExpenseType;
+import model.Mode;
 import model.Purchase;
 
 public class ExpenseObserverImplTest {
@@ -72,12 +74,12 @@ public class ExpenseObserverImplTest {
 	public void testGetData() {
 		DisplayParameters params = new DisplayParameters();
 
-		Expense p1=new Purchase();Expense p2=new Purchase();
+		Expense p1=new Purchase(1, "1",new Date());Expense p2=new Purchase(2, "2",new Date());
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mp = new HashMap<ExpenseKey , Expense>() {{put(p1.getKey(),p1);put(p2.getKey(),p2);}};
 		Collection<Expense> cp = mp.values();
 		
-		Expense cp1=new CompositePurchase(null, null, null, null);
+		Expense cp1=new CompositePurchase("cp1", ExpenseCategories.DAFAULT, Mode.CASH, "loc1");
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcp = new HashMap<ExpenseKey , Expense>() {{put(cp1.getKey(),cp1);}};
 		Collection<Expense> ccp = mcp.values();
@@ -87,7 +89,7 @@ public class ExpenseObserverImplTest {
 		Map<ExpenseKey , Expense> mb = new HashMap<ExpenseKey , Expense>() {{put(b1.getKey(),b1);put(b2.getKey(),b2);put(b3.getKey(),b3);}};
 		Collection<Expense> cb = mb.values();
 		
-		Expense cb1=new CompositeBill(null, null);
+		Expense cb1=new CompositeBill("cb1", ExpenseCategories.DAFAULT);
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcb = new HashMap<ExpenseKey , Expense>() {{put(cb1.getKey(),cb1);}};
 		Collection<Expense> ccb = mcb.values();
@@ -107,9 +109,13 @@ public class ExpenseObserverImplTest {
 		observer.update(data);
 
 		params.type = ExpenseType.PURCHASE;
-		assertEquals(3, observer.getData(params).size());
+		assertEquals(2, observer.getData(params).size());
 		params.type = ExpenseType.BILL;		
-		assertEquals(4, observer.getData(params).size());
+		assertEquals(3, observer.getData(params).size());
+		params.type = ExpenseType.COMPOSITE_PURCHASE;
+		assertEquals(1, observer.getData(params).size());
+		params.type = ExpenseType.COMPOSITE_BILL;		
+		assertEquals(1, observer.getData(params).size());
 	}
 
 }

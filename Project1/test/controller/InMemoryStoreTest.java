@@ -58,7 +58,8 @@ public class InMemoryStoreTest {
     @Test
     public void modify() {
         Purchase purchase1 = new Purchase(2.28, "Coffee", new Date(2019,2,2));
-        Purchase purchase2 = new Purchase(7.55, "cocobun", new Date(2019,12,12));
+        Purchase purchase2 = new Purchase(purchase1);
+        purchase2.setLocation("Montreal");
 
         inMemoryStore.modify(purchase1, purchase2);
 
@@ -67,7 +68,7 @@ public class InMemoryStoreTest {
         ExpenseKey expenseKey = new ExpenseKey(ExpenseType.PURCHASE, 2.28, "Coffee", new Date(2019,2,2));
 
         assertEquals(purchaseMap.get(expenseKey).getType(), ExpenseType.PURCHASE);
-        assertEquals(purchaseMap.get(expenseKey).getName(), "cocobun");
+        assertEquals(purchaseMap.get(expenseKey).getLocation(), "Montreal");
 
     }
 

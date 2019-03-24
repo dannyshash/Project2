@@ -93,23 +93,24 @@ public class CompositePurchase extends AbstractExpense{
 		Expense returnVal = null;
 		
 		Iterator<Expense> compPurchase = items.iterator();
-		while(compPurchase.hasNext()) {
+		while(compPurchase.hasNext() && returnVal == null) {
 			Expense e = compPurchase.next(); 
 			System.out.println("find: looping:"+e);
 			if(e.getType().ordinal()<2 && e.iseqal(exp)) {
 				System.out.println("return Expense:"+e);
-				return e;
+				returnVal = e;
 			}
 			
 			if(e.getType().ordinal()>1) {
 				if(exp.getType().ordinal()>1) {
 					if(e.iseqal(exp)) {
 						System.out.println("return comp Expense:" + e);
-						return e;										
+						returnVal = e;										
+						continue;
 					}
 				}
 				CompositePurchase ce= (CompositePurchase)e;
-				return ce.find(exp);
+				returnVal = ce.find(exp);
 			}
 		}
 		
