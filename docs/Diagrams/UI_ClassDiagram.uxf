@@ -246,18 +246,6 @@ creates</panel_attributes>
     <additional_attributes>10.0;300.0;260.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>315</x>
-      <y>162</y>
-      <w>243</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=-
-uses</panel_attributes>
-    <additional_attributes>250.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>Text</id>
     <coordinates>
       <x>306</x>
@@ -268,5 +256,19 @@ uses</panel_attributes>
     <panel_attributes>UI Class Diagram
 style=wordwrap</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>198</y>
+      <w>243</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+creates
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
