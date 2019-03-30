@@ -137,7 +137,9 @@ public class UserInterface extends JFrame {
 						userActions.removeExpense(expense);
 					} else {
 						expense = getTableModel().getExpense(table.getSelectedRow());
-						userActions.removeExpense(expense, contentUpdator.findExpense(expense.getRoot().getKey()));
+						Expense root = contentUpdator.findExpense(expense.getRoot().getKey());
+						Expense parent = root.find(expense.getParent());
+						userActions.removeExpense(expense, parent, root);
 					}
 
 					tableModel.fireTableDataChanged();

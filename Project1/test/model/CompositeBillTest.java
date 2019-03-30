@@ -20,7 +20,8 @@ public class CompositeBillTest {
 	@Mock Expense b4; @Mock Expense b5; @Mock Expense b6;
 	@Mock ExpenseKey bk4; @Mock ExpenseKey bk5; @Mock ExpenseKey bk6;
 	
-	private CompositeBill comp_bill = new CompositeBill("cb", ExpenseCategories.DAFAULT);
+	private CompositeBill comp_bill = new CompositeBill(1.0, "cb", MyDate.getJustDate("2019-03-11"), "cb", 
+			"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
 
 	@Before
 	public void before() {
@@ -64,13 +65,15 @@ public class CompositeBillTest {
 
 	@Test
 	public void testIseqal() {
-		final CompositeBill test = new CompositeBill("test", ExpenseCategories.DAFAULT);
+		final CompositeBill test = new CompositeBill(1.0, "test", MyDate.getJustDate("2019-03-11"), "test",
+				"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
 		assertFalse(comp_bill.iseqal(test));	
 	}
 
 	@Test
 	public void testGetBillsList() {
-		CompositeBill test = new CompositeBill("test", ExpenseCategories.DAFAULT);
+		CompositeBill test = new CompositeBill(1.0, "test", MyDate.getJustDate("2019-03-11"), "test", 
+				"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
 		comp_bill.add(b1); comp_bill.add(b2); 
 		comp_bill.add(test);
 		test.add(b3); test.add(b4);
@@ -87,8 +90,10 @@ public class CompositeBillTest {
 
 	@Test
 	public void testGetMatchedBill() {
-		CompositeBill test1 = new CompositeBill("test1", ExpenseCategories.DAFAULT);
-		CompositeBill test2 = new CompositeBill("test2", ExpenseCategories.DAFAULT);
+		CompositeBill test1 = new CompositeBill(1.0, "test1", MyDate.getJustDate("2019-03-11"), "test1", 
+				"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
+		CompositeBill test2 = new CompositeBill(2.0, "test2", MyDate.getJustDate("2019-03-11"), "test2", 
+				"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
 		Expense fb1 = new Bill(63.14, "hydro", MyDate.getJustDate("2019-03-11"));
 		Expense fb2 = new Bill(74.14, "cellphone", MyDate.getJustDate("2019-03-11"));
 		Expense fb3 = new Bill(85.14, "cabel", MyDate.getJustDate("2019-03-11"));
@@ -111,10 +116,12 @@ public class CompositeBillTest {
 		assertEquals(6, test1.getBillsList().size());
 		assertEquals(2, test2.getBillsList().size());
 		
+		assert(comp_bill.iseqal(comp_bill.find(comp_bill)));
 		assert(fb1.iseqal(comp_bill.find(fb1)));
 		assert(fb2.iseqal(comp_bill.find(fb2)));
 		assert(test1.iseqal(comp_bill.find(test1)));
 		assert(fb3.iseqal(comp_bill.find(fb3)));
+		assert(test2.iseqal(comp_bill.find(test2)));
 		assertEquals(test2, comp_bill.find(test2));
 	}
 

@@ -27,6 +27,9 @@ import model.ExpenseKey;
 import model.ExpenseType;
 import model.Mode;
 import model.Purchase;
+import model.RepitionInterval;
+import model.Status;
+import utils.MyDate;
 
 public class ExpenseObserverImplTest {
 	@Mock private ExpenseSubject subject;
@@ -79,7 +82,8 @@ public class ExpenseObserverImplTest {
 		Map<ExpenseKey , Expense> mp = new HashMap<ExpenseKey , Expense>() {{put(p1.getKey(),p1);put(p2.getKey(),p2);}};
 		Collection<Expense> cp = mp.values();
 		
-		Expense cp1=new CompositePurchase("cp1", ExpenseCategories.DAFAULT, Mode.CASH, "loc1");
+		Expense cp1=new CompositePurchase(1.0, "composite_purchase", MyDate.getJustDate("2019-03-11"), 
+				"cp1", ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "loc1");
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcp = new HashMap<ExpenseKey , Expense>() {{put(cp1.getKey(),cp1);}};
 		Collection<Expense> ccp = mcp.values();
@@ -89,7 +93,9 @@ public class ExpenseObserverImplTest {
 		Map<ExpenseKey , Expense> mb = new HashMap<ExpenseKey , Expense>() {{put(b1.getKey(),b1);put(b2.getKey(),b2);put(b3.getKey(),b3);}};
 		Collection<Expense> cb = mb.values();
 		
-		Expense cb1=new CompositeBill("cb1", ExpenseCategories.DAFAULT);
+		Expense cb1=new CompositeBill(1.0, "test1", MyDate.getJustDate("2019-03-11"), "cb1", 
+				"Vendor", Status.PAID, ExpenseCategories.DAFAULT, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
+
 		@SuppressWarnings("serial")
 		Map<ExpenseKey , Expense> mcb = new HashMap<ExpenseKey , Expense>() {{put(cb1.getKey(),cb1);}};
 		Collection<Expense> ccb = mcb.values();

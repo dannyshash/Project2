@@ -8,15 +8,6 @@ public class CompositePurchase extends AbstractExpense{
 	private Mode mode;
 	private String location;
 	
-	@Deprecated
-	public CompositePurchase(String description, ExpenseCategories category, Mode mode, String location) {
-		super(ExpenseType.COMPOSITE_PURCHASE, 0.0, "dummy comp purchase", new Date(), Status.PAID, new Date(), "dummy vendor", category);
-		this.mode = mode;
-		this.location = location;
-		this.description=description;		
-		items=new ArrayList<Expense>();
-	}
-
 	public CompositePurchase(double amount, String name, Date date,
 			String description, ExpenseCategories category, Status status, Mode mode, String location) {
 		super(ExpenseType.COMPOSITE_PURCHASE, amount, name, date, status, new Date(), "dummy vendor", category);
@@ -33,7 +24,8 @@ public class CompositePurchase extends AbstractExpense{
 		while(it.hasNext()) {
 			Expense e = it.next();
 			this.items.add(e);
-		}	
+		}
+		this.setNoOfSubItems(from.getNoOfSubItems());
 	}
 	
 	@Override
@@ -91,6 +83,10 @@ public class CompositePurchase extends AbstractExpense{
 	public Expense find(Expense exp) {
 		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
 		Expense returnVal = null;
+		
+		if(exp.getKey().equals(this.getKey())) {
+			return this;
+		}
 		
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext() && returnVal == null) {

@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import utils.MyDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,10 +24,12 @@ public class FileLoaderImplTest {
         Expense expense2 = new Bill();
 
         ExpenseKey expenseKey3 = new ExpenseKey(ExpenseType.COMPOSITE_BILL, 300, "Internet", new Date(2018,12,12));
-        Expense expense3 = new CompositeBill("composite_bill", ExpenseCategories.INTERNET);
+        Expense expense3 = new CompositeBill(1.0, "test1", MyDate.getJustDate("2019-03-11"), "composite_bill", 
+        		"Vendor", Status.PAID, ExpenseCategories.INTERNET, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
 
         ExpenseKey expenseKey4 = new ExpenseKey(ExpenseType.COMPOSITE_PURCHASE, 200, "Restaurant", new Date(2018,12,1));
-        Expense expense4 = new CompositePurchase("composite_purchase", ExpenseCategories.Food, Mode.CREDIT, "Downtown");
+        Expense expense4 = new CompositePurchase(1.0, "composite_purchase", MyDate.getJustDate("2019-03-11"), "composite_purchase", 
+        		ExpenseCategories.Food, Status.PAID, Mode.CREDIT, "Downtown");
 
         fileLoader = new FileLoaderImpl("SampleExpensesData.csv");
         expenseData = new ArrayList<>();

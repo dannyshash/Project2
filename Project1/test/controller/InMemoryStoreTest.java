@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import utils.MyDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,8 +27,10 @@ public class InMemoryStoreTest {
     public void put() throws IOException {
         Purchase purchase = new Purchase();
         Bill bill = new Bill();
-        CompositeBill compositeBill = new CompositeBill("Internet", ExpenseCategories.INTERNET);
-        CompositePurchase compositePurchase = new CompositePurchase("composite_purchase", ExpenseCategories.Food, Mode.CREDIT, "Downtown");
+        CompositeBill compositeBill = new CompositeBill(1.0, "test1", MyDate.getJustDate("2019-03-11"), "Internet", 
+        		"Vendor", Status.PAID, ExpenseCategories.INTERNET, RepitionInterval.MONTHLY, MyDate.getJustDate("2019-03-11"));
+        CompositePurchase compositePurchase = new CompositePurchase(1.0, "composite_purchase", MyDate.getJustDate("2019-03-11"), 
+        		"composite_purchase", ExpenseCategories.Food, Status.PAID, Mode.CREDIT, "Downtown");
 
         inMemoryStore.put(purchase);
         inMemoryStore.put(bill);

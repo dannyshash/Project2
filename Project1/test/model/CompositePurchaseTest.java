@@ -20,7 +20,8 @@ public class CompositePurchaseTest {
 	@Mock ExpenseKey pk1; @Mock ExpenseKey pk2; @Mock ExpenseKey pk3;
 	@Mock ExpenseKey pk4; @Mock ExpenseKey pk5; @Mock ExpenseKey pk6;
 	
-	private CompositePurchase comp_purchase = new CompositePurchase("cp", ExpenseCategories.DAFAULT, Mode.CASH, "comp_purchase");
+	private CompositePurchase comp_purchase = new CompositePurchase(1.0, "cp", MyDate.getJustDate("2019-03-11"), "cp", 
+			ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "comp_purchase");
 
 	@Before
 	public void before() {
@@ -64,7 +65,8 @@ public class CompositePurchaseTest {
 
 	@Test
 	public void testIseqal() {
-		final CompositePurchase test = new CompositePurchase("test", ExpenseCategories.DAFAULT, Mode.CASH, "test");
+		final CompositePurchase test = new CompositePurchase(1.0, "test1", MyDate.getJustDate("2019-03-11"), "test", 
+				ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "test");
 		assertFalse(comp_purchase.iseqal(test));
 	}
 
@@ -79,7 +81,8 @@ public class CompositePurchaseTest {
 
 	@Test
 	public void testGetPurchasesList() {
-		CompositePurchase test = new CompositePurchase("test", ExpenseCategories.DAFAULT, Mode.CASH, "test");
+		CompositePurchase test = new CompositePurchase(1.0, "test1", MyDate.getJustDate("2019-03-11"), "test", 
+				ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "test");
 		comp_purchase.add(p1); comp_purchase.add(p2); 
 		comp_purchase.add(test);
 		test.add(p3); test.add(p4);
@@ -96,8 +99,10 @@ public class CompositePurchaseTest {
 
 	@Test
 	public void testGetMatchedPurchase() {
-		CompositePurchase test1 = new CompositePurchase("test1", ExpenseCategories.DAFAULT, Mode.CASH, "test1");
-		CompositePurchase test2 = new CompositePurchase("test2", ExpenseCategories.DAFAULT, Mode.CASH, "test2");
+		CompositePurchase test1 = new CompositePurchase(1.0, "test1", MyDate.getJustDate("2019-03-11"), "test1", 
+				ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "test1");
+		CompositePurchase test2 = new CompositePurchase(2.0, "test2", MyDate.getJustDate("2019-03-12"), "test2", 
+				ExpenseCategories.DAFAULT, Status.PAID, Mode.CASH, "test2");
 		Expense fp1 = new Purchase(3.14, "tea", MyDate.getJustDate("2019-03-11"));
 		Expense fp2 = new Purchase(4.14, "coffee", MyDate.getJustDate("2019-03-11"));
 		Expense fp3 = new Purchase(5.14, "bagel", MyDate.getJustDate("2019-03-11"));
@@ -120,10 +125,12 @@ public class CompositePurchaseTest {
 		assertEquals(6, test1.getPurchasesList().size());
 		assertEquals(2, test2.getPurchasesList().size());
 		
+		assert(comp_purchase.iseqal(comp_purchase.find(comp_purchase)));
 		assert(fp1.iseqal(comp_purchase.find(fp1)));
 		assert(fp2.iseqal(comp_purchase.find(fp2)));
 		assert(test1.iseqal(comp_purchase.find(test1)));
 		assert(fp3.iseqal(comp_purchase.find(fp3)));
+		assert(test2.iseqal(comp_purchase.find(test2)));
 		assertEquals(test2, comp_purchase.find(test2));
 	}
 

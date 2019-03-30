@@ -27,8 +27,22 @@ public class UserActionsImpl implements UserActionsApi {
 	}
 
 	@Override
-	public void removeExpense(Expense exp, Expense root) {
-		System.out.println("removing one of the child:"+exp+",root:"+root);
+	public void removeExpense(Expense exp, Expense parent, Expense root) {
+		System.out.println("removing one of the child: "+exp+", parent:"+parent+", root:"+root);
+
+		int children = parent.getNoOfSubItems();
+		System.out.println("parent:"+parent+", noOfChildren:"+children);
+		if(children == 1) { //remove the parent node
+			if(parent.iseqal(root)) {
+				removeExpense(parent);
+			} else
+				removeExpense(parent, parent.getParent(), root);
+		} else
+			removeInternal(exp, root);
+	}
+	
+	private void removeInternal(Expense exp, Expense root) {
+		System.out.println("removing one of the child:"+exp+", root:"+root);
 
 		Expense newCopy = null;
 		if(root.getType() == ExpenseType.COMPOSITE_PURCHASE) {
@@ -37,16 +51,19 @@ public class UserActionsImpl implements UserActionsApi {
 		} else if (root.getType() == ExpenseType.COMPOSITE_BILL) {
 			newCopy = new CompositeBill((CompositeBill)root);
 		} else {
-			throw new RuntimeException("changePaymentStatus error");
+			throw new RuntimeException("removeExpense error");
 		}
 		
 		Expense parent = exp.getParent();
 		System.out.println("parent:"+parent);
 		Expense node = null;
-		if(parent.iseqal(root))
+		if(parent.iseqal(root)) {
 			node = newCopy;
-		else
+		}
+		else {
 			node = newCopy.find(parent);
+		}
+
 		if(node !=null){
 			node.remove(exp);			
 			this.modifyExpense(root, newCopy);			

@@ -8,15 +8,6 @@ public class CompositeBill extends AbstractExpense{
 	private RepitionInterval interval;
 	private Date dueDate;
 
-	@Deprecated
-	public CompositeBill(String description, ExpenseCategories category) {
-		super(ExpenseType.COMPOSITE_BILL, 0.0, "dummy comp Bill", new Date(), Status.PAID, new Date(), "dummy vendor", category);
-		this.interval=RepitionInterval.MONTHLY;
-		this.dueDate = new Date();
-		this.description=description;		
-		items=new ArrayList<Expense>();
-	}
-	
 	public CompositeBill(double amount, String name, Date date,
 			String description, String vendor, Status status, ExpenseCategories category, RepitionInterval interval, Date dueDate) {
 		super(ExpenseType.COMPOSITE_BILL, amount, name, date, status, new Date(), vendor, category);
@@ -34,6 +25,7 @@ public class CompositeBill extends AbstractExpense{
 			Expense e = it.next();
 			this.items.add(e);
 		}	
+		this.setNoOfSubItems(from.getNoOfSubItems());
 	}
 	
 	@Override
@@ -91,6 +83,10 @@ public class CompositeBill extends AbstractExpense{
 	public Expense find(Expense exp) {
 		System.out.println("find: key:"+exp.getKey()+", in exp:"+this);
 		Expense returnVal = null;
+		
+		if(exp.getKey().equals(this.getKey())) {
+			return this;
+		}
 		
 		Iterator<Expense> compPurchase = items.iterator();
 		while(compPurchase.hasNext() && returnVal == null) {
