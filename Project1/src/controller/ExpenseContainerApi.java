@@ -31,5 +31,6 @@ public interface ExpenseContainerApi {
 	 * @return Expense object if match found, null if no match
 	 */
 	public Expense getMatching(Expense exp);
+	public void sync2Db();
 	
 }

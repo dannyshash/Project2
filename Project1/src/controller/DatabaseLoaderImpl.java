@@ -22,4 +22,8 @@ public class DatabaseLoaderImpl implements DataLoader {
 		myDb.loadCompBills(expenseData.get(ExpenseType.COMPOSITE_BILL.ordinal()));
 	}
 
+	@Override
+	public void pushData(List<Map<ExpenseKey, Expense>> expenseData) {
+		myDb.pushData(expenseData);
+	}
 }

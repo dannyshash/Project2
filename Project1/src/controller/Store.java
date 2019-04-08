@@ -18,4 +18,6 @@ public interface Store {
 	public List<Map<ExpenseKey,Expense>> getAll();
 	//Temporary
 	public void display();
+	
+	public void sync();
 }

@@ -8,4 +8,5 @@ import model.ExpenseKey;
 
 public interface DataLoader {
 	void dataLoad(List<Map<ExpenseKey , Expense>> expenseData);
+	void pushData(List<Map<ExpenseKey , Expense>> expenseData);
 }

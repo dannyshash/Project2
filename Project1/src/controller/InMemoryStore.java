@@ -157,4 +157,8 @@ public class InMemoryStore implements Store {
 		}
 	}
 
+	@Override
+	public void sync() {
+		dataLoader.pushData(expenseData);
+	}
 }

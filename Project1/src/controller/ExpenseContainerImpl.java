@@ -200,4 +200,8 @@ public class ExpenseContainerImpl implements ExpenseContainerApi, ExpenseSubject
 		return dataStateChanged;
 	}
 
+	@Override
+	public void sync2Db() {
+		store.sync();		
+	}
 }

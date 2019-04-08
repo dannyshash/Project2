@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import model.Bill;
@@ -18,6 +21,7 @@ import model.ExpenseType;
 import model.Mode;
 import model.Purchase;
 import model.RepitionInterval;
+import utils.MyDate;
 import utils.Util;
 
 public class MySqlDataBase {
@@ -310,4 +314,198 @@ public class MySqlDataBase {
         }
     }
 
+	public void pushData(List<Map<ExpenseKey, Expense>> expenseData) {
+    	connect();
+
+    	clearDB();
+    	addExpenses(expenseData.get(ExpenseType.PURCHASE.ordinal()));
+    	addCompExpenses(expenseData.get(ExpenseType.COMPOSITE_PURCHASE.ordinal()));
+    	addExpenses(expenseData.get(ExpenseType.BILL.ordinal()));
+    	addCompExpenses(expenseData.get(ExpenseType.COMPOSITE_BILL.ordinal()));
+
+    	close();
+	}
+	
+	private void addExpense(Expense e, int parent_id) {
+		String query = null;
+		int type = e.getType().ordinal();
+		if(type == ExpenseType.PURCHASE.ordinal()) {
+			query = "insert into  Purchase values (default, ?, ?, ?, ? , "+parent_id+", ?, ?, ?, ?, ?, ?)";
+		} else if (type == ExpenseType.BILL.ordinal()) {
+			query = "insert into  Bill values (default, ?, ?, ?, ? , "+parent_id+", ?, ?, ?, ?, ?, ?)";
+		}
+		
+    	try {
+    			preparedStatement = connect.prepareStatement(query);
+    			//(p_id,p_type,p_amount,p_name,p_date,p_parent_id,p_status,p_paymentDate,p_vendor,p_category,p_location,p_mode)
+    			//(b_id,b_type,b_amount,b_name,b_date,b_parent_id,b_status,b_paymentDate,b_vendor,b_category,b_dueDate,b_interval)
+                preparedStatement.setString(1, e.getType().toString());
+                preparedStatement.setDouble(2, e.getAmount());
+                preparedStatement.setString(3, e.getName());
+                preparedStatement.setDate(4, new java.sql.Date(e.getDate().getTime()));
+                preparedStatement.setString(5, e.getStatus().toString());
+                preparedStatement.setDate(6, new java.sql.Date(e.getPaymentDate().getTime()));
+                preparedStatement.setString(7, e.getVendor());
+                preparedStatement.setString(8, e.getCategory().toString());
+        		if(type == ExpenseType.PURCHASE.ordinal()) {
+                    preparedStatement.setString(9, e.getLocation());
+                    preparedStatement.setString(10, e.getMode().toString());
+        		} else if (type == ExpenseType.BILL.ordinal()) {
+                    preparedStatement.setDate(9, new java.sql.Date(e.getDueDate().getTime()));
+                    preparedStatement.setString(10, e.getInterval().toString());
+        		}
+
+                preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			throw new RuntimeException("MySqlDataBase#addExpenses error!"+ex);
+		}				
+	}
+	
+	private void addExpenses(Map<ExpenseKey , Expense> expMap) {
+		ArrayList<Expense> expenses = new ArrayList<Expense>(expMap.values());
+		Iterator<Expense> expIt = expenses.iterator();
+		while(expIt.hasNext()) {
+			Expense e = expIt.next(); 
+			e.display();
+			addExpense(e, 0);
+		}		
+	}
+	
+	private void addCompExpense(Expense e, int parent_id) {
+		String query = null;
+		int type = e.getType().ordinal();
+
+		if(type == ExpenseType.COMPOSITE_PURCHASE.ordinal()) {
+			query = "insert into  CompositePurchase values (default, ?, ?, ?, ? , "+parent_id+", ?, ?, ?, ?, ?, ?, ?)";
+		} else if (type == ExpenseType.COMPOSITE_BILL.ordinal()) {
+			query = "insert into  CompositeBill values (default, ?, ?, ?, ? , "+parent_id+", ?, ?, ?, ?, ?, ?, ?)";
+		}
+
+    	try {
+    			preparedStatement = connect.prepareStatement(query);
+    			//(cp_id,cp_type,cp_amount,cp_name,cp_date,cp_parent_id,cp_status,cp_paymentDate,cp_vendor,cp_category,cp_location,cp_mode,cp_description)
+    			//(cb_id,cb_type,cb_amount,cb_name,cb_date,cb_parent_id,cb_status,cb_paymentDate,cb_vendor,cb_category,cb_dueDate,cb_interval,cb_description)
+                preparedStatement.setString(1, e.getType().toString());
+                preparedStatement.setDouble(2, e.getAmount());
+                preparedStatement.setString(3, e.getName());
+                preparedStatement.setDate(4, new java.sql.Date(e.getDate().getTime()));
+                preparedStatement.setString(5, e.getStatus().toString());
+                preparedStatement.setDate(6, new java.sql.Date(e.getPaymentDate().getTime()));
+                preparedStatement.setString(7, e.getVendor());
+                preparedStatement.setString(8, e.getCategory().toString());
+        		if(type == ExpenseType.COMPOSITE_PURCHASE.ordinal()) {
+                    preparedStatement.setString(9, e.getLocation());
+                    preparedStatement.setString(10, e.getMode().toString());
+        		} else if (type == ExpenseType.COMPOSITE_BILL.ordinal()) {
+                    preparedStatement.setDate(9, new java.sql.Date(e.getDueDate().getTime()));
+                    preparedStatement.setString(10, e.getInterval().toString());
+        		}
+        		preparedStatement.setString(11, e.getDescription());
+
+                preparedStatement.executeUpdate();  
+                addSubExpense(getId(e), e);
+		} catch (SQLException ex) {
+			throw new RuntimeException("MySqlDataBase#addCompExpenses error!"+ex);
+		}			
+	}
+	
+	private void addCompExpenses(Map<ExpenseKey , Expense> expMap) {
+		ArrayList<Expense> expenses = new ArrayList<Expense>(expMap.values());
+		Iterator<Expense> expIt = expenses.iterator();
+		while(expIt.hasNext()) {
+			Expense e = expIt.next(); 
+			e.display();
+			addCompExpense(e, 0);
+		}		
+	}
+	
+	private int getId(Expense exp) {
+		int id=0;
+		String inner_query = null;
+
+		
+		if(exp.getType().ordinal() == ExpenseType.PURCHASE.ordinal()) {
+			inner_query = "select p_id from Purchase where p_amount='"+exp.getAmount()+"' and p_name='"+exp.getName()+"'";
+		} else if (exp.getType().ordinal() == ExpenseType.BILL.ordinal()) {
+			inner_query = "select b_id from Bill where b_amount='"+exp.getAmount()+"' and b_name='"+exp.getName()+"'";
+		} else if(exp.getType().ordinal() == ExpenseType.COMPOSITE_PURCHASE.ordinal()) {
+			inner_query = "select cp_id from CompositePurchase where cp_amount='"+exp.getAmount()+"' and cp_name='"+exp.getName()+"'";
+		} else if (exp.getType().ordinal() == ExpenseType.COMPOSITE_BILL.ordinal()) {
+			inner_query = "select cb_id from CompositeBill where cb_amount='"+exp.getAmount()+"' and cb_name='"+exp.getName()+"'";
+		} else {
+			//error
+		}
+
+		try {
+			Statement inner_statement = connect.createStatement();
+			ResultSet inner_resultSet = inner_statement.executeQuery(inner_query);
+	        while (inner_resultSet.next()) {
+				id = inner_resultSet.getInt(1);
+		        System.out.println("getId ID="+id);		        
+	        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return id;
+	}
+	
+	private void addSubExpense(int id, Expense ce) {
+		ArrayList<Expense> expenses = ce.getSubItems();
+		Iterator<Expense> expIt = expenses.iterator();
+		while(expIt.hasNext()) {
+			Expense e = expIt.next(); 
+			if(e.getType().ordinal()<2) {
+				addExpense(e, id);				
+			} else {
+				addCompExpense(e, id);
+			}
+			int e_id = getId(e);
+			//add id, type, e_id
+			addCe2E(id, e.getType(), e_id);
+		}
+		
+	}
+	
+	private void addCe2E(int id, ExpenseType type, int e_id) {
+		String query=null;
+		if(type.ordinal() == 0 || type.ordinal() == 2) {
+			query = "insert into  CP_items values (?, ?, ?)";
+		} else {
+			query = "insert into  CB_items values (?, ?, ?)";
+		}
+		
+    	try {
+			preparedStatement = connect.prepareStatement(query);
+    		preparedStatement.setInt(1, id);
+    		preparedStatement.setString(2, type.toString());
+    		preparedStatement.setInt(3, e_id);
+
+            preparedStatement.executeUpdate();  
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+	
+	private void clearDB() {
+    	try {
+    		preparedStatement = connect.prepareStatement("delete from CP_items;");
+            preparedStatement.executeUpdate();
+            preparedStatement = connect.prepareStatement("delete from CompositePurchase;");
+            preparedStatement.executeUpdate();
+            preparedStatement = connect.prepareStatement("delete from Purchase;");
+            preparedStatement.executeUpdate();
+    		preparedStatement = connect.prepareStatement("delete from CB_items;");
+            preparedStatement.executeUpdate();
+            preparedStatement = connect.prepareStatement("delete from CompositeBill;");
+            preparedStatement.executeUpdate();
+            preparedStatement = connect.prepareStatement("delete from Bill;");
+            preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("MySqlDataBase#clearDB error!"+e);
+		}
+	}
 }

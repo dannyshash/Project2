@@ -77,4 +77,10 @@ public class DatabaseStore implements Store {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void sync() {
+		// TODO Auto-generated method stub
+		
+	}
 }

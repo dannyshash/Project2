@@ -76,7 +76,6 @@ public class UserInterface extends JFrame {
 		 */	
 		contentUpdator = new ContentUpdator(ExpenseObserverImpl.getInstance());
 		userActions = new UserActionsImpl(ExpenseContainerImpl.getInstance());
-
 	
 		//myList = new ExpenseList();
 		tableModel = new ExpenseListTableModel(contentUpdator);
@@ -197,7 +196,15 @@ public class UserInterface extends JFrame {
 		dispayExpenseCombo.setMaximumRowCount(2);
 		contentPaneMain.add(dispayExpenseCombo);
 		dispayExpenseCombo.addActionListener(new DispayExpenseComboActionListener(dispayExpenseCombo, tableModel));
-
+		
+		JButton btnSynchronizeDatabse = new JButton("Synchronize Databse");
+		btnSynchronizeDatabse.setBounds(433, 64, 196, 23);
+		contentPaneMain.add(btnSynchronizeDatabse);
+		btnSynchronizeDatabse.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				ExpenseContainerImpl.getInstance().sync2Db();				
+			}
+		});	
 		
 		btnCreateComposite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {   
@@ -222,7 +229,7 @@ public class UserInterface extends JFrame {
 
 		btnHideShow.addActionListener(new ActionListener() {			
 			boolean HideShowSwitch = true;				
-			public void actionPerformed(ActionEvent e) {							
+			public void actionPerformed(ActionEvent e) {
 				if (HideShowSwitch) {
 					sorter.setRowFilter(RowFilter.regexFilter("Unpaid"));
 					table.setRowSorter(sorter);
@@ -274,5 +281,4 @@ public class UserInterface extends JFrame {
 	public ExpenseListTableModel getTableModel() {
 		return tableModel;
 	}
-	
 }

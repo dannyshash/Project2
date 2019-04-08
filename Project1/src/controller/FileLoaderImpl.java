@@ -83,6 +83,11 @@ public class FileLoaderImpl implements DataLoader{
 	    }
 	}
 	
+	@Override
+	public void pushData(List<Map<ExpenseKey, Expense>> expenseData) {
+		throw  new RuntimeException("pushData: not implemented");
+	}
+	
 	private Expense createExpense(String[] expenseDataItems) {
 		Expense e = null;
 		if(ExpenseType.PURCHASE.toString().equalsIgnoreCase(expenseDataItems[0])) {
