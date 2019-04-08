@@ -1,0 +1,145 @@
+DROP TABLE IF EXISTS Purchase;
+DROP TABLE IF EXISTS CompositePurchase;
+DROP TABLE IF EXISTS CP_items;
+DROP TABLE IF EXISTS Bill;
+DROP TABLE IF EXISTS CompositeBill;
+DROP TABLE IF EXISTS CB_items;
+
+#(p_id,p_type,p_amount,p_name,p_date,p_parent_id,p_status,p_paymentDate,p_vendor,p_category,p_location,p_mode)
+CREATE TABLE Purchase(
+p_id int(10) NOT NULL auto_increment,
+p_type ENUM('Purchase', 'Bill', 'Composite_Purchase', 'Composite_Bill') NOT NULL,
+p_amount double NOT NULL,
+p_name varChar(50) NOT NULL,
+p_date DATETIME NOT NULL,
+p_parent_id int(10) DEFAULT 0,
+p_status ENUM('Paid', 'Unpaid'),
+p_paymentDate DATETIME DEFAULT '2019-04-01',
+p_vendor varChar(50),
+p_category varChar(50),
+p_location varChar(50),
+p_mode ENUM('Cash', 'Debit', 'Credit'),
+-- CONSTRAINTS
+CONSTRAINT p_primary_key PRIMARY KEY (p_id)
+);
+
+INSERT INTO Purchase (p_id,p_type,p_amount,p_name,p_date,p_status,p_vendor,p_category,p_location,p_mode,p_parent_id) VALUES
+(14,'Purchase',2.28,'Coffee','2019-02-02','Paid','Tim Horton','Food','Campus','Cash',0),
+(15,'Purchase',12.45,'Lunch','2019-02-02','Paid','Thai Express','Dining','Downtown','Debit',0),
+(16,'Purchase',61.45,'Goceries','2019-02-05','UnPaid','IGA','Grocery','LaSalle','Credit',0),
+(17,'Purchase',3.27,'Coffee','2019-02-02','Paid','Second Cup','Food','Campus','Cash',25),
+(18,'Purchase',4.58,'IceCream','2019-02-02','Paid','Baskin RObins','Food','Downtown','Debit',25),
+(19,'Purchase',16.38,'Lunch','2019-02-02','UnPaid',"Mc Ds",'Dining','ville Marie','Credit',26),
+(20,'Purchase',24.89,'Dinner','2019-02-02','UnPaid','La Cage','Dining','Campus','Credit',26),
+(21,'Purchase',23.84,'Uber','2019-02-12','Paid','Uber','Taxi','Downtown','Debit',27),
+(22,'Purchase',38.12,'Groceries','2019-02-02','UnPaid','Marche PA','Grocery','Downtown','Credit',27),
+(23,'Purchase',68.35,'groceries','2019-02-20','Paid','IGA','Grocery','LaSalle','Cash',0),
+(24,'Purchase',62.94,'gas','2019-02-02','UnPaid','Petro Canada','Gas','West Island','Credit',0);
+
+#(cp_id,cp_type,cp_amount,cp_name,cp_date,cp_parent_id,cp_status,cp_paymentDate,cp_vendor,cp_category,cp_location,cp_mode,cp_description)
+CREATE TABLE CompositePurchase(
+cp_id int(10) NOT NULL auto_increment,
+cp_type ENUM('Purchase', 'Bill', 'Composite_Purchase', 'Composite_Bill') NOT NULL,
+cp_amount double NOT NULL,
+cp_name varChar(50) NOT NULL,
+cp_date DATETIME NOT NULL,
+cp_parent_id int(10) DEFAULT 0,
+cp_status ENUM('Paid', 'Unpaid'),
+cp_paymentDate DATETIME,
+cp_vendor varChar(50),
+cp_category varChar(50),
+cp_cp_location varChar(50),
+cp_mode ENUM('Cash', 'Debit', 'Credit'),
+cp_description varChar(50) NOT NULL,
+-- CONSTRAINTS
+CONSTRAINT cp_primary_key PRIMARY KEY (cp_id)
+);
+
+INSERT INTO CompositePurchase (cp_id,cp_type,cp_amount,cp_name,cp_date,cp_status,cp_category,cp_description,cp_parent_id) VALUES
+(25,'Composite_Purchase',21,'Outing','2019-02-02','Paid','Food','Comp1P',0),
+(26,'Composite_Purchase',22,'Meals','2019-02-02','Unpaid','Dining','Comp2P',25),
+(27,'Composite_Purchase',23,'Shop','2019-02-02','Paid','Grocery','Comp3P',26);
+
+CREATE TABLE CP_items(
+cpitems_cp_id int(10) NOT NULL,
+cpitems_type ENUM('Purchase', 'Composite_Purchase') NOT NULL,
+cpitems_p_id int(10) NOT NULL,
+-- CONSTRAINTS
+CONSTRAINT FK_cp_id FOREIGN KEY (cpitems_cp_id) REFERENCES CompositePurchase(cp_id),
+CONSTRAINT FK_p_id FOREIGN KEY (cpitems_p_id) REFERENCES Purchase(p_id)
+);
+
+INSERT INTO CP_items VALUES
+(25,'Purchase',17),
+(25,'Purchase',18),
+(25,'Composite_Purchase',26),
+(26,'Purchase',19),
+(26,'Purchase',20),
+(26,'Composite_Purchase',27),
+(27,'Purchase',21),
+(27,'Purchase',22);
+
+#(b_id,b_type,b_amount,b_name,b_date,b_parent_id,b_status,b_paymentDate,b_vendor,b_category,b_dueDate,b_interval)
+CREATE TABLE Bill(
+b_id int(10) NOT NULL auto_increment,
+b_type ENUM('Purchase', 'Bill', 'Composite_Purchase', 'Composite_Bill') NOT NULL,
+b_amount double NOT NULL,
+b_name varChar(50) NOT NULL,
+b_date DATETIME NOT NULL,
+b_parent_id int(10) DEFAULT 0,
+b_status ENUM('Paid', 'Unpaid'),
+b_paymentDate DATETIME,
+b_vendor varChar(50),
+b_category varChar(50),
+b_dueDate DATETIME NOT NULL,
+b_interval ENUM('Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', 'Yearly'),
+-- CONSTRAINTS
+CONSTRAINT b_primary_key PRIMARY KEY (b_id)
+);
+
+INSERT INTO Bill (b_id,b_type,b_amount,b_name,b_date,b_status,b_vendor,b_category,b_dueDate,b_interval,b_parent_id) VALUES
+(1,'Bill',130.35,'Metro pass','2019-02-02','Paid','STM','Transportation','2019-02-02','Monthly',0),
+(2,'Bill',576.39,'Electricity Bill','2019-02-10','Unpaid','Hydro Quebec','Utilities','2019-02-18','Quarterly',0),
+(3,'Bill',225,'Parking fee','2019-02-15','Paid','M1 Parking','Parking','2019-02-20','Monthly',0),
+(4,'Bill',41,'Cable TV','2019-02-05','Unpaid','Videotron','Cable','2019-02-12','Monthly',10),
+(5,'Bill',64,'HiSpeed internet','2019-02-05','Unpaid','Videotron','Internet','2019-02-12','Monthly',10),
+(6,'Bill',55,'Cell Phone','2019-02-05','Unpaid','Videotron','Wireless','2019-02-12','Monthly',10),
+(7,'Bill',726.38,'Mortgage','2019-02-01','Paid','CIBC','Mortgage','2019-02-01','BiWeekly',0),
+(8,'Bill',92.65,'car insurance','2019-02-13','Unpaid','AllState','Insurance','2019-02-15','Monthly',0),
+(9,'Bill',750,'Gym','2019-02-02','Unpaid','ABC Fitness','Health','2019-04-10','Yearly',0);
+
+#(cb_id,cb_type,cb_amount,cb_name,cb_date,cb_parent_id,cb_status,cb_paymentDate,cb_vendor,cb_category,cb_dueDate,cb_interval,cb_description)
+CREATE TABLE CompositeBill(
+cb_id int(10) NOT NULL auto_increment,
+cb_type ENUM('Purchase', 'Bill', 'Composite_Purchase', 'Composite_Bill') NOT NULL,
+cb_amount double NOT NULL,
+cb_name varChar(50) NOT NULL,
+cb_date DATETIME NOT NULL,
+cb_parent_id int(10) DEFAULT 0,
+cb_status ENUM('Paid', 'Unpaid'),
+cb_paymentDate DATETIME,
+cb_vendor varChar(50),
+cb_category varChar(50),
+cb_dueDate DATETIME NOT NULL,
+cb_interval ENUM('Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', 'Yearly'),
+cb_description varChar(50) NOT NULL,
+-- CONSTRAINTS
+CONSTRAINT cb_primary_key PRIMARY KEY (cb_id)
+);
+
+INSERT INTO CompositeBill (cb_id,cb_type,cb_amount,cb_name,cb_date,cb_status,cb_vendor,cb_category,cb_dueDate,cb_interval,cb_description,cb_parent_id) VALUES
+(10,'Composite_Bill',160,'Videotron','2019-02-05','Unpaid','Videotron','Utilities','2019-02-15','Monthly','Comp1B',0);
+
+CREATE TABLE CB_items(
+cbitems_cb_id int(10) NOT NULL,
+cbitems_type ENUM('Bill', 'Composite_Bill') NOT NULL,
+cbitems_b_id int(10) NOT NULL,
+-- CONSTRAINTS
+CONSTRAINT FK_cb_id FOREIGN KEY (cbitems_cb_id) REFERENCES CompositeBill(e_id),
+CONSTRAINT FK_b_id FOREIGN KEY (cbitems_b_id) REFERENCES Bill(b_id)
+);
+
+INSERT INTO CB_items VALUES
+(10,'Bill',4),
+(10,'Bill',5),
+(10,'Bill',6);
